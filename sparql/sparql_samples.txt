@@ -1,0 +1,200 @@
+From DBPEDIA
+
+ //gets the resource for Kansas City
+ PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+ PREFIX dbo: <http://dbpedia.org/ontology/>
+ PREFIX dcterms: <http://purl.org/dc/terms/>
+ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+ PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
+        SELECT * WHERE {
+        ?s a dbo:Place .
+        ?s foaf:name "Kansas City, Missouri"@en
+}
+
+//gets information about all places
+ PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+ PREFIX dbo: <http://dbpedia.org/ontology/>
+ PREFIX dcterms: <http://purl.org/dc/terms/>
+        SELECT * WHERE {
+        ?s a dbo:Place .
+        ?s geo:lat ?lat .
+        ?s geo:long ?long .
+        ?s a ?type . 
+        ?s dcterms:subject ?sub
+}
+
+//gets information about restaurants that are at a certain latitude and longitude
+ PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+ PREFIX dbo: <http://dbpedia.org/ontology/>
+ PREFIX dcterms: <http://purl.org/dc/terms/>
+ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+        SELECT * WHERE {
+        ?s a dbo:Restaurant .
+        ?s geo:lat "48.583702"^^xsd:float .
+        ?s geo:long "7.747483"^^xsd:float .
+        ?s a ?type . 
+        ?s dcterms:subject ?subject
+}
+
+
+//get all restaurants in a 100km radius from the provided lat and long that have the name in english
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+ 
+SELECT ?s ?nam ( ( (50.9341-xsd:float(?lat))*(50.9341-xsd:float(?lat)) + (6.93549-xsd:float(?lon))*(6.93549-xsd:float(?lon))*(0.831939969105-(0.00853595*xsd:float(?lat))) ) AS ?d2brgrad)
+WHERE {
+      ?s a dbo:Restaurant .
+      ?s geo:lat  ?lat .
+      ?s geo:long ?lon .
+      ?s foaf:name ?nam .
+      FILTER( (50.9341-xsd:float(?lat))*(50.9341-xsd:float(?lat)) + (6.93549-xsd:float(?lon))*(6.93549-xsd:float(?lon))*(0.831939969105-(0.00853595*xsd:float(?lat))) < 0.808779738472242 ) .
+      FILTER (langMatches(lang(?nam), "en"))
+}LIMIT 100
+
+//gets the resource for bucharest
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+        SELECT * WHERE {
+        ?s a dbo:City .
+        ?s geo:lat "44.4325"^^xsd:float .
+        ?s geo:long "26.10388888888889"^^xsd:float 
+}
+
+//inercare de a lua locurile într-o rază de 100 de km de bucurești (dacă pun Restaurant în loc de places nu mai merge)
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT ?s ?nam ( ( (44.4226-xsd:float(?lat))*(44.4226-xsd:float(?lat)) + (26.1237-xsd:float(?lon))*(26.1237-xsd:float(?lon))*(0.89719-(0.008712*xsd:float(?lat))) ) AS ?d2brgrad)
+WHERE {
+      ?s a dbo:Place .
+      ?s geo:lat  ?lat .
+      ?s geo:long ?lon .
+      ?s foaf:name ?nam .
+      FILTER( (44.4226-xsd:float(?lat))*(44.4226-xsd:float(?lat)) + (26.1237-xsd:float(?lon))*(26.1237-xsd:float(?lon))*(0.89719-(0.008712*xsd:float(?lat))) < 0.808779738472242 ) .
+     FILTER (langMatches(lang(?nam), "en")) 
+}LIMIT 100
+
+
+//oameni născuți în Iași
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dbp: <http://dbpedia.org/property/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT ?s 
+WHERE {
+      ?s a foaf:Person .
+      ?s dbp:nationality "Romanian"@en .
+      ?s dbp:placeOfBirth dbr:Iași
+}
+
+//list of places from Iași
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dbp: <http://dbpedia.org/property/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT ?s 
+WHERE {
+      ?s a dbo:Place.
+      ?s dbo:location dbr:Iași . 
+}
+
+//get people that might know Tim Berners-Lee
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dbp: <http://dbpedia.org/property/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX xsd: <https://www.w3.org/2001/XMLSchema#> 
+SELECT * WHERE {
+   ?s a foaf:Person.
+   ?s dbp:name "Sir Tim Berners-Lee"@en.
+   ?s dbp:almaMater ?univ.
+   ?s dbp:birthDate ?sbirth.
+   ?x dbp:almaMater ?univ.
+   ?x dbp:birthDate ?xbirth
+  FILTER(abs(year(xsd:dateTime(?sbirth)) - year(xsd:dateTime(?xbirth))) < 3)
+} 
+LIMIT 40
+
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dbp: <http://dbpedia.org/property/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT * 
+WHERE {
+      ?s a dbo:Place.
+      ?s a dbo:Park.  
+      ?s dbo:location dbr:Iași . 
+      ?s foaf:depiction ?foto
+}
+LIMIT 40
+
+
+FROM WIKIDATA
+#items located in the administrative teritorial entity of romania
+SELECT ?s
+WHERE
+{
+	?s wdt:P131 wd:Q218
+}
+# limit to 10 results so we don't timeout
+LIMIT 10
+
+#restaurants from Romania
+SELECT ?s
+WHERE
+{
+	?s wdt:P31 wd:Q11707.
+  ?s wdt:P17 wd:Q218
+}
+# limit to 10 results so we don't timeout
+LIMIT 10
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT *
+WHERE
+{
+  ?s wdt:P31 wd:Q11424.
+    ?s wdt:P1476 ?title.
+    ?s wdt:P577 ?date.
+    ?s wdt:P136 ?genre.
+    ?genre rdfs:label "thriller"@en
+    FILTER(year(?date) = 2016 && month(?date) = 12 && day(?date) <= 10 && day(?date) >= 5 && langMatches(lang(?title), "en"))
+}
+
+FROM linkedgeodata.org
+
+Prefix lgdo: <http://linkedgeodata.org/ontology/>
+Prefix geom: <http://geovocab.org/geometry#>
+Prefix ogc: <http://www.opengis.net/ont/geosparql#>
+Prefix owl: <http://www.w3.org/2002/07/owl#>
+
+Select * {
+  ?s
+    owl:sameAs <http://dbpedia.org/resource/Leipzig_Hauptbahnhof> ;
+    geom:geometry [
+      ogc:asWKT ?sg
+    ] .
+
+  ?x
+    a lgdo:Amenity ;
+    rdfs:label ?l ;    
+    geom:geometry [
+      ogc:asWKT ?xg
+    ] .
+
+
+    Filter(bif:st_intersects (?sg, ?xg, 0.1)) .
+} Limit 10
