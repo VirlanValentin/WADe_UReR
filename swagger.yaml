@@ -1,0 +1,710 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: UReR API
+  description: REST API of the UReR app
+  version: "1.0.0"
+# the domain of the service
+host: api.uber.com
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /movies:
+    get:
+      summary: Movies
+      description: >-
+        The Movies endpoint returns information about the movies. The response includes the details about each movie, and lists the movies in the proper display order.
+      parameters:
+        - name: genre
+          in: query
+          description: Genre of the movie.
+          required: false
+          type: string
+          format: double
+        - name: year
+          in: query
+          description: Year in which the movies was released.
+          required: false
+          type: number
+          format: double
+      tags:
+        - Movie
+      responses:
+        200:
+          description: An array of movies
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Movie'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+            
+  /movies/{movie_id}:
+    get:
+      description: 'Returns a JSON object with all the details of the movie with the given id.'
+      tags:
+        - Movie
+      parameters:
+        - name: movie_id
+          in: path
+          description: 'The id of the requested movie.'
+          required: true
+          type: string
+          format: id
+      responses:
+        '200':
+          description: 'Successful response. The object requested.'
+          schema:
+            $ref: '#/definitions/Movie'
+        default:
+          description: 'Unexpected error'
+          schema:
+            $ref: '#/definitions/Error'
+            
+  /movies/related/{genre}:
+    get:
+      summary: Movies related by genre.
+      description: >- 
+        The related movie endpoint returns information about the movie related to a genre. The results will be paginated, a page containg a number of "pageSize" related movies.
+      parameters:
+        - name: genre
+          in: path
+          description: The name of the genre.
+          required: true
+          type: string
+          format: id
+        - name: pageSize
+          in: query
+          description: The number of desired related movies.
+          required: true
+          type: number
+          format: integer
+        - name: currentPage
+          in: query
+          description: The requested page of related movies.
+          required: true
+          type: number
+          format: integer
+      tags:
+        - Related Movies
+      responses:
+        200:
+          description: An array of movies
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Movie'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+        
+  /movies/{movie_id}/related:
+    get:
+      summary: Information related to the movie identified by id
+      description: >-
+        The related movie endpoint returns information about the movie related with a certain movie. A movie is related to another if they have the same gemre.  The results will be paginated, a page containg a number of "pageSize" related movies.
+      parameters:
+        - name: movie_id
+          in: path
+          description: The id of the requested movie.
+          required: true
+          type: string
+          format: id
+        - name: pageSize
+          in: query
+          description: The number of desired related movies.
+          required: true
+          type: number
+          format: integer
+        - name: currentPage
+          in: query
+          description: The requested page of related movies.
+          required: true
+          type: number
+          format: integer
+      tags:
+        - Related Movies
+      responses:
+        200:
+          description: An array of movies
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Movie'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+            
+  /places:
+    get:
+      summary: Places
+      description: >-
+        The Places endpoint returns information about the places at a given location. The response includes the details about each place, and lists the places in the proper display order.
+      parameters:
+        - name: latitude
+          in: query
+          description: Latitude component of location.
+          required: true
+          type: number
+          format: double
+        - name: longitude
+          in: query
+          description: Longitude component of location.
+          required: true
+          type: number
+          format: double
+        - name: radius
+          in: query
+          description: Radius around the given location.
+          required: true
+          type: number
+          format: double
+        - name: type
+          in: query
+          description: Type of the desired places.
+          required: false
+          type: string
+          format: double
+      tags:
+        - Places
+      responses:
+        200:
+          description: An array of places
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Place'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+            
+  /places/{place_id}:
+    get:
+      description: 'Returns a JSON object with all the details of the place with the given id.'
+      tags:
+        - Places
+      parameters:
+        - name: place_id
+          in: path
+          description: 'The id of the requested place.'
+          required: true
+          type: string
+          format: id
+      responses:
+        '200':
+          description: 'Successful response. The object requested.'
+          schema:
+            $ref: '#/definitions/Place'
+        default:
+          description: 'Unexpected error'
+          schema:
+            $ref: '#/definitions/Error'
+            
+  /places/{place_id}/related:
+    get:
+      summary: Places related to the place identified by id
+      description: >-
+        The related places endpoint returns information about the places related with a certain place. A place is related to another if they have are in the same area and have the same type. The related places will be ordered according to the distance from the place indentified by the id. The results will be paginated, a page containg a number of "pageSize" related places.
+      parameters:
+        - name: place_id
+          in: path
+          description: The id of the requested place.
+          required: true
+          type: string
+          format: id
+        - name: pageSize
+          in: query
+          description: The number of desired related places.
+          required: true
+          type: number
+          format: integer
+        - name: currentPage
+          in: query
+          description: The requested page of related places.
+          required: true
+          type: number
+          format: integer
+      tags:
+        - Related Places
+      responses:
+        200:
+          description: An array of places
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Place'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'          
+  
+  /sparql:
+    get:
+      description: 'Returns the result of the sparql query'
+      tags:
+        - SPARQL
+      parameters:
+        - name: sparqlQuery
+          in: query
+          description: The sparql query
+          required: true
+          type: string
+      responses:
+        200:
+          description: Successful
+          schema:
+            $ref: "#/definitions/SPARQL"
+        default:
+          description: 'Unexpected error'
+          schema:
+            $ref: '#/definitions/Error'          
+            
+  /login:
+    post:
+      summary: Log in an user
+      description: The Login endpoint allows an user to log in.
+      tags:
+        - Login
+      responses:
+        '200':
+          description: The id of the logged user
+          schema:
+            $ref: '#/definitions/LoginResponse'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+            
+  /logout:
+    post:
+      summary: Log out an user
+      description: The Logout endpoint allows an user to log out.
+      parameters:
+        - name: accessToken
+          in: query
+          description: The access token for the logged user in current session. 
+          required: true
+          type: string
+          format: udid
+      tags:
+        - Login
+      responses:
+        '200':
+          description: Successful message
+          schema:
+            type: string
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+            
+  /register:
+    post:
+      description: 'Creates a new user'
+      tags:
+       - User registration
+      parameters:
+        - name: 'register payload'
+          in: body
+          description: 'post payload containing credentials'
+          required: true
+          schema:
+            $ref: '#/definitions/NewUser'
+      responses:
+        200:
+          description: 'Successful update. The object was created.'
+        default:
+          description: 'Unexpected error'
+          schema:
+            $ref: '#/definitions/Error'          
+  
+  /users/{user_id}:
+    get:
+      description: 'Returns a JSON object with all the details of the user with the given id.'
+      tags:
+        - User
+      parameters:
+        - name: user_id
+          in: path
+          description: 'The id of the requested user.'
+          required: true
+          type: string
+          format: id
+      responses:
+        '200':
+          description: 'Successful response. The object requested.'
+          schema:
+            $ref: '#/definitions/User'
+        default:
+          description: 'Unexpected error'
+          schema:
+            $ref: '#/definitions/Error'
+            
+  /users/profile:
+    get:
+      summary: User profile
+      description: >-
+        The User profile endpoint returns information about the current User. The response includes the details about friends, preferences, qrcode;
+      parameters:
+        - name: id
+          in: query  
+          description: User id.
+          required: true
+          type: number
+          format: integer
+        - name: accesstoken
+          in: query
+          description: User token.
+          required: true
+          type: number
+          format: double
+      tags:
+        - User
+      responses:
+        200:
+          description: User profile
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/User'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: the user is not  authenticated
+        403:
+          description: the user doesnt have enough rights to access this page
+      
+  /users/{user_id}/preferences:
+    get:
+      summary: User preferences
+      description: >-
+        The User preferences endpoint returns information about the   User preferences. The response includes the details about all preferences: movies, food, art, etc;
+      parameters:
+        - name: user_id
+          in: path  
+          description: User id.
+          required: true
+          type: string
+        - name: accesstoken
+          in: query
+          description: User token.
+          required: true
+          type: number
+          format: double
+      tags:
+        - User
+      responses:
+        200:
+          description: User preferences
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/User'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: the user is not  authenticated
+        403:
+          description: the user doesnt have enough rights to access this page
+      
+  /users/{user_id}/likes:
+    get:
+      summary: User likes
+      description: >-
+        The User likes endpoint returns information about the User likes. The response includes the details about all entitties which user likes: certain movie, place
+      parameters:
+        - name: user_id
+          in: path  
+          description: User id.
+          required: true
+          type: string
+        - name: accesstoken
+          in: query
+          description: User token.
+          required: true
+          type: number
+          format: double
+      tags:
+        - User
+      responses:
+        200:
+          description: User Likes
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Like'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: the user is not  authenticated
+        403:
+          description: the user doesnt have enough rights to access this page
+  
+  /users/{user_id}/Friends:
+    get:
+      summary: User friends
+      description: >-
+        The User friends endpoint returns a list of his friends
+      parameters:
+        - name: user_id
+          in: path  
+          description: User id.
+          required: true
+          type: string
+        - name: accesstoken
+          in: query
+          description: User token.
+          required: true
+          type: number
+          format: double
+      tags:
+        - User
+      responses:
+        200:
+          description: User Friends
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Person'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: the user is not  authenticated
+        403:
+          description: the user doesnt have enough rights to access this page
+      
+  /users/{user_id}/Enemies:
+    get:
+      summary: User enemies
+      description: >-
+        The User enemies endpoint returns a list of his enemis
+      parameters:
+        - name: user_id
+          in: path  
+          description: User id.
+          required: true
+          type: string
+        - name: accesstoken
+          in: query
+          description: User token.
+          required: true
+          type: number
+          format: double
+      tags:
+        - User
+      responses:
+        200:
+          description: User Enemies
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Person'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: the user is not  authenticated
+        403:
+          description: the user doesnt have enough rights to access this page
+      
+definitions:
+  Movie:
+    type: object
+    properties:
+      id:
+        type: string
+        description: UID of a movie.
+      name:
+        type: string
+        description: Name of the movie.
+
+      genre:
+        type: string
+        description: Genre of the film.
+      releaseDate:
+        type: string
+        description: Date the movie was released.
+      
+      language:
+        type: string
+        description: Language of the movie.
+    
+      sinopsis:
+        type: string
+        description: A short description of the movie.
+      
+      cast:
+        type: array
+        description: The cast for the movie.
+        items:
+           $ref: '#/definitions/Person'
+        
+      url:
+        type: string
+        format: url
+        description: A url to the page of the movie (imdb)
+        
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
+        
+  Person:
+    type: object
+    properties:
+      Name:
+        type: string
+        description: The name of the person
+      url:
+        type: string
+        format: url
+        description: A url to the page of the person outside the app
+        
+  Place:
+    type: object
+    properties:
+      id:
+        type: string
+        description: UID of a place.
+      name:
+        type: string
+        description: Name of the place.
+      adress:
+        type: object
+        description: Adress of the place.
+        properties:
+          street:
+            type: string
+            description: Street name from the adress.
+          number:
+            type: number
+            format: integer
+            description: Number from the adress.
+          zip_code:
+            type: string
+            description: Adress zip code. 
+      type:
+        type: string
+        description: Type of the place (theatre, restaurant etc)
+      latitude:
+        type: number
+        format: double
+        description: Latitude of the geographical position of the place
+      longitude:
+        type: number
+        format: double
+        description: Longitude of the geographical position of the place
+      city:
+        type: string
+        description: Name of the city where the place is located
+      url:
+        type: string
+        format: url
+        description: A url to the page of the place outside the app    
+        
+  SPARQL:
+    type: object
+    properties:
+     response:
+        type: string
+        
+  LoginResponse:
+    type: object
+    properties:
+      userId:
+        type: number
+        format: integer
+        description: 'The id of the logged user.'
+      accessToken:
+        type: string
+        format: udid
+        description: 'The access token used in the following requests.'      
+        
+  NewUser:
+    type: object
+    properties:
+      name:
+        type: string
+        description: 'The name of the user.'
+      email:
+        type: string
+        description: 'The mail with which the user registers.'
+      password:
+        type: string
+        format: password
+        description: 'The password used for the account new created.'      
+        
+  User:
+    type: object
+    properties:
+      user_id:
+        type: string
+        description: "Unique identifier representing a specific user. You can make requests only for the user associated with the token that you send in the header of the requests"
+      name: 
+        type: string
+        description: 'The name of the user.'
+      email:
+        type: string
+        description: 'User email.'
+      password:
+        type: string
+        description: 'Password of the user.'
+      qrcode:
+        type: string
+        description: 'Qrcode generated for user. Used for login.'
+      preferences:
+        type: array
+        description: "List of User preferences"
+        items:
+          $ref: '#/definitions/PreferenceCategory'
+        
+  PreferenceCategory:
+    type: object
+    properties:
+      name:
+        type: string
+        description: 'The name of the preference. Ex: food, movie types, place types'
+      listOfpreferences:
+        type: array
+        description: "list of preference for a certain category"
+        items:
+          type: string
+          
+  Like:
+    type: object
+    properties:
+      name:
+        type: string
+        description: "Name of the liked entity"
+      url:
+        type: string
+        format: url
+        description: A url to the page of liked entity
+        
+  
