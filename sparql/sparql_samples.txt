@@ -156,10 +156,21 @@ SELECT ?s
 WHERE
 {
 	?s wdt:P31 wd:Q11707.
-  ?s wdt:P17 wd:Q218
+    ?s wdt:P17 wd:Q218
 }
 # limit to 10 results so we don't timeout
 LIMIT 10
+
+#restaurants from USA
+SELECT DISTINCT ?s ?label
+WHERE
+{
+	?s wdt:P31 wd:Q11707.
+    ?s wdt:P17 wd:Q30.
+    ?s rdfs:label ?label
+    Filter(langMatches(lang(?label), "en"))
+}
+Limit 10
 
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
