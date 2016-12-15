@@ -209,3 +209,20 @@ Select * {
 
     Filter(bif:st_intersects (?sg, ?xg, 0.1)) .
 } Limit 10
+
+#schema.org libraries 100 km from bucharest
+PREFIX dbp: <http://dbpedia.org/property/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+Prefix sorg: <http://schema.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT * WHERE {
+   ?s a sorg:Library.
+   ?s dbp:libraryName ?name.
+   ?s geo:lat ?lat.
+   ?s geo:long ?lon.
+   FILTER(langMatches(lang(?name), "en")).
+   FILTER( (44.4226-xsd:float(?lat))*(44.4226-xsd:float(?lat)) + (26.1237-xsd:float(?lon))*(26.1237-xsd:float(?lon))*(0.89719-(0.008712*xsd:float(?lat))) < 0.808779738472242 ).   
+} 
+LIMIT 40
