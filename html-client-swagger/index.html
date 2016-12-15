@@ -1,0 +1,1604 @@
+<!doctype html>
+<html>
+  <head>
+    <title>UReR API</title>
+    <style type="text/css">
+      body {
+	font-family: Trebuchet MS, sans-serif;
+	font-size: 15px;
+	color: #444;
+	margin-right: 24px;
+}
+
+h1	{
+	font-size: 25px;
+}
+h2	{
+	font-size: 20px;
+}
+h3	{
+	font-size: 16px;
+	font-weight: bold;
+}
+hr	{
+	height: 1px;
+	border: 0;
+	color: #ddd;
+	background-color: #ddd;
+}
+
+.app-desc {
+  clear: both;
+  margin-left: 20px;
+}
+.param-name {
+  width: 100%;
+}
+.license-info {
+  margin-left: 20px;
+}
+
+.license-url {
+  margin-left: 20px;
+}
+
+.model {
+  margin: 0 0 0px 20px;
+}
+
+.method {
+  margin-left: 20px;
+}
+
+.method-notes	{
+	margin: 10px 0 20px 0;
+	font-size: 90%;
+	color: #555;
+}
+
+pre {
+  padding: 10px;
+  margin-bottom: 2px;
+}
+
+.http-method {
+ text-transform: uppercase;
+}
+
+pre.get {
+  background-color: #0f6ab4;
+}
+
+pre.post {
+  background-color: #10a54a;
+}
+
+pre.put {
+  background-color: #c5862b;
+}
+
+pre.delete {
+  background-color: #a41e22;
+}
+
+.huge	{
+	color: #fff;
+}
+
+pre.example {
+  background-color: #f3f3f3;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+code {
+  white-space: pre;
+}
+
+.nickname {
+  font-weight: bold;
+}
+
+.method-path {
+  font-size: 1.5em;
+  background-color: #0f6ab4;
+}
+
+.up {
+  float:right;
+}
+
+.parameter {
+  width: 500px;
+}
+
+.param {
+  width: 500px;
+  padding: 10px 0 0 20px;
+  font-weight: bold;
+}
+
+.param-desc {
+  width: 700px;
+  padding: 0 0 0 20px;
+  color: #777;
+}
+
+.param-type {
+  font-style: italic;
+}
+
+.param-enum-header {
+width: 700px;
+padding: 0 0 0 60px;
+color: #777;
+font-weight: bold;
+}
+
+.param-enum {
+width: 700px;
+padding: 0 0 0 80px;
+color: #777;
+font-style: italic;
+}
+
+.field-label {
+  padding: 0;
+  margin: 0;
+  clear: both;
+}
+
+.field-items	{
+	padding: 0 0 15px 0;
+	margin-bottom: 15px;
+}
+
+.return-type {
+  clear: both;
+  padding-bottom: 10px;
+}
+
+.param-header {
+  font-weight: bold;
+}
+
+.method-tags {
+  text-align: right;
+}
+
+.method-tag {
+  background: none repeat scroll 0% 0% #24A600;
+  border-radius: 3px;
+  padding: 2px 10px;
+  margin: 2px;
+  color: #FFF;
+  display: inline-block;
+  text-decoration: none;
+}
+
+    </style>
+  </head>
+  <body>
+  <h1>UReR API</h1>
+    <div class="app-desc">REST API of the UReR app</div>
+    <div class="app-desc">More information: <a href="https://helloreverb.com">https://helloreverb.com</a></div>
+    <div class="app-desc">Contact Info: <a href="hello@helloreverb.com">hello@helloreverb.com</a></div>
+    <div class="app-desc">Version: 1.0.0</div>
+    <div class="app-desc">BasePath:/v1</div>
+    <div class="license-info">All rights reserved</div>
+    <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  <h3>Table of Contents </h3>
+  <div class="method-summary"></div>
+  <h4><a href="#Login">Login</a></h4>
+  <ul>
+  <li><a href="#loginPost"><code><span class="http-method">post</span> /login</code></a></li>
+  <li><a href="#logoutPost"><code><span class="http-method">post</span> /logout</code></a></li>
+  </ul>
+  <h4><a href="#Movie">Movie</a></h4>
+  <ul>
+  <li><a href="#moviesGet"><code><span class="http-method">get</span> /movies</code></a></li>
+  <li><a href="#moviesMovieIdGet"><code><span class="http-method">get</span> /movies/{movie_id}</code></a></li>
+  </ul>
+  <h4><a href="#Places">Places</a></h4>
+  <ul>
+  <li><a href="#placesGet"><code><span class="http-method">get</span> /places</code></a></li>
+  <li><a href="#placesPlaceIdGet"><code><span class="http-method">get</span> /places/{place_id}</code></a></li>
+  </ul>
+  <h4><a href="#RelatedMovies">RelatedMovies</a></h4>
+  <ul>
+  <li><a href="#moviesMovieIdRelatedGet"><code><span class="http-method">get</span> /movies/{movie_id}/related</code></a></li>
+  <li><a href="#moviesRelatedGenreGet"><code><span class="http-method">get</span> /movies/related/{genre}</code></a></li>
+  </ul>
+  <h4><a href="#RelatedPlaces">RelatedPlaces</a></h4>
+  <ul>
+  <li><a href="#placesPlaceIdRelatedGet"><code><span class="http-method">get</span> /places/{place_id}/related</code></a></li>
+  </ul>
+  <h4><a href="#SPARQL">SPARQL</a></h4>
+  <ul>
+  <li><a href="#sparqlGet"><code><span class="http-method">get</span> /sparql</code></a></li>
+  </ul>
+  <h4><a href="#User">User</a></h4>
+  <ul>
+  <li><a href="#usersUserIdEnemiesDelete"><code><span class="http-method">delete</span> /users/{user_id}/enemies</code></a></li>
+  <li><a href="#usersUserIdEnemiesGet"><code><span class="http-method">get</span> /users/{user_id}/Enemies</code></a></li>
+  <li><a href="#usersUserIdEnemiesGet_1"><code><span class="http-method">get</span> /users/{user_id}/enemies</code></a></li>
+  <li><a href="#usersUserIdEnemiesPost"><code><span class="http-method">post</span> /users/{user_id}/enemies</code></a></li>
+  <li><a href="#usersUserIdFriendsDelete"><code><span class="http-method">delete</span> /users/{user_id}/friends</code></a></li>
+  <li><a href="#usersUserIdFriendsGet"><code><span class="http-method">get</span> /users/{user_id}/Friends</code></a></li>
+  <li><a href="#usersUserIdFriendsGet_2"><code><span class="http-method">get</span> /users/{user_id}/friends</code></a></li>
+  <li><a href="#usersUserIdFriendsPost"><code><span class="http-method">post</span> /users/{user_id}/friends</code></a></li>
+  <li><a href="#usersUserIdGet"><code><span class="http-method">get</span> /users/{user_id}</code></a></li>
+  <li><a href="#usersUserIdLikesGet"><code><span class="http-method">get</span> /users/{user_id}/likes</code></a></li>
+  <li><a href="#usersUserIdPreferencesGet"><code><span class="http-method">get</span> /users/{user_id}/preferences</code></a></li>
+  </ul>
+  <h4><a href="#UserRegistration">UserRegistration</a></h4>
+  <ul>
+  <li><a href="#registerPost"><code><span class="http-method">post</span> /register</code></a></li>
+  </ul>
+
+  <h1><a name="Login">Login</a></h1>
+  <div class="method"><a name="loginPost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /login</code></pre></div>
+    <div class="method-summary">Log in an user (<span class="nickname">loginPost</span>)</div>
+    <div class="method-notes">The Login endpoint allows an user to log in.</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#LoginResponse">LoginResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "accessToken" : "aeiou",
+  "userId" : 1.3579000000000001069366817318950779736042022705078125
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    The id of the logged user
+        <a href="#LoginResponse">LoginResponse</a>
+    <h4 class="field-label">0</h4>
+    Unexpected error
+        <a href="#Error">Error</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="logoutPost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /logout</code></pre></div>
+    <div class="method-summary">Log out an user (<span class="nickname">logoutPost</span>)</div>
+    <div class="method-notes">The Logout endpoint allows an user to log out.</div>
+
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">accessToken (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; The access token for the logged user in current session. format: udid</div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      String
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>"aeiou"</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful message
+        <a href="#String">String</a>
+    <h4 class="field-label">0</h4>
+    Unexpected error
+        <a href="#Error">Error</a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Movie">Movie</a></h1>
+  <div class="method"><a name="moviesGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /movies</code></pre></div>
+    <div class="method-summary">Movies (<span class="nickname">moviesGet</span>)</div>
+    <div class="method-notes">The Movies endpoint returns information about the movies. The response includes the details about each movie, and lists the movies in the proper display order.</div>
+
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">genre (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Genre of the movie. format: double</div><div class="param">releaseDate (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Year in which the movies was released. format: double</div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Movie">Movie</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "cast" : [ {
+    "url" : "aeiou",
+    "Name" : "aeiou"
+  } ],
+  "releaseDate" : "2000-01-23T04:56:07.000+00:00",
+  "name" : "aeiou",
+  "genre" : "aeiou",
+  "language" : "aeiou",
+  "id" : "aeiou",
+  "url" : "aeiou",
+  "sinopsis" : "aeiou"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    An array of movies
+        
+    <h4 class="field-label">0</h4>
+    Unexpected error
+        <a href="#Error">Error</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="moviesMovieIdGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /movies/{movie_id}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">moviesMovieIdGet</span>)</div>
+    <div class="method-notes">Returns a JSON object with all the details of the movie with the given id.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">movie_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The id of the requested movie. format: id</div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Movie">Movie</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "cast" : [ {
+    "url" : "aeiou",
+    "Name" : "aeiou"
+  } ],
+  "releaseDate" : "2000-01-23T04:56:07.000+00:00",
+  "name" : "aeiou",
+  "genre" : "aeiou",
+  "language" : "aeiou",
+  "id" : "aeiou",
+  "url" : "aeiou",
+  "sinopsis" : "aeiou"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful response. The object requested.
+        <a href="#Movie">Movie</a>
+    <h4 class="field-label">0</h4>
+    Unexpected error
+        <a href="#Error">Error</a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Places">Places</a></h1>
+  <div class="method"><a name="placesGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /places</code></pre></div>
+    <div class="method-summary">Places (<span class="nickname">placesGet</span>)</div>
+    <div class="method-notes">The Places endpoint returns information about the places at a given location. The response includes the details about each place, and lists the places in the proper display order.</div>
+
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">latitude (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Latitude component of location. format: double</div><div class="param">longitude (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Longitude component of location. format: double</div><div class="param">radius (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Radius around the given location. format: double</div><div class="param">type (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Type of the desired places. format: double</div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Place">Place</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "city" : "aeiou",
+  "latitude" : 1.3579000000000001069366817318950779736042022705078125,
+  "name" : "aeiou",
+  "adress" : {
+    "number" : 1.3579000000000001069366817318950779736042022705078125,
+    "street" : "aeiou",
+    "zip_code" : "aeiou"
+  },
+  "id" : "aeiou",
+  "type" : "aeiou",
+  "url" : "aeiou",
+  "longitude" : 1.3579000000000001069366817318950779736042022705078125
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    An array of places
+        
+    <h4 class="field-label">0</h4>
+    Unexpected error
+        <a href="#Error">Error</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="placesPlaceIdGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /places/{place_id}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">placesPlaceIdGet</span>)</div>
+    <div class="method-notes">Returns a JSON object with all the details of the place with the given id.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">place_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The id of the requested place. format: id</div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Place">Place</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "city" : "aeiou",
+  "latitude" : 1.3579000000000001069366817318950779736042022705078125,
+  "name" : "aeiou",
+  "adress" : {
+    "number" : 1.3579000000000001069366817318950779736042022705078125,
+    "street" : "aeiou",
+    "zip_code" : "aeiou"
+  },
+  "id" : "aeiou",
+  "type" : "aeiou",
+  "url" : "aeiou",
+  "longitude" : 1.3579000000000001069366817318950779736042022705078125
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful response. The object requested.
+        <a href="#Place">Place</a>
+    <h4 class="field-label">0</h4>
+    Unexpected error
+        <a href="#Error">Error</a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="RelatedMovies">RelatedMovies</a></h1>
+  <div class="method"><a name="moviesMovieIdRelatedGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /movies/{movie_id}/related</code></pre></div>
+    <div class="method-summary">Information related to the movie identified by id (<span class="nickname">moviesMovieIdRelatedGet</span>)</div>
+    <div class="method-notes">The related movie endpoint returns information about the movie related with a certain movie. A movie is related to another if they have the same gemre.  The results will be paginated, a page containg a number of &quot;pageSize&quot; related movies.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">movie_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The id of the requested movie. format: id</div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">pageSize (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; The number of desired related movies. format: integer</div><div class="param">currentPage (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; The requested page of related movies. format: integer</div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Movie">Movie</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "cast" : [ {
+    "url" : "aeiou",
+    "Name" : "aeiou"
+  } ],
+  "releaseDate" : "2000-01-23T04:56:07.000+00:00",
+  "name" : "aeiou",
+  "genre" : "aeiou",
+  "language" : "aeiou",
+  "id" : "aeiou",
+  "url" : "aeiou",
+  "sinopsis" : "aeiou"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    An array of movies
+        
+    <h4 class="field-label">0</h4>
+    Unexpected error
+        <a href="#Error">Error</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="moviesRelatedGenreGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /movies/related/{genre}</code></pre></div>
+    <div class="method-summary">Movies related by genre. (<span class="nickname">moviesRelatedGenreGet</span>)</div>
+    <div class="method-notes">The related movie endpoint returns information about the movie related to a genre. The results will be paginated, a page containg a number of &quot;pageSize&quot; related movies.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">genre (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The name of the genre. format: id</div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">pageSize (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; The number of desired related movies. format: integer</div><div class="param">currentPage (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; The requested page of related movies. format: integer</div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Movie">Movie</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "cast" : [ {
+    "url" : "aeiou",
+    "Name" : "aeiou"
+  } ],
+  "releaseDate" : "2000-01-23T04:56:07.000+00:00",
+  "name" : "aeiou",
+  "genre" : "aeiou",
+  "language" : "aeiou",
+  "id" : "aeiou",
+  "url" : "aeiou",
+  "sinopsis" : "aeiou"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    An array of movies
+        
+    <h4 class="field-label">0</h4>
+    Unexpected error
+        <a href="#Error">Error</a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="RelatedPlaces">RelatedPlaces</a></h1>
+  <div class="method"><a name="placesPlaceIdRelatedGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /places/{place_id}/related</code></pre></div>
+    <div class="method-summary">Places related to the place identified by id (<span class="nickname">placesPlaceIdRelatedGet</span>)</div>
+    <div class="method-notes">The related places endpoint returns information about the places related with a certain place. A place is related to another if they have are in the same area and have the same type. The related places will be ordered according to the distance from the place indentified by the id. The results will be paginated, a page containg a number of &quot;pageSize&quot; related places.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">place_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The id of the requested place. format: id</div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">pageSize (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; The number of desired related places. format: integer</div><div class="param">currentPage (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; The requested page of related places. format: integer</div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Place">Place</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "city" : "aeiou",
+  "latitude" : 1.3579000000000001069366817318950779736042022705078125,
+  "name" : "aeiou",
+  "adress" : {
+    "number" : 1.3579000000000001069366817318950779736042022705078125,
+    "street" : "aeiou",
+    "zip_code" : "aeiou"
+  },
+  "id" : "aeiou",
+  "type" : "aeiou",
+  "url" : "aeiou",
+  "longitude" : 1.3579000000000001069366817318950779736042022705078125
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    An array of places
+        
+    <h4 class="field-label">0</h4>
+    Unexpected error
+        <a href="#Error">Error</a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="SPARQL">SPARQL</a></h1>
+  <div class="method"><a name="sparqlGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /sparql</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">sparqlGet</span>)</div>
+    <div class="method-notes">Returns the result of the sparql query</div>
+
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">sparqlQuery (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; The sparql query </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#SPARQL">SPARQL</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "response" : "aeiou"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful
+        <a href="#SPARQL">SPARQL</a>
+    <h4 class="field-label">0</h4>
+    Unexpected error
+        <a href="#Error">Error</a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="User">User</a></h1>
+  <div class="method"><a name="usersUserIdEnemiesDelete"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /users/{user_id}/enemies</code></pre></div>
+    <div class="method-summary">Remove an enemy (<span class="nickname">usersUserIdEnemiesDelete</span>)</div>
+    <div class="method-notes">The enemies endpoint allows the user to remove enemies.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The id of the requested user. format: id</div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">accesstoken (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User token. format: double</div><div class="param">enemy_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; id of the removed enemy format: id</div>
+    </div>  <!-- field-items -->
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    The user was removed from list
+        <a href="#"></a>
+    <h4 class="field-label">0</h4>
+    Unexpected error
+        <a href="#Error">Error</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="usersUserIdEnemiesGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /users/{user_id}/Enemies</code></pre></div>
+    <div class="method-summary">User enemies (<span class="nickname">usersUserIdEnemiesGet</span>)</div>
+    <div class="method-notes">The User enemies endpoint returns a list of his enemis</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User id. </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">accesstoken (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User token. format: double</div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      Object
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>"{}"</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    User Enemies
+        <a href="#Object">Object</a>
+    <h4 class="field-label">401</h4>
+    the user is not  authenticated
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    the user doesnt have enough rights to access this page
+        <a href="#"></a>
+    <h4 class="field-label">0</h4>
+    Unexpected error
+        <a href="#Error">Error</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="usersUserIdEnemiesGet_1"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /users/{user_id}/enemies</code></pre></div>
+    <div class="method-summary">User enemies (<span class="nickname">usersUserIdEnemiesGet_1</span>)</div>
+    <div class="method-notes">The User enemies endpoint returns information about the User enemies. The response includes a list of all his enemies.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User id. </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">accesstoken (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User token. format: double</div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      Object
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>"{}"</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    User enemies
+        <a href="#Object">Object</a>
+    <h4 class="field-label">401</h4>
+    the user is not  authenticated
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    the user doesnt have enough rights to access this page
+        <a href="#"></a>
+    <h4 class="field-label">0</h4>
+    Unexpected error
+        <a href="#Error">Error</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="usersUserIdEnemiesPost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /users/{user_id}/enemies</code></pre></div>
+    <div class="method-summary">Add a new enemy (<span class="nickname">usersUserIdEnemiesPost</span>)</div>
+    <div class="method-notes">The enemies endpoint allows the user to mark enemies.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The id of the requested user. format: id</div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">accesstoken (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User token. format: double</div><div class="param">newfriend_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; id of the new enemy format: id</div>
+    </div>  <!-- field-items -->
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    The user was added to enemies list
+        <a href="#"></a>
+    <h4 class="field-label">0</h4>
+    Unexpected error
+        <a href="#Error">Error</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="usersUserIdFriendsDelete"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /users/{user_id}/friends</code></pre></div>
+    <div class="method-summary">Remove a new friend (<span class="nickname">usersUserIdFriendsDelete</span>)</div>
+    <div class="method-notes">The friends endpoint allows the user to remove friends.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The id of the requested user. format: id</div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">accesstoken (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User token. format: double</div><div class="param">newfriend_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; id of the removed friend format: id</div>
+    </div>  <!-- field-items -->
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    The user was removed from friends list
+        <a href="#"></a>
+    <h4 class="field-label">0</h4>
+    Unexpected error
+        <a href="#Error">Error</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="usersUserIdFriendsGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /users/{user_id}/Friends</code></pre></div>
+    <div class="method-summary">User friends (<span class="nickname">usersUserIdFriendsGet</span>)</div>
+    <div class="method-notes">The User friends endpoint returns a list of his friends</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User id. </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">accesstoken (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User token. format: double</div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      Object
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>"{}"</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    User Friends
+        <a href="#Object">Object</a>
+    <h4 class="field-label">401</h4>
+    the user is not  authenticated
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    the user doesnt have enough rights to access this page
+        <a href="#"></a>
+    <h4 class="field-label">0</h4>
+    Unexpected error
+        <a href="#Error">Error</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="usersUserIdFriendsGet_2"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /users/{user_id}/friends</code></pre></div>
+    <div class="method-summary">User friends (<span class="nickname">usersUserIdFriendsGet_2</span>)</div>
+    <div class="method-notes">The User friends endpoint returns information about the User friends. The response includes a list of all his friends.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User id. </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">accesstoken (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User token. format: double</div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      Object
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>"{}"</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    User friends
+        <a href="#Object">Object</a>
+    <h4 class="field-label">401</h4>
+    the user is not  authenticated
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    the user doesnt have enough rights to access this page
+        <a href="#"></a>
+    <h4 class="field-label">0</h4>
+    Unexpected error
+        <a href="#Error">Error</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="usersUserIdFriendsPost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /users/{user_id}/friends</code></pre></div>
+    <div class="method-summary">Add a new friend (<span class="nickname">usersUserIdFriendsPost</span>)</div>
+    <div class="method-notes">The friends endpoint allows the user to add friends.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The id of the requested user. format: id</div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">accesstoken (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User token. format: double</div><div class="param">newfriend_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; id of the new friend format: id</div>
+    </div>  <!-- field-items -->
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    The user was added to friends list
+        <a href="#"></a>
+    <h4 class="field-label">0</h4>
+    Unexpected error
+        <a href="#Error">Error</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="usersUserIdGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /users/{user_id}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">usersUserIdGet</span>)</div>
+    <div class="method-notes">Returns a JSON object with all the details of the user with the given id.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The id of the requested user. format: id</div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#User">User</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "password" : "aeiou",
+  "preferences" : [ {
+    "name" : "aeiou",
+    "listOfpreferences" : [ "aeiou" ]
+  } ],
+  "user_id" : "aeiou",
+  "qrcode" : "aeiou",
+  "name" : "aeiou",
+  "enemies" : [ "" ],
+  "email" : "aeiou",
+  "friends" : [ "" ],
+  "likes" : [ {
+    "name" : "aeiou",
+    "url" : "aeiou"
+  } ]
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful response. The object requested.
+        <a href="#User">User</a>
+    <h4 class="field-label">0</h4>
+    Unexpected error
+        <a href="#Error">Error</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="usersUserIdLikesGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /users/{user_id}/likes</code></pre></div>
+    <div class="method-summary">User likes (<span class="nickname">usersUserIdLikesGet</span>)</div>
+    <div class="method-notes">The User likes endpoint returns information about the User likes. The response includes the details about all entitties which user likes: certain movie, place</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User id. </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">accesstoken (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User token. format: double</div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      Object
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>"{}"</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    User Likes
+        <a href="#Object">Object</a>
+    <h4 class="field-label">401</h4>
+    the user is not  authenticated
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    the user doesnt have enough rights to access this page
+        <a href="#"></a>
+    <h4 class="field-label">0</h4>
+    Unexpected error
+        <a href="#Error">Error</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="usersUserIdPreferencesGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /users/{user_id}/preferences</code></pre></div>
+    <div class="method-summary">User preferences (<span class="nickname">usersUserIdPreferencesGet</span>)</div>
+    <div class="method-notes">The User preferences endpoint returns information about the   User preferences. The response includes the details about all preferences: movies, food, art, etc;</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User id. </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">accesstoken (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User token. format: double</div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      Object
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>"{}"</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    User preferences
+        <a href="#Object">Object</a>
+    <h4 class="field-label">401</h4>
+    the user is not  authenticated
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    the user doesnt have enough rights to access this page
+        <a href="#"></a>
+    <h4 class="field-label">0</h4>
+    Unexpected error
+        <a href="#Error">Error</a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="UserRegistration">UserRegistration</a></h1>
+  <div class="method"><a name="registerPost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /register</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">registerPost</span>)</div>
+    <div class="method-notes">Creates a new user</div>
+
+
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">register payload (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; post payload containing credentials </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful update. The object was created.
+        <a href="#"></a>
+    <h4 class="field-label">0</h4>
+    Unexpected error
+        <a href="#Error">Error</a>
+  </div> <!-- method -->
+  <hr/>
+
+  <div class="up"><a href="#__Models">Up</a></div>
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#Error"><code>Error</code></a></li>
+    <li><a href="#Like"><code>Like</code></a></li>
+    <li><a href="#LoginResponse"><code>LoginResponse</code></a></li>
+    <li><a href="#Movie"><code>Movie</code></a></li>
+    <li><a href="#Person"><code>Person</code></a></li>
+    <li><a href="#Place"><code>Place</code></a></li>
+    <li><a href="#Place_adress"><code>Place_adress</code></a></li>
+    <li><a href="#PreferenceCategory"><code>PreferenceCategory</code></a></li>
+    <li><a href="#SPARQL"><code>SPARQL</code></a></li>
+    <li><a href="#User"><code>User</code></a></li>
+  </ol>
+
+  <div class="model">
+    <h3 class="field-label"><a name="Error">Error - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">code (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+<div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">fields (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3 class="field-label"><a name="Like">Like - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Name of the liked entity </div>
+<div class="param">url (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> A url to the page of liked entity format: url</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3 class="field-label"><a name="LoginResponse">LoginResponse - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">userId (optional)</div><div class="param-desc"><span class="param-type"><a href="#number">BigDecimal</a></span> The id of the logged user. format: integer</div>
+<div class="param">accessToken (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The access token used in the following requests. format: udid</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3 class="field-label"><a name="Movie">Movie - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> UID of a movie. </div>
+<div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Name of the movie. </div>
+<div class="param">genre (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Genre of the film. </div>
+<div class="param">releaseDate (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span> Date the movie was released. format: date</div>
+<div class="param">language (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Language of the movie. </div>
+<div class="param">sinopsis (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> A short description of the movie. </div>
+<div class="param">cast (optional)</div><div class="param-desc"><span class="param-type"><a href="#Person">array[Person]</a></span> The cast for the movie. </div>
+<div class="param">url (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> A url to the page of the movie (imdb) format: url</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3 class="field-label"><a name="Person">Person - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">Name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The name of the person </div>
+<div class="param">url (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> A url to the page of the person outside the app format: url</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3 class="field-label"><a name="Place">Place - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> UID of a place. </div>
+<div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Name of the place. </div>
+<div class="param">adress (optional)</div><div class="param-desc"><span class="param-type"><a href="#Place_adress">Place_adress</a></span>  </div>
+<div class="param">type (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Type of the place (theatre, restaurant etc) </div>
+<div class="param">latitude (optional)</div><div class="param-desc"><span class="param-type"><a href="#double">Double</a></span> Latitude of the geographical position of the place format: double</div>
+<div class="param">longitude (optional)</div><div class="param-desc"><span class="param-type"><a href="#double">Double</a></span> Longitude of the geographical position of the place format: double</div>
+<div class="param">city (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Name of the city where the place is located </div>
+<div class="param">url (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> A url to the page of the place outside the app format: url</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3 class="field-label"><a name="Place_adress">Place_adress - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>Adress of the place.</div>
+    <div class="field-items">
+      <div class="param">street (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Street name from the adress. </div>
+<div class="param">number (optional)</div><div class="param-desc"><span class="param-type"><a href="#number">BigDecimal</a></span> Number from the adress. format: integer</div>
+<div class="param">zip_code (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Adress zip code. </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3 class="field-label"><a name="PreferenceCategory">PreferenceCategory - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The name of the preference. Ex: food, movie types, place types </div>
+<div class="param">listOfpreferences (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span> list of preference for a certain category </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3 class="field-label"><a name="SPARQL">SPARQL - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">response (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3 class="field-label"><a name="User">User - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">user_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Unique identifier representing a specific user. You can make requests only for the user associated with the token that you send in the header of the requests </div>
+<div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The name of the user. </div>
+<div class="param">email (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> User email. </div>
+<div class="param">password (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Password of the user. </div>
+<div class="param">qrcode (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Qrcode generated for user. Used for login. </div>
+<div class="param">preferences (optional)</div><div class="param-desc"><span class="param-type"><a href="#PreferenceCategory">array[PreferenceCategory]</a></span> List of User preferences </div>
+<div class="param">friends (optional)</div><div class="param-desc"><span class="param-type"><a href="#User">array[User]</a></span> List of friends </div>
+<div class="param">enemies (optional)</div><div class="param-desc"><span class="param-type"><a href="#User">array[User]</a></span> List of enemies!!! Run away! </div>
+<div class="param">likes (optional)</div><div class="param-desc"><span class="param-type"><a href="#Like">array[Like]</a></span> List of liked entities </div>
+    </div>  <!-- field-items -->
+  </div>
+  </body>
+</html>
