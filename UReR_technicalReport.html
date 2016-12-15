@@ -128,22 +128,58 @@
 		        </p>
 		        
 			</section>
+			<section typeof="sa:MaterialsAndMethods">
+        		<section><h2>3. Architecture </h2></section>
+        		<p> Our web application will be implemented using a microservices oriented architecture, like below </p>	
+        		<figure typeof="sa:Image">
+		            <img src="https://i1.wp.com/urer2016blog.files.wordpress.com/2016/12/apparchitecture1.png?w=730">
+		            <figcaption>
+		            <cite> Figure 1. UReR's architecture.</cite>
+		            </figcaption>
+		        </figure> <br>
+        	</section>
         	<section typeof="sa:MaterialsAndMethods">
-        		<section><h2>3. Data Sources and Vocabularies</h2></section>
+        		<section><h2>4. Use - cases </h2></section>
+        		<figure typeof="sa:Image">
+		            <img src="https://i1.wp.com/urer2016blog.files.wordpress.com/2016/12/userinapplication_usernotsignedin1.png?w=500">
+		            <figcaption>
+		            <cite> Figure 2. User not signed in.</cite>
+		            </figcaption>
+		        </figure> <br>
+
+        		<figure typeof="sa:Image">
+		            <img src="https://i1.wp.com/urer2016blog.files.wordpress.com/2016/12/userinapplication_usersignedin1.png?w=700">
+		            <figcaption>
+		            <cite> Figure 3. User signed in.</cite>
+		            </figcaption>
+		        </figure> <br>
+        	</section>
+        	<section typeof="sa:MaterialsAndMethods">
+        		<section><h2>5. Data Sources and Vocabularies</h2></section>
+
+        		<p>
+				 The microservices used in the application will be using variuous data sources (DBpedia, Wikidata etc.) for retrieving relevant information to be offered to the user. In order to get these informations spaql queries will be performed.
+				</p>
+				<p>
+				  Each of the microservices could also use an internal database, knowing that the sparql endpoints for the data sources from above could not always work. In this case, when a request comes from the user, the microservice can first make a query in his internal data base. If this query returns no restults, then the same query will be performed on the external data sources used and the result will be stored in the internal data base for future use.
+				</p>
+				<p>
+				    The microservices related to the user will be required to use an internal database in order to store information about the users.
+				</p>
         			
-        		<section><h3>Dbpedia</h3></section>
+        		<section><h3>DBpedia</h3></section>
         		Will be used for places.
         		
         		<figure typeof="sa:Image">
 		            <img src="https://urer2016blog.files.wordpress.com/2016/12/getplacesiasi.png?w=730">
 		            <figcaption>
-		            <cite> Figure X. Query which gets/displays the places from Iași.</cite>
+		            <cite> Figure 4. Query which gets/displays the places from Iași.</cite>
 		            </figcaption>
 		        </figure> <br>
 		        <figure typeof="sa:Image">
 		            <img src="https://i0.wp.com/urer2016blog.files.wordpress.com/2016/12/get_restaurants_100km_from_lat_long.png?w=730">
 		            <figcaption>
-		            <cite> Figure X. Query which gets/displays all restaurants in a 100km radius from the provided lat and long that have the name in english.</cite>
+		            <cite> Figure 5. Query which gets/displays all restaurants in a 100km radius from the provided lat and long that have the name in english.</cite>
 		            </figcaption>
 		        </figure>
         		<section><h3>Wikidata</h3></section>
@@ -152,39 +188,53 @@
         		<figure typeof="sa:Image">
 		            <img src="https://urer2016blog.files.wordpress.com/2016/12/15491690_1165981156790495_1951439273_o.png?w=730">
 		            <figcaption>
-		            <cite> Figure X. Query which gets/displays the movies that appeared between 5-10 December 2016, having the title in English.</cite>
+		            <cite> Figure 6. Query which gets/displays the movies that appeared between 5-10 December 2016, having the title in English.</cite>
 		            </figcaption>
 		        </figure>
 		        <br>
 		        <figure typeof="sa:Image">
 		            <img src="https://i2.wp.com/urer2016blog.files.wordpress.com/2016/12/movies_with_genre_new2.png?w=730">
 		            <figcaption>
-		            <cite> Figure X. Query which gets/displays the movies that appeared between 5-10 December 2016, having the genre "thriller".</cite>
+		            <cite> Figure 7. Query which gets/displays the movies that appeared between 5-10 December 2016, having the genre "thriller".</cite>
 		            </figcaption>
 		        </figure>
 		        <br>
 				<figure typeof="sa:Image"><img src="https://i2.wp.com/urer2016blog.files.wordpress.com/2016/12/get_restaurants_usa_wikidata.png?w=730" />
-					<figcaption><cite> Figure X. Query which gets/displays the restaurants from USA.</cite></figcaption></figure><br>
+					<figcaption><cite> Figure 8. Query which gets/displays the restaurants from USA.</cite></figcaption></figure><br>
 
         		<section><h3>LinkedGeoData</h3></section>
         		<p>Will be used for places.</p>
         		<figure typeof="sa:Image"><img src="https://i0.wp.com/urer2016blog.files.wordpress.com/2016/12/amenities_leipzig_linkedgeodata.png?w=730" />
-					<figcaption><cite> Figure X. Query which gets/displays amenities 100m from Leipzig Central Station.</cite></figcaption></figure>
+					<figcaption><cite> Figure 9. Query which gets/displays all amenities 100m from Leipzig Central Station.</cite></figcaption></figure>
         		
         		<section><h3>FOAF</h3></section>
         		<p>Will be used to describe users.</p>
         		
         		<figure typeof="sa:Image"><img src="https://i0.wp.com/urer2016blog.files.wordpress.com/2016/12/freddy_mercury.png?w=730" />
-					<figcaption><cite> Figure X. Query which displays info about Freddy Mercury.</cite></figcaption></figure>
+					<figcaption><cite> Figure 10. Query which displays info about Freddy Mercury.</cite></figcaption></figure>
         		<section><h3>RELATIONSHIP</h3></section>
         		<p>Will be used to describe the friend and enemy relationships between users.</p>
-        		
+        		<section><h3>SCHEMA.ORG</h3></section>
+        		<p>Will be used for places.</p>
+        		<figure typeof="sa:Image"><img src="https://i2.wp.com/urer2016blog.files.wordpress.com/2016/12/libraries_100km_from_bucharest_schemaorg.png?w=730" />
+					<figcaption><cite> Figure 11. Query which gets/displays the libraries 100km from Bucharest.</cite></figcaption></figure>
+
         	</section>
+
         	<section typeof="sa:MaterialsAndMethods">
-        		<section><h2>4. External API Components</h2></section>
+        		<section><h2>5. External API Components</h2></section>
         		<section><h3>Google Maps API</h3></section>
-        		Will be used for displaying map and places/users on map.		
+        		<p> The Google Maps API will be used in order to display the map on which the places and people will be showed.</p>		
         	</section>
+
+        	<section typeof="sa:Conclusion">
+			        <h2>6. Conclusion</h2>
+			        <p>
+			            UReR (Universal Resource Recommender) can be a step forward in improving the quality of the user's experience with the world around him. Through this app he can find places of interest neary avaialable, can find people that he might know or people he might want to meet and receive notifications when something happens that he is interested in. 
+			            The app could easily be extended by adding other microservices that will ofer other resources of interest to the user (for example, events that could take place in his area). Other extensions could be added to the alert module in order to give the user the possibility to be notified in more situations than the ones currently available. 
+			            Another extension could be adding support for user authentication using social network accounts, like Facebook, Google, etc.
+			        </p>
+			</section>
 
 		</article>
 	</body>
