@@ -182,32 +182,37 @@
 		            <cite> Figure 5. Query which gets/displays all restaurants in a 100km radius from the provided lat and long that have the name in english.</cite>
 		            </figcaption>
 		        </figure>
+
+		        <figure typeof="sa:Image"><img src="https://i2.wp.com/urer2016blog.files.wordpress.com/2016/12/libraries_100km_from_bucharest_schemaorg.png?w=730" />
+					<figcaption><cite> Figure 6. Query which gets/displays the libraries 100km from Bucharest.</cite></figcaption></figure>
+
+			
         		<section><h3>Wikidata</h3></section>
         		<p>Will be used for movies (eventually places).</p>
 
         		<figure typeof="sa:Image">
 		            <img src="https://urer2016blog.files.wordpress.com/2016/12/15491690_1165981156790495_1951439273_o.png?w=730">
 		            <figcaption>
-		            <cite> Figure 6. Query which gets/displays the movies that appeared between 5-10 December 2016, having the title in English.</cite>
+		            <cite> Figure 7. Query which gets/displays the movies that appeared between 5-10 December 2016, having the title in English.</cite>
 		            </figcaption>
 		        </figure>
 		        <br>
 		        <figure typeof="sa:Image">
 		            <img src="https://i2.wp.com/urer2016blog.files.wordpress.com/2016/12/movies_with_genre_new2.png?w=730">
 		            <figcaption>
-		            <cite> Figure 7. Query which gets/displays the movies that appeared between 5-10 December 2016, having the genre "thriller".</cite>
+		            <cite> Figure 8. Query which gets/displays the movies that appeared between 5-10 December 2016, having the genre "thriller".</cite>
 		            </figcaption>
 		        </figure>
 		        <br>
 				<figure typeof="sa:Image"><img src="https://i2.wp.com/urer2016blog.files.wordpress.com/2016/12/get_restaurants_usa_wikidata.png?w=730" />
-					<figcaption><cite> Figure 8. Query which gets/displays the restaurants from USA.</cite></figcaption></figure><br>
+					<figcaption><cite> Figure 9. Query which gets/displays the restaurants from USA.</cite></figcaption></figure><br>
 
         		<section><h3>LinkedGeoData</h3></section>
         		<p>Will be used for places.</p>
         		<figure typeof="sa:Image"><img src="https://i0.wp.com/urer2016blog.files.wordpress.com/2016/12/amenities_leipzig_linkedgeodata.png?w=730" />
-					<figcaption><cite> Figure 9. Query which gets/displays all amenities 100m from Leipzig Central Station.</cite></figcaption></figure>
+					<figcaption><cite> Figure 10. Query which gets/displays all amenities 100m from Leipzig Central Station.</cite></figcaption></figure>
         		
-        		<section><h3>FOAF</h3></section>
+        		<!--<section><h3>FOAF</h3></section>
         		<p>Will be used to describe users.</p>
         		
         		<figure typeof="sa:Image"><img src="https://i0.wp.com/urer2016blog.files.wordpress.com/2016/12/freddy_mercury.png?w=730" />
@@ -217,7 +222,7 @@
         		<section><h3>SCHEMA.ORG</h3></section>
         		<p>Will be used for places.</p>
         		<figure typeof="sa:Image"><img src="https://i2.wp.com/urer2016blog.files.wordpress.com/2016/12/libraries_100km_from_bucharest_schemaorg.png?w=730" />
-					<figcaption><cite> Figure 11. Query which gets/displays the libraries 100km from Bucharest.</cite></figcaption></figure>
+					<figcaption><cite> Figure 11. Query which gets/displays the libraries 100km from Bucharest.</cite></figcaption></figure>-->
 
         	</section>
 
@@ -226,9 +231,60 @@
         		<section><h3>Google Maps API</h3></section>
         		<p> The Google Maps API will be used in order to display the map on which the places and people will be showed.</p>		
         	</section>
+        	<section typeof="sa:MaterialsAndMethods">
+			        <h2>6. [DRAFT] Modeling</h2>
+
+			        <table>
+			        	<tr>
+			        		<th>Subject</th>
+			        		<th>Predicate / Relationship</th>
+			        		<th>Object</th>
+			        	</tr>
+			        	<tr>
+						    <td>User</td>
+						    <td>is a</td> 
+						    <td>foaf:Person</td>
+						</tr>
+						<tr>
+						    <td>User</td>
+						    <td>rel:FriendOf</td> 
+						    <td>User</td>
+						 </tr>
+						 <tr>
+						    <td>User</td>
+						    <td>rel:enemyOf</td> 
+						    <td>User</td>
+						 </tr>
+						 <tr>
+						    <td>Like</td>
+						    <td>is a</td> 
+						    <td>foaf:Document</td>
+						 </tr>
+						 <tr>
+						    <td>User</td>
+						    <td>foaf:interest</td> 
+						    <td>Like</td>
+						 </tr>
+						 <tr>
+						    <td>Preference</td>
+						    <td>is a</td> 
+						    <td>urer:Preference</td>
+						 </tr>
+						 <tr>
+						    <td>User</td>
+						    <td>urer:hasPreference</td> 
+						    <td>urer:Preference</td>
+						 </tr>
+
+			        </table>
+
+			        <ul>
+			        	<li> <strong>foaf:interest</strong>: an alternative modeling could be to define a custom property <strong>urer:likes</strong> in order to link the user to a resource he marked as "liked"</li>
+			        </ul>
+			</section>
 
         	<section typeof="sa:Conclusion">
-			        <h2>6. Conclusion</h2>
+			        <h2>7. Conclusion</h2>
 			        <p>
 			            UReR (Universal Resource Recommender) can be a step forward in improving the quality of the user's experience with the world around him. Through this app he can find places of interest neary avaialable, can find people that he might know or people he might want to meet and receive notifications when something happens that he is interested in. 
 			            The app could easily be extended by adding other microservices that will ofer other resources of interest to the user (for example, events that could take place in his area). Other extensions could be added to the alert module in order to give the user the possibility to be notified in more situations than the ones currently available. 
