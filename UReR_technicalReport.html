@@ -119,7 +119,7 @@
 		        	The people component will be responsible of displaying the list of friends or enemies the user currently has and also recommend a list of possible known people. These recommendations will be made based on the location of the users, their preferences and their common friends.
 		        </p>
 		        <p>
-		        	The alerts component will be responsible of sending alerts to the user on different occasions. For example the user can receive an alert when a friend is nearby in order to go and say hi, or when an enemy is nearby in order to avoid him.
+		        	The alerts component will be responsible of sending alerts to the user on different situations. For example the user can receive an alert when a friend is nearby in order to go and say hi, or when an enemy is nearby in order to avoid him.
 					Another alert example can be the following: the user is near a cinema and has as preferences the fact that he likes horror movies. Knowing this, the app can send an alert saying that the new horror movie "WADe Project Presentation" was released the other day and might be played at that cinema.
 					The application can easily be extended to show other types of alerts.
 		        </p>
@@ -132,11 +132,20 @@
         		<section><h2>3. Architecture </h2></section>
         		<p> Our web application will be implemented using a microservices oriented architecture, like below </p>	
         		<figure typeof="sa:Image">
-		            <img src="https://i1.wp.com/urer2016blog.files.wordpress.com/2016/12/apparchitecture1.png?w=730">
+		            <img src="https://i0.wp.com/urer2016blog.files.wordpress.com/2016/12/apparchitecture2.png?w=730">
 		            <figcaption>
 		            <cite> Figure 1. UReR's architecture.</cite>
 		            </figcaption>
 		        </figure> <br>
+
+		        <figure typeof="sa:Image">
+		            <img src="https://i0.wp.com/urer2016blog.files.wordpress.com/2016/12/db_flow.png?w=730">
+		            <figcaption>
+		            <cite> Figure 2. Interaction between microservice and databases.</cite>
+		            </figcaption>
+		        </figure> <br>
+
+		        
         	</section>
         	<section typeof="sa:MaterialsAndMethods">
         		<section><h2>4. Use - cases </h2></section>
@@ -161,14 +170,14 @@
 				 The microservices used in the application will be using variuous data sources (DBpedia, Wikidata etc.) for retrieving relevant information to be offered to the user. In order to get these informations spaql queries will be performed.
 				</p>
 				<p>
-				  Each of the microservices could also use an internal database, knowing that the sparql endpoints for the data sources from above could not always work. In this case, when a request comes from the user, the microservice can first make a query in his internal data base. If this query returns no restults, then the same query will be performed on the external data sources used and the result will be stored in the internal data base for future use.
+				  Each microservice which performs a requests to the sparql endpoints for the data source will have also an internal database. This database can be used as a cache for common queries and to prevent the situation when the the sparql endpoints for the data sources from above does not work.
 				</p>
 				<p>
 				    The microservices related to the user will be required to use an internal database in order to store information about the users.
 				</p>
         			
         		<section><h3>DBpedia</h3></section>
-        		Will be used for places.
+        		Will be used to get information about places based on same criteria (location, type, radius).
         		
         		<figure typeof="sa:Image">
 		            <img src="https://urer2016blog.files.wordpress.com/2016/12/getplacesiasi.png?w=730">
@@ -188,7 +197,7 @@
 
 			
         		<section><h3>Wikidata</h3></section>
-        		<p>Will be used for movies (eventually places).</p>
+        		<p>Will be used for movies (eventually places). Movies will be filter by genre or release date.</p>
 
         		<figure typeof="sa:Image">
 		            <img src="https://urer2016blog.files.wordpress.com/2016/12/15491690_1165981156790495_1951439273_o.png?w=730">
@@ -233,47 +242,66 @@
         	</section>
         	<section typeof="sa:MaterialsAndMethods">
 			        <h2>6. [DRAFT] Modeling</h2>
-
+			        <p>
+			        	Each microservice will have access to a database which will store it's content in rdf format.
+						In order to represent the data, known vocabularies will be used in addition to a custom vocabulary created for this application.
+						An example could be:
+			        </p>
 			        <table>
 			        	<tr>
-			        		<th>Subject</th>
-			        		<th>Predicate / Relationship</th>
-			        		<th>Object</th>
+			        		<th><center>Subject</center></th>
+			        		<th><center>Predicate / Relationship</center></th>
+			        		<th><center>Object</center></th>
 			        	</tr>
 			        	<tr>
-						    <td>User</td>
-						    <td>is a</td> 
-						    <td>foaf:Person</td>
+						    <td><center>User</center></td>
+						    <td><center>a</center></td> 
+						    <td><center>foaf:Person</center></td>
 						</tr>
 						<tr>
-						    <td>User</td>
-						    <td>rel:FriendOf</td> 
-						    <td>User</td>
+						    <td><center>User<center></td>
+						    <td><center>rel:FriendOf</center></td> 
+						    <td><center>User</center></td>
 						 </tr>
 						 <tr>
-						    <td>User</td>
-						    <td>rel:enemyOf</td> 
-						    <td>User</td>
+						    <td><center>User</center></td>
+						    <td><center>rel:enemyOf<center></td> 
+						    <td><center>User</center></td>
 						 </tr>
 						 <tr>
-						    <td>Like</td>
-						    <td>is a</td> 
-						    <td>foaf:Document</td>
+						    <td><center>Like</center></td>
+						    <td><center>a</center></td> 
+						    <td><center>foaf:Document</center></td>
 						 </tr>
 						 <tr>
-						    <td>User</td>
-						    <td>foaf:interest</td> 
-						    <td>Like</td>
+						    <td><center>User</center></td>
+						    <td><center>foaf:interest</center></td> 
+						    <td><center>Like</center></td>
 						 </tr>
 						 <tr>
-						    <td>Preference</td>
-						    <td>is a</td> 
-						    <td>urer:Preference</td>
+						    <td><center>Preference</center></td>
+						    <td><center>a</center></td> 
+						    <td><center>urer:Preference</center></td>
 						 </tr>
 						 <tr>
-						    <td>User</td>
-						    <td>urer:hasPreference</td> 
-						    <td>urer:Preference</td>
+						    <td><center>User</center></td>
+						    <td><center>urer:hasPreference</center></td> 
+						    <td><center>urer:Preference</center></td>
+						 </tr>
+						 <tr>
+						    <td><center>Movie</center></td>
+						    <td><center>a</center></td> 
+						    <td><center><a href="https://www.wikidata.org/wiki/Q11424 ">https://www.wikidata.org/wiki/Q11424 (film)</a></center></td>
+						 </tr>
+						 <tr>
+						    <td><center>Movie</center></td>
+						    <td><center><a href="https://www.wikidata.org/wiki/Property:P136 ">https://www.wikidata.org/wiki/Property:P136 (genre)</a></center></td> 
+						    <td><center><a href="<http://www.w3.org/2001/XMLSchema#> ">xsd:string</a></center></td>
+						 </tr>
+						 <tr>
+						    <td><center>Movie</center></td>
+						    <td><center><a href="https://www.wikidata.org/wiki/Property:P577">https://www.wikidata.org/wiki/Property:P577 (publicationDate)</a></center></td> 
+						    <td><center><a href="<http://www.w3.org/2001/XMLSchema#> ">xsd:dateTime</a></center></td>
 						 </tr>
 
 			        </table>
