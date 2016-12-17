@@ -1784,7 +1784,7 @@ definitions:
         description: 'The id of the like'
       name:
         type: string
-        description: "Name of the liked entity"
+        description: 
       url:
         type: string
         format: url
