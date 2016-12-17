@@ -183,7 +183,7 @@ font-style: italic;
     <div class="app-desc">REST API of the UReR app</div>
     <div class="app-desc">More information: <a href="https://helloreverb.com">https://helloreverb.com</a></div>
     <div class="app-desc">Contact Info: <a href="hello@helloreverb.com">hello@helloreverb.com</a></div>
-    <div class="app-desc">Version: 1.0.0</div>
+    <div class="app-desc">Version: 1.3.0</div>
     <div class="app-desc">BasePath:/v1</div>
     <div class="license-info">All rights reserved</div>
     <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
@@ -225,15 +225,19 @@ font-style: italic;
   <h4><a href="#User">User</a></h4>
   <ul>
   <li><a href="#usersUserIdEnemiesDelete"><code><span class="http-method">delete</span> /users/{user_id}/enemies</code></a></li>
-  <li><a href="#usersUserIdEnemiesGet"><code><span class="http-method">get</span> /users/{user_id}/Enemies</code></a></li>
-  <li><a href="#usersUserIdEnemiesGet_1"><code><span class="http-method">get</span> /users/{user_id}/enemies</code></a></li>
+  <li><a href="#usersUserIdEnemiesGet"><code><span class="http-method">get</span> /users/{user_id}/enemies</code></a></li>
   <li><a href="#usersUserIdEnemiesPost"><code><span class="http-method">post</span> /users/{user_id}/enemies</code></a></li>
   <li><a href="#usersUserIdFriendsDelete"><code><span class="http-method">delete</span> /users/{user_id}/friends</code></a></li>
-  <li><a href="#usersUserIdFriendsGet"><code><span class="http-method">get</span> /users/{user_id}/Friends</code></a></li>
-  <li><a href="#usersUserIdFriendsGet_2"><code><span class="http-method">get</span> /users/{user_id}/friends</code></a></li>
+  <li><a href="#usersUserIdFriendsGet"><code><span class="http-method">get</span> /users/{user_id}/friends</code></a></li>
   <li><a href="#usersUserIdFriendsPost"><code><span class="http-method">post</span> /users/{user_id}/friends</code></a></li>
   <li><a href="#usersUserIdGet"><code><span class="http-method">get</span> /users/{user_id}</code></a></li>
   <li><a href="#usersUserIdLikesGet"><code><span class="http-method">get</span> /users/{user_id}/likes</code></a></li>
+  <li><a href="#usersUserIdLikesLikeIdDelete"><code><span class="http-method">delete</span> /users/{user_id}/likes/{like_id}</code></a></li>
+  <li><a href="#usersUserIdLikesLikeIdGet"><code><span class="http-method">get</span> /users/{user_id}/likes/{like_id}</code></a></li>
+  <li><a href="#usersUserIdPreferencesCategIdDelete"><code><span class="http-method">delete</span> /users/{user_id}/preferences/{categ_id}</code></a></li>
+  <li><a href="#usersUserIdPreferencesCategIdGet"><code><span class="http-method">get</span> /users/{user_id}/preferences/{categ_id}</code></a></li>
+  <li><a href="#usersUserIdPreferencesCategIdPreferenceIdDelete"><code><span class="http-method">delete</span> /users/{user_id}/preferences/{categ_id}/{preference_id}</code></a></li>
+  <li><a href="#usersUserIdPreferencesCategIdPreferenceIdGet"><code><span class="http-method">get</span> /users/{user_id}/preferences/{categ_id}/{preference_id}</code></a></li>
   <li><a href="#usersUserIdPreferencesGet"><code><span class="http-method">get</span> /users/{user_id}/preferences</code></a></li>
   </ul>
   <h4><a href="#UserRegistration">UserRegistration</a></h4>
@@ -246,7 +250,7 @@ font-style: italic;
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
     <pre class="post"><code class="huge"><span class="http-method">post</span> /login</code></pre></div>
-    <div class="method-summary">Log in an user (<span class="nickname">loginPost</span>)</div>
+    <div class="method-summary">Logs in an user (<span class="nickname">loginPost</span>)</div>
     <div class="method-notes">The Login endpoint allows an user to log in.</div>
 
 
@@ -281,16 +285,31 @@ font-style: italic;
     <h4 class="field-label">200</h4>
     The id of the logged user
         <a href="#LoginResponse">LoginResponse</a>
-    <h4 class="field-label">0</h4>
-    Unexpected error
-        <a href="#Error">Error</a>
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">403</h4>
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com
+        <a href="#ErrorModel">ErrorModel</a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="logoutPost"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
     <pre class="post"><code class="huge"><span class="http-method">post</span> /logout</code></pre></div>
-    <div class="method-summary">Log out an user (<span class="nickname">logoutPost</span>)</div>
+    <div class="method-summary">Logs out an user (<span class="nickname">logoutPost</span>)</div>
     <div class="method-notes">The Logout endpoint allows an user to log out.</div>
 
 
@@ -307,15 +326,18 @@ font-style: italic;
 
     <h3 class="field-label">Return type</h3>
     <div class="return-type">
+      <a href="#SuccessModel">SuccessModel</a>
       
-      String
     </div>
 
     <!--Todo: process Response Object and its headers, schema, examples -->
 
     <h3 class="field-label">Example data</h3>
     <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>"aeiou"</code></pre>
+    <pre class="example"><code>{
+  "code" : "",
+  "message" : "aeiou"
+}</code></pre>
 
     <h3 class="field-label">Produces</h3>
     This API call produces the following media types according to the <span class="header">Accept</span> request header;
@@ -327,10 +349,25 @@ font-style: italic;
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
     Successful message
-        <a href="#String">String</a>
-    <h4 class="field-label">0</h4>
-    Unexpected error
-        <a href="#Error">Error</a>
+        <a href="#SuccessModel">SuccessModel</a>
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">403</h4>
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com
+        <a href="#ErrorModel">ErrorModel</a>
   </div> <!-- method -->
   <hr/>
   <h1><a name="Movie">Movie</a></h1>
@@ -339,7 +376,7 @@ font-style: italic;
     <a class="up" href="#__Methods">Up</a>
     <pre class="get"><code class="huge"><span class="http-method">get</span> /movies</code></pre></div>
     <div class="method-summary">Movies (<span class="nickname">moviesGet</span>)</div>
-    <div class="method-notes">The Movies endpoint returns information about the movies. The response includes the details about each movie, and lists the movies in the proper display order.</div>
+    <div class="method-notes">The Movies endpoint returns information about the movies. The response includes movie objects, and lists them in the proper display order.</div>
 
 
 
@@ -347,11 +384,11 @@ font-style: italic;
 
     <h3 class="field-label">Query parameters</h3>
     <div class="field-items">
-      <div class="param">genre (optional)</div>
+      <div class="param">releaseDate (required)</div>
 
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Genre of the movie. format: double</div><div class="param">releaseDate (required)</div>
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Release date of the movie. format: date</div><div class="param">genre (optional)</div>
 
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Year in which the movies was released. format: double</div>
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Genre of the movie. format: double</div>
     </div>  <!-- field-items -->
 
 
@@ -388,11 +425,32 @@ font-style: italic;
 
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
-    An array of movies
+    Successful response. The result of the request is an array of movies
         
-    <h4 class="field-label">0</h4>
-    Unexpected error
-        <a href="#Error">Error</a>
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">403</h4>
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">404</h4>
+    Not Found. The server has not found anything matching the request URI.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com
+        <a href="#ErrorModel">ErrorModel</a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="moviesMovieIdGet"/>
@@ -449,9 +507,30 @@ font-style: italic;
     <h4 class="field-label">200</h4>
     Successful response. The object requested.
         <a href="#Movie">Movie</a>
-    <h4 class="field-label">0</h4>
-    Unexpected error
-        <a href="#Error">Error</a>
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">403</h4>
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">404</h4>
+    Not Found. The server has not found anything matching the request URI.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com
+        <a href="#ErrorModel">ErrorModel</a>
   </div> <!-- method -->
   <hr/>
   <h1><a name="Places">Places</a></h1>
@@ -476,7 +555,7 @@ font-style: italic;
 
       <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Radius around the given location. format: double</div><div class="param">type (optional)</div>
 
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Type of the desired places. format: double</div>
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Type of the desired places. format: string</div>
     </div>  <!-- field-items -->
 
 
@@ -514,11 +593,32 @@ font-style: italic;
 
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
-    An array of places
+    Succesful response. An array of places.
         
-    <h4 class="field-label">0</h4>
-    Unexpected error
-        <a href="#Error">Error</a>
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">403</h4>
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">404</h4>
+    Not Found. The server has not found anything matching the request URI.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com
+        <a href="#ErrorModel">ErrorModel</a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="placesPlaceIdGet"/>
@@ -576,9 +676,30 @@ font-style: italic;
     <h4 class="field-label">200</h4>
     Successful response. The object requested.
         <a href="#Place">Place</a>
-    <h4 class="field-label">0</h4>
-    Unexpected error
-        <a href="#Error">Error</a>
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">403</h4>
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">404</h4>
+    Not Found. The server has not found anything matching the request URI.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com
+        <a href="#ErrorModel">ErrorModel</a>
   </div> <!-- method -->
   <hr/>
   <h1><a name="RelatedMovies">RelatedMovies</a></h1>
@@ -642,11 +763,32 @@ font-style: italic;
 
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
-    An array of movies
+    Successful response. The response is an array of movies
         
-    <h4 class="field-label">0</h4>
-    Unexpected error
-        <a href="#Error">Error</a>
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">403</h4>
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">404</h4>
+    Not Found. The server has not found anything matching the request URI.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com
+        <a href="#ErrorModel">ErrorModel</a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="moviesRelatedGenreGet"/>
@@ -654,7 +796,7 @@ font-style: italic;
     <a class="up" href="#__Methods">Up</a>
     <pre class="get"><code class="huge"><span class="http-method">get</span> /movies/related/{genre}</code></pre></div>
     <div class="method-summary">Movies related by genre. (<span class="nickname">moviesRelatedGenreGet</span>)</div>
-    <div class="method-notes">The related movie endpoint returns information about the movie related to a genre. The results will be paginated, a page containg a number of &quot;pageSize&quot; related movies.</div>
+    <div class="method-notes">The related movie endpoint returns movies related to a genre. The results will be paginated, a page containg a number of &quot;pageSize&quot; related movies.</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
@@ -709,11 +851,32 @@ font-style: italic;
 
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
-    An array of movies
+    Successful response. The response is an array of movies.
         
-    <h4 class="field-label">0</h4>
-    Unexpected error
-        <a href="#Error">Error</a>
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">403</h4>
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">404</h4>
+    Not Found. The server has not found anything matching the request URI.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com
+        <a href="#ErrorModel">ErrorModel</a>
   </div> <!-- method -->
   <hr/>
   <h1><a name="RelatedPlaces">RelatedPlaces</a></h1>
@@ -778,11 +941,32 @@ font-style: italic;
 
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
-    An array of places
+    Succesful response. An array of places
         
-    <h4 class="field-label">0</h4>
-    Unexpected error
-        <a href="#Error">Error</a>
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">403</h4>
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">404</h4>
+    Not Found. The server has not found anything matching the request URI.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com.
+        <a href="#ErrorModel">ErrorModel</a>
   </div> <!-- method -->
   <hr/>
   <h1><a name="SPARQL">SPARQL</a></h1>
@@ -830,9 +1014,27 @@ font-style: italic;
     <h4 class="field-label">200</h4>
     Successful
         <a href="#SPARQL">SPARQL</a>
-    <h4 class="field-label">0</h4>
-    Unexpected error
-        <a href="#Error">Error</a>
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">403</h4>
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">404</h4>
+    Not Found. The server has not found anything matching the request URI.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com. 
+        <a href="#ErrorModel">ErrorModel</a>
   </div> <!-- method -->
   <hr/>
   <h1><a name="User">User</a></h1>
@@ -863,9 +1065,20 @@ font-style: italic;
     </div>  <!-- field-items -->
 
 
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#SuccessModel">SuccessModel</a>
+      
+    </div>
 
     <!--Todo: process Response Object and its headers, schema, examples -->
 
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "code" : "",
+  "message" : "aeiou"
+}</code></pre>
 
     <h3 class="field-label">Produces</h3>
     This API call produces the following media types according to the <span class="header">Accept</span> request header;
@@ -877,76 +1090,38 @@ font-style: italic;
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
     The user was removed from list
-        <a href="#"></a>
-    <h4 class="field-label">0</h4>
-    Unexpected error
-        <a href="#Error">Error</a>
+        <a href="#SuccessModel">SuccessModel</a>
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">403</h4>
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">404</h4>
+    Not Found. The server has not found anything matching the request URI.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com.
+        <a href="#ErrorModel">ErrorModel</a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="usersUserIdEnemiesGet"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /users/{user_id}/Enemies</code></pre></div>
-    <div class="method-summary">User enemies (<span class="nickname">usersUserIdEnemiesGet</span>)</div>
-    <div class="method-notes">The User enemies endpoint returns a list of his enemis</div>
-
-    <h3 class="field-label">Path parameters</h3>
-    <div class="field-items">
-      <div class="param">user_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User id. </div>
-    </div>  <!-- field-items -->
-
-
-
-
-    <h3 class="field-label">Query parameters</h3>
-    <div class="field-items">
-      <div class="param">accesstoken (required)</div>
-
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User token. format: double</div>
-    </div>  <!-- field-items -->
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      
-      Object
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>"{}"</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    User Enemies
-        <a href="#Object">Object</a>
-    <h4 class="field-label">401</h4>
-    the user is not  authenticated
-        <a href="#"></a>
-    <h4 class="field-label">403</h4>
-    the user doesnt have enough rights to access this page
-        <a href="#"></a>
-    <h4 class="field-label">0</h4>
-    Unexpected error
-        <a href="#Error">Error</a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="usersUserIdEnemiesGet_1"/>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
     <pre class="get"><code class="huge"><span class="http-method">get</span> /users/{user_id}/enemies</code></pre></div>
-    <div class="method-summary">User enemies (<span class="nickname">usersUserIdEnemiesGet_1</span>)</div>
+    <div class="method-summary">User enemies (<span class="nickname">usersUserIdEnemiesGet</span>)</div>
     <div class="method-notes">The User enemies endpoint returns information about the User enemies. The response includes a list of all his enemies.</div>
 
     <h3 class="field-label">Path parameters</h3>
@@ -969,15 +1144,37 @@ font-style: italic;
 
     <h3 class="field-label">Return type</h3>
     <div class="return-type">
+      array[<a href="#User">User</a>]
       
-      Object
     </div>
 
     <!--Todo: process Response Object and its headers, schema, examples -->
 
     <h3 class="field-label">Example data</h3>
     <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>"{}"</code></pre>
+    <pre class="example"><code>[ {
+  "password" : "aeiou",
+  "preferences" : [ {
+    "categ_id" : "aeiou",
+    "name" : "aeiou",
+    "listOfpreferences" : [ {
+      "preference_id" : "aeiou",
+      "name" : "aeiou",
+      "url" : "aeiou"
+    } ]
+  } ],
+  "user_id" : "aeiou",
+  "qrcode" : "aeiou",
+  "name" : "aeiou",
+  "enemies" : [ "" ],
+  "email" : "aeiou",
+  "friends" : [ "" ],
+  "likes" : [ {
+    "like_id" : "aeiou",
+    "name" : "aeiou",
+    "url" : "aeiou"
+  } ]
+} ]</code></pre>
 
     <h3 class="field-label">Produces</h3>
     This API call produces the following media types according to the <span class="header">Accept</span> request header;
@@ -989,16 +1186,31 @@ font-style: italic;
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
     User enemies
-        <a href="#Object">Object</a>
+        
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
     <h4 class="field-label">401</h4>
-    the user is not  authenticated
-        <a href="#"></a>
+    Unauthorized.
+        <a href="#ErrorModel">ErrorModel</a>
     <h4 class="field-label">403</h4>
-    the user doesnt have enough rights to access this page
-        <a href="#"></a>
-    <h4 class="field-label">0</h4>
-    Unexpected error
-        <a href="#Error">Error</a>
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">404</h4>
+    Not Found. The server has not found anything matching the request URI.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com.
+        <a href="#ErrorModel">ErrorModel</a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="usersUserIdEnemiesPost"/>
@@ -1028,9 +1240,20 @@ font-style: italic;
     </div>  <!-- field-items -->
 
 
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#SuccessModel">SuccessModel</a>
+      
+    </div>
 
     <!--Todo: process Response Object and its headers, schema, examples -->
 
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "code" : "",
+  "message" : "aeiou"
+}</code></pre>
 
     <h3 class="field-label">Produces</h3>
     This API call produces the following media types according to the <span class="header">Accept</span> request header;
@@ -1042,17 +1265,38 @@ font-style: italic;
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
     The user was added to enemies list
-        <a href="#"></a>
-    <h4 class="field-label">0</h4>
-    Unexpected error
-        <a href="#Error">Error</a>
+        <a href="#SuccessModel">SuccessModel</a>
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">403</h4>
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">404</h4>
+    Not Found. The server has not found anything matching the request URI.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com.
+        <a href="#ErrorModel">ErrorModel</a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="usersUserIdFriendsDelete"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
     <pre class="delete"><code class="huge"><span class="http-method">delete</span> /users/{user_id}/friends</code></pre></div>
-    <div class="method-summary">Remove a new friend (<span class="nickname">usersUserIdFriendsDelete</span>)</div>
+    <div class="method-summary">Remove a friend (<span class="nickname">usersUserIdFriendsDelete</span>)</div>
     <div class="method-notes">The friends endpoint allows the user to remove friends.</div>
 
     <h3 class="field-label">Path parameters</h3>
@@ -1069,15 +1313,26 @@ font-style: italic;
     <div class="field-items">
       <div class="param">accesstoken (required)</div>
 
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User token. format: double</div><div class="param">newfriend_id (required)</div>
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User token. format: double</div><div class="param">friend_id (required)</div>
 
       <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; id of the removed friend format: id</div>
     </div>  <!-- field-items -->
 
 
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#SuccessModel">SuccessModel</a>
+      
+    </div>
 
     <!--Todo: process Response Object and its headers, schema, examples -->
 
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "code" : "",
+  "message" : "aeiou"
+}</code></pre>
 
     <h3 class="field-label">Produces</h3>
     This API call produces the following media types according to the <span class="header">Accept</span> request header;
@@ -1089,76 +1344,38 @@ font-style: italic;
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
     The user was removed from friends list
-        <a href="#"></a>
-    <h4 class="field-label">0</h4>
-    Unexpected error
-        <a href="#Error">Error</a>
+        <a href="#SuccessModel">SuccessModel</a>
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">403</h4>
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">404</h4>
+    Not Found. The server has not found anything matching the request URI.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com.
+        <a href="#ErrorModel">ErrorModel</a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="usersUserIdFriendsGet"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /users/{user_id}/Friends</code></pre></div>
-    <div class="method-summary">User friends (<span class="nickname">usersUserIdFriendsGet</span>)</div>
-    <div class="method-notes">The User friends endpoint returns a list of his friends</div>
-
-    <h3 class="field-label">Path parameters</h3>
-    <div class="field-items">
-      <div class="param">user_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User id. </div>
-    </div>  <!-- field-items -->
-
-
-
-
-    <h3 class="field-label">Query parameters</h3>
-    <div class="field-items">
-      <div class="param">accesstoken (required)</div>
-
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User token. format: double</div>
-    </div>  <!-- field-items -->
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      
-      Object
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>"{}"</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    User Friends
-        <a href="#Object">Object</a>
-    <h4 class="field-label">401</h4>
-    the user is not  authenticated
-        <a href="#"></a>
-    <h4 class="field-label">403</h4>
-    the user doesnt have enough rights to access this page
-        <a href="#"></a>
-    <h4 class="field-label">0</h4>
-    Unexpected error
-        <a href="#Error">Error</a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="usersUserIdFriendsGet_2"/>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
     <pre class="get"><code class="huge"><span class="http-method">get</span> /users/{user_id}/friends</code></pre></div>
-    <div class="method-summary">User friends (<span class="nickname">usersUserIdFriendsGet_2</span>)</div>
+    <div class="method-summary">User friends (<span class="nickname">usersUserIdFriendsGet</span>)</div>
     <div class="method-notes">The User friends endpoint returns information about the User friends. The response includes a list of all his friends.</div>
 
     <h3 class="field-label">Path parameters</h3>
@@ -1181,15 +1398,37 @@ font-style: italic;
 
     <h3 class="field-label">Return type</h3>
     <div class="return-type">
+      array[<a href="#User">User</a>]
       
-      Object
     </div>
 
     <!--Todo: process Response Object and its headers, schema, examples -->
 
     <h3 class="field-label">Example data</h3>
     <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>"{}"</code></pre>
+    <pre class="example"><code>[ {
+  "password" : "aeiou",
+  "preferences" : [ {
+    "categ_id" : "aeiou",
+    "name" : "aeiou",
+    "listOfpreferences" : [ {
+      "preference_id" : "aeiou",
+      "name" : "aeiou",
+      "url" : "aeiou"
+    } ]
+  } ],
+  "user_id" : "aeiou",
+  "qrcode" : "aeiou",
+  "name" : "aeiou",
+  "enemies" : [ "" ],
+  "email" : "aeiou",
+  "friends" : [ "" ],
+  "likes" : [ {
+    "like_id" : "aeiou",
+    "name" : "aeiou",
+    "url" : "aeiou"
+  } ]
+} ]</code></pre>
 
     <h3 class="field-label">Produces</h3>
     This API call produces the following media types according to the <span class="header">Accept</span> request header;
@@ -1200,17 +1439,32 @@ font-style: italic;
 
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
-    User friends
-        <a href="#Object">Object</a>
+    Succesful response. The respose contains a list of the users friends
+        
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
     <h4 class="field-label">401</h4>
-    the user is not  authenticated
-        <a href="#"></a>
+    Unauthorized.
+        <a href="#ErrorModel">ErrorModel</a>
     <h4 class="field-label">403</h4>
-    the user doesnt have enough rights to access this page
-        <a href="#"></a>
-    <h4 class="field-label">0</h4>
-    Unexpected error
-        <a href="#Error">Error</a>
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">404</h4>
+    Not Found. The server has not found anything matching the request URI.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com&#39;.
+        <a href="#ErrorModel">ErrorModel</a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="usersUserIdFriendsPost"/>
@@ -1240,9 +1494,20 @@ font-style: italic;
     </div>  <!-- field-items -->
 
 
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#SuccessModel">SuccessModel</a>
+      
+    </div>
 
     <!--Todo: process Response Object and its headers, schema, examples -->
 
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "code" : "",
+  "message" : "aeiou"
+}</code></pre>
 
     <h3 class="field-label">Produces</h3>
     This API call produces the following media types according to the <span class="header">Accept</span> request header;
@@ -1254,10 +1519,31 @@ font-style: italic;
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
     The user was added to friends list
-        <a href="#"></a>
-    <h4 class="field-label">0</h4>
-    Unexpected error
-        <a href="#Error">Error</a>
+        <a href="#SuccessModel">SuccessModel</a>
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">403</h4>
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">404</h4>
+    Not Found. The server has not found anything matching the request URI.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com
+        <a href="#ErrorModel">ErrorModel</a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="usersUserIdGet"/>
@@ -1292,8 +1578,13 @@ font-style: italic;
     <pre class="example"><code>{
   "password" : "aeiou",
   "preferences" : [ {
+    "categ_id" : "aeiou",
     "name" : "aeiou",
-    "listOfpreferences" : [ "aeiou" ]
+    "listOfpreferences" : [ {
+      "preference_id" : "aeiou",
+      "name" : "aeiou",
+      "url" : "aeiou"
+    } ]
   } ],
   "user_id" : "aeiou",
   "qrcode" : "aeiou",
@@ -1302,6 +1593,7 @@ font-style: italic;
   "email" : "aeiou",
   "friends" : [ "" ],
   "likes" : [ {
+    "like_id" : "aeiou",
     "name" : "aeiou",
     "url" : "aeiou"
   } ]
@@ -1318,9 +1610,30 @@ font-style: italic;
     <h4 class="field-label">200</h4>
     Successful response. The object requested.
         <a href="#User">User</a>
-    <h4 class="field-label">0</h4>
-    Unexpected error
-        <a href="#Error">Error</a>
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">403</h4>
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">404</h4>
+    Not Found. The server has not found anything matching the request URI.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com
+        <a href="#ErrorModel">ErrorModel</a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="usersUserIdLikesGet"/>
@@ -1350,15 +1663,19 @@ font-style: italic;
 
     <h3 class="field-label">Return type</h3>
     <div class="return-type">
+      array[<a href="#Like">Like</a>]
       
-      Object
     </div>
 
     <!--Todo: process Response Object and its headers, schema, examples -->
 
     <h3 class="field-label">Example data</h3>
     <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>"{}"</code></pre>
+    <pre class="example"><code>[ {
+  "like_id" : "aeiou",
+  "name" : "aeiou",
+  "url" : "aeiou"
+} ]</code></pre>
 
     <h3 class="field-label">Produces</h3>
     This API call produces the following media types according to the <span class="header">Accept</span> request header;
@@ -1370,16 +1687,455 @@ font-style: italic;
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
     User Likes
-        <a href="#Object">Object</a>
+        
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
     <h4 class="field-label">401</h4>
-    the user is not  authenticated
-        <a href="#"></a>
+    Unauthorized.
+        <a href="#ErrorModel">ErrorModel</a>
     <h4 class="field-label">403</h4>
-    the user doesnt have enough rights to access this page
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">404</h4>
+    Not Found. The server has not found anything matching the request URI.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com
+        <a href="#ErrorModel">ErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="usersUserIdLikesLikeIdDelete"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /users/{user_id}/likes/{like_id}</code></pre></div>
+    <div class="method-summary">delete somthing that the user liked (<span class="nickname">usersUserIdLikesLikeIdDelete</span>)</div>
+    <div class="method-notes">The User likes endpoint which removes something that the user liked.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User id. </div><div class="param">like_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Like id </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">accesstoken (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User token. format: double</div>
+    </div>  <!-- field-items -->
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Unlike a movie, restaurant, etc.
         <a href="#"></a>
-    <h4 class="field-label">0</h4>
-    Unexpected error
-        <a href="#Error">Error</a>
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">403</h4>
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">404</h4>
+    Not Found. The server has not found anything matching the request URI.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com
+        <a href="#ErrorModel">ErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="usersUserIdLikesLikeIdGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /users/{user_id}/likes/{like_id}</code></pre></div>
+    <div class="method-summary">Get a like by id (<span class="nickname">usersUserIdLikesLikeIdGet</span>)</div>
+    <div class="method-notes">The User likes endpoint which gets something that the user liked by id</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User id. </div><div class="param">like_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Like id </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">accesstoken (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User token. format: double</div>
+    </div>  <!-- field-items -->
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Get a Like by id, etc.
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">403</h4>
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">404</h4>
+    Not Found. The server has not found anything matching the request URI.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com
+        <a href="#ErrorModel">ErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="usersUserIdPreferencesCategIdDelete"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /users/{user_id}/preferences/{categ_id}</code></pre></div>
+    <div class="method-summary">delete a category of preferences (<span class="nickname">usersUserIdPreferencesCategIdDelete</span>)</div>
+    <div class="method-notes">The User preferences endpoint which removes a category of preferences of the user.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User id. </div><div class="param">categ_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; PreferenceCategory id </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">accesstoken (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User token. format: double</div>
+    </div>  <!-- field-items -->
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Remove a category of preferences.
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">403</h4>
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">404</h4>
+    Not Found. The server has not found anything matching the request URI.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com
+        <a href="#ErrorModel">ErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="usersUserIdPreferencesCategIdGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /users/{user_id}/preferences/{categ_id}</code></pre></div>
+    <div class="method-summary">Get preferences by the id of the category (<span class="nickname">usersUserIdPreferencesCategIdGet</span>)</div>
+    <div class="method-notes">The User preferences endpoint which gets user&#39;s preferences by the category_id</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User id. </div><div class="param">categ_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; PreferenceCategory id </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">accesstoken (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User token. format: double</div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Preference">Preference</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "preference_id" : "aeiou",
+  "name" : "aeiou",
+  "url" : "aeiou"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Get user&#39;s preferences from a category(by categ_id).
+        
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">403</h4>
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">404</h4>
+    Not Found. The server has not found anything matching the request URI.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com
+        <a href="#ErrorModel">ErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="usersUserIdPreferencesCategIdPreferenceIdDelete"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /users/{user_id}/preferences/{categ_id}/{preference_id}</code></pre></div>
+    <div class="method-summary">delete a preference from a category (<span class="nickname">usersUserIdPreferencesCategIdPreferenceIdDelete</span>)</div>
+    <div class="method-notes">The User preferences endpoint which removes a preference.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User id. </div><div class="param">categ_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; PreferenceCategory id </div><div class="param">preference_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Preference id </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">accesstoken (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User token. format: double</div>
+    </div>  <!-- field-items -->
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Remove a category of preferences.
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">403</h4>
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">404</h4>
+    Not Found. The server has not found anything matching the request URI.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com
+        <a href="#ErrorModel">ErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="usersUserIdPreferencesCategIdPreferenceIdGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /users/{user_id}/preferences/{categ_id}/{preference_id}</code></pre></div>
+    <div class="method-summary">Get preference from a category_id by id (<span class="nickname">usersUserIdPreferencesCategIdPreferenceIdGet</span>)</div>
+    <div class="method-notes">The User preferences endpoint which gets a  preference from a specified category by id</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User id. </div><div class="param">categ_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; PreferenceCategory id </div><div class="param">preference_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Preference id </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">accesstoken (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User token. format: double</div>
+    </div>  <!-- field-items -->
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Get a preference from a category_id by id.
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">403</h4>
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">404</h4>
+    Not Found. The server has not found anything matching the request URI.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com
+        <a href="#ErrorModel">ErrorModel</a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="usersUserIdPreferencesGet"/>
@@ -1409,15 +2165,23 @@ font-style: italic;
 
     <h3 class="field-label">Return type</h3>
     <div class="return-type">
+      array[<a href="#PreferenceCategory">PreferenceCategory</a>]
       
-      Object
     </div>
 
     <!--Todo: process Response Object and its headers, schema, examples -->
 
     <h3 class="field-label">Example data</h3>
     <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>"{}"</code></pre>
+    <pre class="example"><code>[ {
+  "categ_id" : "aeiou",
+  "name" : "aeiou",
+  "listOfpreferences" : [ {
+    "preference_id" : "aeiou",
+    "name" : "aeiou",
+    "url" : "aeiou"
+  } ]
+} ]</code></pre>
 
     <h3 class="field-label">Produces</h3>
     This API call produces the following media types according to the <span class="header">Accept</span> request header;
@@ -1429,16 +2193,31 @@ font-style: italic;
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
     User preferences
-        <a href="#Object">Object</a>
+        
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
     <h4 class="field-label">401</h4>
-    the user is not  authenticated
-        <a href="#"></a>
+    Unauthorized.
+        <a href="#ErrorModel">ErrorModel</a>
     <h4 class="field-label">403</h4>
-    the user doesnt have enough rights to access this page
-        <a href="#"></a>
-    <h4 class="field-label">0</h4>
-    Unexpected error
-        <a href="#Error">Error</a>
+    Forbidden. You are forbidden to access this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">404</h4>
+    Not Found. The server has not found anything matching the request URI.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com
+        <a href="#ErrorModel">ErrorModel</a>
   </div> <!-- method -->
   <hr/>
   <h1><a name="UserRegistration">UserRegistration</a></h1>
@@ -1461,9 +2240,20 @@ font-style: italic;
 
 
 
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#SuccessModel">SuccessModel</a>
+      
+    </div>
 
     <!--Todo: process Response Object and its headers, schema, examples -->
 
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "code" : "",
+  "message" : "aeiou"
+}</code></pre>
 
     <h3 class="field-label">Produces</h3>
     This API call produces the following media types according to the <span class="header">Accept</span> request header;
@@ -1475,10 +2265,22 @@ font-style: italic;
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
     Successful update. The object was created.
-        <a href="#"></a>
-    <h4 class="field-label">0</h4>
-    Unexpected error
-        <a href="#Error">Error</a>
+        <a href="#SuccessModel">SuccessModel</a>
+    <h4 class="field-label">400</h4>
+    Bad request. The request could not be understood by the server. Please make a good request.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">405</h4>
+    Mehod not allowed. The method specified is not allowed for this resource.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">500</h4>
+    Internal Server Error. Something bad happened. Please contact the support team.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">501</h4>
+    Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+        <a href="#ErrorModel">ErrorModel</a>
+    <h4 class="field-label">503</h4>
+    Service Unavailable. Please try again later or send an email to admin@urer.com
+        <a href="#ErrorModel">ErrorModel</a>
   </div> <!-- method -->
   <hr/>
 
@@ -1488,32 +2290,34 @@ font-style: italic;
 
   <h3>Table of Contents</h3>
   <ol>
-    <li><a href="#Error"><code>Error</code></a></li>
+    <li><a href="#ErrorModel"><code>ErrorModel</code></a></li>
     <li><a href="#Like"><code>Like</code></a></li>
     <li><a href="#LoginResponse"><code>LoginResponse</code></a></li>
     <li><a href="#Movie"><code>Movie</code></a></li>
     <li><a href="#Person"><code>Person</code></a></li>
     <li><a href="#Place"><code>Place</code></a></li>
     <li><a href="#Place_adress"><code>Place_adress</code></a></li>
+    <li><a href="#Preference"><code>Preference</code></a></li>
     <li><a href="#PreferenceCategory"><code>PreferenceCategory</code></a></li>
     <li><a href="#SPARQL"><code>SPARQL</code></a></li>
+    <li><a href="#SuccessModel"><code>SuccessModel</code></a></li>
     <li><a href="#User"><code>User</code></a></li>
   </ol>
 
   <div class="model">
-    <h3 class="field-label"><a name="Error">Error - </a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="ErrorModel">ErrorModel - </a> <a class="up" href="#__Models">Up</a></h3>
     <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">code (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
-<div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-<div class="param">fields (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      <div class="param">message </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">code </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
     <h3 class="field-label"><a name="Like">Like - </a> <a class="up" href="#__Models">Up</a></h3>
     <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Name of the liked entity </div>
+      <div class="param">like_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The id of the like </div>
+<div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Name of the liked entity </div>
 <div class="param">url (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> A url to the page of liked entity format: url</div>
     </div>  <!-- field-items -->
   </div>
@@ -1571,11 +2375,21 @@ font-style: italic;
     </div>  <!-- field-items -->
   </div>
   <div class="model">
+    <h3 class="field-label"><a name="Preference">Preference - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">preference_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The id of the preference </div>
+<div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Name of the prefered entity </div>
+<div class="param">url (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> A url to the page of prefered entity format: url</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
     <h3 class="field-label"><a name="PreferenceCategory">PreferenceCategory - </a> <a class="up" href="#__Models">Up</a></h3>
     <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The name of the preference. Ex: food, movie types, place types </div>
-<div class="param">listOfpreferences (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span> list of preference for a certain category </div>
+      <div class="param">categ_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The id of the category </div>
+<div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The name of the preference. Ex: food, movie types, place types </div>
+<div class="param">listOfpreferences (optional)</div><div class="param-desc"><span class="param-type"><a href="#Preference">array[Preference]</a></span> list of preference for a certain category </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
@@ -1583,6 +2397,14 @@ font-style: italic;
     <div class='model-description'></div>
     <div class="field-items">
       <div class="param">response (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3 class="field-label"><a name="SuccessModel">SuccessModel - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">message </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">code </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
