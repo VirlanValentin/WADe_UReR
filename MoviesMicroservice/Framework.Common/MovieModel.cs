@@ -10,8 +10,7 @@ namespace Framework.Common
         public string GenreResource { get; set; }
         public string GenreLabel { get; set; }
 
-        public List<string> GenreLabelsList { get; set; } = new List<string>();
-        public string ImdbLink { get; set; }
+        public string ImdbIdentifier { get; set; }
 
         public override bool Equals(object obj)
         {
@@ -21,5 +20,11 @@ namespace Framework.Common
             var movie = obj as MovieModel;
             return this.Resource.Equals(movie.Resource);
         }
+    }
+
+    public class MovieModelResponse : MovieModel
+    {
+        public List<string> GenreLabelsList { get; set; } = new List<string>();
+        public string ImdbLink { get; set; }
     }
 }
