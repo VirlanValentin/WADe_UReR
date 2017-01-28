@@ -23,8 +23,20 @@ namespace Framework.Common
                 Title = GetTitle(result.Value("title").ToString()),
                 Date = GetDate(result.Value("date").ToString()),
                 GenreResource = result.Value("genre").ToString(),
-                GenreLabel = GetTitle(result.Value("label").ToString().ToLower()),
-                ImdbLink = "http://www.imdb.com/title/" + result.Value("imdb").ToString()
+                ImdbIdentifier = result.Value("imdb").ToString() // "http://www.imdb.com/title/" +
+            };
+        }
+
+        public static MovieModelResponse MapResponse(SparqlResult result)
+        {
+            return new MovieModelResponse()
+            {
+                Resource = result.Value("s").ToString(),
+                Title = GetTitle(result.Value("title").ToString()),
+                Date = GetDate(result.Value("date").ToString()),
+                GenreResource = result.Value("genre").ToString(),
+                ImdbIdentifier = result.Value("imdb").ToString(),
+                ImdbLink = "http://www.imdb.com/title/" + result.Value("imdb").ToString() 
             };
         }
     }
