@@ -80,5 +80,25 @@ namespace UserProfileMicroservice.Controllers
             return Ok("friend added");
         }
 
+        [HttpDelete]
+        [Route("api/UserProfile/{id}/friends/{friendId}")]
+        public IHttpActionResult RemoveFriend([FromUri] Guid id, [FromUri] Guid friendId)
+        {
+            var userExists = Manager.CheckUserExistsById(id);
+            if (!userExists)
+            {
+                return BadRequest("User does not exists");
+            }
+
+            var friendsExists = Manager.CheckUserExistsById(friendId);
+            if (!friendsExists)
+            {
+                return BadRequest("User does not exists");
+            }
+
+            Manager.RemoveFriend(id, friendId);
+            return Ok("friend removed");
+        }
+
     }
 }

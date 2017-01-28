@@ -234,5 +234,26 @@ namespace UsersDBUpdate
 
             return friends;
         }
+
+        public void RemoveFriend(Guid id, Guid friendId)
+        {
+            var userResourceId = "http://www.semanticweb.org/geo/ontologies/2017/0/urer/" + id;
+            var friendResourceId = "http://www.semanticweb.org/geo/ontologies/2017/0/urer/" + friendId;
+
+            var queryString = new SparqlParameterizedString();
+
+            //Add a namespace declaration
+            queryString.Namespaces.AddNamespace("urer", new Uri("http://www.semanticweb.org/geo/ontologies/2017/0/urer#"));
+            queryString.Namespaces.AddNamespace("rel", new Uri("http://purl.org/vocab/relationship/"));
+
+
+            queryString.CommandText = "Delete DATA { @resourceUser rel:friendOf @resourceFriend  }";
+
+            queryString.SetUri("resourceUser", new Uri(userResourceId));
+            queryString.SetUri("resourceFriend", new Uri(friendResourceId));
+
+            //Query the collection, dump output
+            Fuseki.Update(queryString.ToString());
+        }
     }
 }
