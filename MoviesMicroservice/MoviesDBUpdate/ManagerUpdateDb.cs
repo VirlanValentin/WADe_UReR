@@ -51,6 +51,7 @@ namespace MoviesDBUpdate
             {
                 var newMovie = Helpers.Map(result);
                 newMovie.GenreLabel = genre.ToLower();
+                newMovie.Id = Guid.NewGuid();
 
                 var genreExists =
                     moviesToAddInDatabase.Find(
@@ -71,8 +72,10 @@ namespace MoviesDBUpdate
                     moviesUpdateQuery.Namespaces.AddNamespace("wdt", new Uri("http://www.wikidata.org/prop/direct/"));
 
                     moviesUpdateQuery.CommandText =
-                        "INSERT DATA { @resource wdt:P31 wd:Q11424. @resource wdt:P1476 @title ; wdt:P577 @date^^xsd:dateTime; wdt:P136 @genreResource; wdt:P345 @imdbId }";
+                        "INSERT DATA {@resource urer:id @id; @resource wdt:P31 wd:Q11424; @resource wdt:P1476 @title ; wdt:P577 @date^^xsd:dateTime; wdt:P136 @genreResource; wdt:P345 @imdbId }";
 
+
+                    moviesUpdateQuery.SetLiteral("id", movie.Id.ToString());
                     moviesUpdateQuery.SetUri("resource", new Uri(movie.Resource));
                     moviesUpdateQuery.SetLiteral("date", movie.Date);
                     moviesUpdateQuery.SetLiteral("title", movie.Title);
@@ -142,6 +145,7 @@ namespace MoviesDBUpdate
             {
                 var newMovie = Helpers.Map(result);
                 newMovie.GenreLabel = genre.ToLower();
+                newMovie.Id = Guid.NewGuid();
 
                 var genreExists =
                     moviesToAddInDatabase.Find(
@@ -163,8 +167,10 @@ namespace MoviesDBUpdate
                 moviesUpdateQuery.Namespaces.AddNamespace("wdt", new Uri("http://www.wikidata.org/prop/direct/"));
 
                 moviesUpdateQuery.CommandText =
-                    "INSERT DATA {@resource wdt:P31 wd:Q11424. @resource wdt:P1476 @title ; wdt:P577 @date^^xsd:dateTime; wdt:P136 @genreResource; wdt:P345 @imdbId }";
+                    "INSERT DATA {@resource urer:id @id; @resource wdt:P31 wd:Q11424; @resource wdt:P1476 @title ; wdt:P577 @date^^xsd:dateTime; wdt:P136 @genreResource; wdt:P345 @imdbId }";
 
+
+                moviesUpdateQuery.SetLiteral("id", movie.Id.ToString());
                 moviesUpdateQuery.SetUri("resource", new Uri(movie.Resource));
                 moviesUpdateQuery.SetLiteral("date", movie.Date);
                 moviesUpdateQuery.SetLiteral("title", movie.Title);

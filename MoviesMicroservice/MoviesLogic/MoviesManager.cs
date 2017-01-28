@@ -22,7 +22,7 @@ namespace MoviesLogic
 
         public List<MovieModelResponse> Get(DateTime releaseDateDate, string genre)
         {
-           // ManagerUpdateDb.AddGenres();
+            // ManagerUpdateDb.AddGenres();
 
             Fuseki = new FusekiConnector("http://localhost:3030/movies2/data");
 
@@ -136,6 +136,25 @@ namespace MoviesLogic
                 }
 
             return movies;
+        }
+
+        public MovieModelResponse GetById(string id)
+        {
+            var queryString = new SparqlParameterizedString
+            {
+                CommandText = @"SELECT * WHERE  {  ?s urer:id @id }"
+            };
+
+            queryString.Namespaces.AddNamespace("urer", new Uri("http://www.w3.org/2000/01/rdf-schema#"));
+
+            //Inject a Value for the parameter
+            queryString.SetLiteral("id", id);
+
+            var resultsFuseki = Fuseki.Query(queryString.ToString()) as SparqlResultSet;
+
+            // ReSharper disable once PossibleNullReferenceException
+            return resultsFuseki?.Count == 0 ? null : Helpers.MapResponse(resultsFuseki[0]);
+
         }
     }
 }

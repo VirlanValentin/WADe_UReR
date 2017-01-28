@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Framework.Common
 {
     public class MovieModel
     {
+        public Guid Id { get; set; }
         public string Resource { get; set; }
         public string Title { get; set; }
         public string Date { get; set; }
