@@ -70,6 +70,7 @@ namespace MoviesDBUpdate
                     moviesUpdateQuery.Namespaces.AddNamespace("wd", new Uri("http://www.wikidata.org/entity/"));
                     moviesUpdateQuery.Namespaces.AddNamespace("xsd", new Uri("http://www.w3.org/2001/XMLSchema#"));
                     moviesUpdateQuery.Namespaces.AddNamespace("wdt", new Uri("http://www.wikidata.org/prop/direct/"));
+                    moviesUpdateQuery.Namespaces.AddNamespace("urer", new Uri("http://www.semanticweb.org/geo/ontologies/2017/0/urer#"));
 
                     moviesUpdateQuery.CommandText =
                         "INSERT DATA {@resource urer:id @id; @resource wdt:P31 wd:Q11424; @resource wdt:P1476 @title ; wdt:P577 @date^^xsd:dateTime; wdt:P136 @genreResource; wdt:P345 @imdbId }";
@@ -165,6 +166,7 @@ namespace MoviesDBUpdate
                 moviesUpdateQuery.Namespaces.AddNamespace("wd", new Uri("http://www.wikidata.org/entity/"));
                 moviesUpdateQuery.Namespaces.AddNamespace("xsd", new Uri("http://www.w3.org/2001/XMLSchema#"));
                 moviesUpdateQuery.Namespaces.AddNamespace("wdt", new Uri("http://www.wikidata.org/prop/direct/"));
+                moviesUpdateQuery.Namespaces.AddNamespace("urer", new Uri("http://www.semanticweb.org/geo/ontologies/2017/0/urer#"));
 
                 moviesUpdateQuery.CommandText =
                     "INSERT DATA {@resource urer:id @id; @resource wdt:P31 wd:Q11424; @resource wdt:P1476 @title ; wdt:P577 @date^^xsd:dateTime; wdt:P136 @genreResource; wdt:P345 @imdbId }";

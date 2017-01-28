@@ -145,7 +145,7 @@ namespace MoviesLogic
                 CommandText = @"SELECT * WHERE  {  ?s urer:id @id }"
             };
 
-            queryString.Namespaces.AddNamespace("urer", new Uri("http://www.w3.org/2000/01/rdf-schema#"));
+            queryString.Namespaces.AddNamespace("urer", new Uri("http://www.semanticweb.org/geo/ontologies/2017/0/urer#"));
 
             //Inject a Value for the parameter
             queryString.SetLiteral("id", id);

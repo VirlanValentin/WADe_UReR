@@ -45,7 +45,7 @@ namespace MoviesMicroservice.Controllers
 
         [Route("api/movies/{id}")]
         [HttpGet]
-        public IHttpActionResult GetById([FromUri] string id)
+        public IHttpActionResult GetById([FromUri] string id) 
         {
             if (id == null)
             {
