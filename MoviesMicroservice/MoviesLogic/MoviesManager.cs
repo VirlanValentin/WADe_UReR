@@ -88,5 +88,40 @@ namespace MoviesLogic
 
             return movies;
         }
+
+        public List<MovieModel> Get(string genre)
+        {
+            ManagerUpdateDb.UpdateDb(genre);
+
+
+            //Create a Parameterized String
+            var queryString = new SparqlParameterizedString
+            {
+                CommandText = @"SELECT *
+                            WHERE
+                            {
+                                ?s wdt:P31 wd:Q11424.
+                                ?s wdt:P1476 ?title.
+                                ?s wdt:P577 ?date.
+                                ?s wdt:P136 ?genre.
+                                ?genre rdfs:label @genre" + "@en." +
+                              "?s wdt:P345 ?imdb} Limit 50"
+            };
+
+            //Inject a Value for the parameter
+            queryString.SetLiteral("genre", genre);
+
+            var resultsFuseki = Fuseki.Query(queryString.ToString()) as SparqlResultSet;
+
+            if (resultsFuseki?.Results.Count == 0)
+            {
+                ManagerUpdateDb.UpdateDb(genre);
+            }
+
+            resultsFuseki = Fuseki.Query(queryString.ToString()) as SparqlResultSet;
+
+       
+            return null;
+        }
     }
 }

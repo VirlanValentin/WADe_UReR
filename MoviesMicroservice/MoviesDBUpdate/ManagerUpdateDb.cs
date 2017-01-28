@@ -121,5 +121,25 @@ namespace MoviesDBUpdate
                 Fuseki.Update(moviesUpdateQuery2.ToString());
             }
         }
+
+        public void UpdateDb(string genre)
+        {
+            var queryString = new SparqlParameterizedString
+            {
+                CommandText = @"SELECT * WHERE
+                            {
+                                ?s wdt:P31 wd:Q11424.
+                                ?s wdt:P1476 ?title.
+                                ?s wdt:P577 ?date.
+                                ?s wdt:P136 ?genre.
+                                ?genre rdfs:label @genre" + "@en." + "?s wdt:P345 ?imdb} Limit 50"
+            };
+
+            queryString.Namespaces.AddNamespace("rdfs", new Uri("http://www.w3.org/2000/01/rdf-schema#"));
+            queryString.Namespaces.AddNamespace("wdt", new Uri("http://www.wikidata.org/prop/direct/"));
+
+
+            var results = Endpoint.QueryWithResultSet(queryString.ToString());
+        }
     }
 }
