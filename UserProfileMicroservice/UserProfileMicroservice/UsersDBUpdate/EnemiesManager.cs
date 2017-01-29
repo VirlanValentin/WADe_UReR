@@ -10,7 +10,6 @@ namespace UsersDBUpdate
     {
         public EnemiesManager()
         {
-
             Fuseki = new FusekiConnector("http://localhost:3030/users/data");
         }
 
