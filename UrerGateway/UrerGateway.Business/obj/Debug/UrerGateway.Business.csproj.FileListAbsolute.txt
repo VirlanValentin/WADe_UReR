@@ -1,0 +1,11 @@
+E:\CodeRetreat\UrerGateway\UrerGateway.Business\obj\Debug\UrerGateway.Business.csprojResolveAssemblyReference.cache
+E:\CodeRetreat\UrerGateway\UrerGateway.Business\bin\Debug\UrerGateway.Business.dll
+E:\CodeRetreat\UrerGateway\UrerGateway.Business\bin\Debug\UrerGateway.Business.pdb
+E:\CodeRetreat\UrerGateway\UrerGateway.Business\bin\Debug\Newtonsoft.Json.dll
+E:\CodeRetreat\UrerGateway\UrerGateway.Business\bin\Debug\System.Net.Http.Formatting.dll
+E:\CodeRetreat\UrerGateway\UrerGateway.Business\bin\Debug\System.Web.Http.dll
+E:\CodeRetreat\UrerGateway\UrerGateway.Business\bin\Debug\Newtonsoft.Json.xml
+E:\CodeRetreat\UrerGateway\UrerGateway.Business\bin\Debug\System.Net.Http.Formatting.xml
+E:\CodeRetreat\UrerGateway\UrerGateway.Business\bin\Debug\System.Web.Http.xml
+E:\CodeRetreat\UrerGateway\UrerGateway.Business\obj\Debug\UrerGateway.Business.dll
+E:\CodeRetreat\UrerGateway\UrerGateway.Business\obj\Debug\UrerGateway.Business.pdb

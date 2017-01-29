@@ -25,7 +25,8 @@ namespace UsersDBUpdate
             }
 
             var id = Guid.NewGuid();
-            var password = MD5.Create(user.Password);
+            var md5 = MD5.Create();
+            var password = Helper.GetMd5Hash(md5, user.Password);
 
             var newUser = new UserModellResponse()
             {
@@ -45,7 +46,7 @@ namespace UsersDBUpdate
             queryString.Namespaces.AddNamespace("rdf", new Uri("http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
 
             //Set the SPARQL command
-            queryString.CommandText = "INSERT DATA { @resource rdf:type foaf:Person ; urer:hasPassword @password foaf:firstName @name ; rdfs:email @email ; urer:id @id }";
+            queryString.CommandText = "INSERT DATA { @resource rdf:type foaf:Person; urer:hasPassword @password; foaf:firstName @name; rdfs:email @email; urer:id @id }";
 
 
             queryString.SetUri("resource", new Uri(newUser.Resource));
@@ -183,15 +184,15 @@ namespace UsersDBUpdate
             queryString.Namespaces.AddNamespace("rdf", new Uri("http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
 
             //Set the SPARQL command
-
-            var password = MD5.Create(user.Password).ToString();
+            var md5 = MD5.Create();
+            var password = Helper.GetMd5Hash(md5, user.Password);
 
             queryString.CommandText =
                 "SELECT * WHERE {?s rdf:type foaf:Person. ?s urer:id ?id. ?s foaf:firstName @name. ?s urer:hasPassword @password}";
 
             //Inject a Value for the parameter
             queryString.SetLiteral("password", password);
-            queryString.SetLiteral("name", user.Email);
+            queryString.SetLiteral("name", user.Name);
 
             //Query the collection, dump output
             var resultsFuseki = Fuseki.Query(queryString.ToString()) as SparqlResultSet;

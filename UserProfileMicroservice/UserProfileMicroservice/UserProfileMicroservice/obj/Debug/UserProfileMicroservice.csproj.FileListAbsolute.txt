@@ -106,3 +106,6 @@ F:\facultate\master2\wade2\UserProfileMicroservice\UserProfileMicroservice\UserP
 F:\facultate\master2\wade2\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\obj\Debug\UserProfileMicroservice.csprojResolveAssemblyReference.cache
 F:\facultate\master2\wade2\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\obj\Debug\UserProfileMicroservice.dll
 F:\facultate\master2\wade2\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\obj\Debug\UserProfileMicroservice.pdb
+D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\bin\HtmlAgilityPack.dll
+D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\bin\HtmlAgilityPack.pdb
+D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\bin\HtmlAgilityPack.xml

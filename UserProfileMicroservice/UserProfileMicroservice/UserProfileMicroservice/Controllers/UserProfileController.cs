@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using Framework.Common;
@@ -17,10 +16,8 @@ namespace UserProfileMicroservice.Controllers
             EnemiesManager = new EnemiesManager();
             LikesManager = new LikesManager();
             PreferencesManager = new PreferencesManager();
-            LoggedInUsers = new List<LoggedInUser>();
         }
-
-        public List<LoggedInUser> LoggedInUsers { get; set; }
+        
 
         public EnemiesManager EnemiesManager { get; set; }
 
@@ -80,23 +77,23 @@ namespace UserProfileMicroservice.Controllers
             };
 
 
-            if (LoggedInUsers.FirstOrDefault(x => x.Token == newUserLoggedIn.Token) == null)
+            if (LoggedInUsers.Users.FirstOrDefault(x => x.Token == newUserLoggedIn.Token) == null)
             {
-                LoggedInUsers.Add(newUserLoggedIn);
+                LoggedInUsers.Users.Add(newUserLoggedIn);
             }
 
-            return Ok(newUserLoggedIn.Token);
+            return Ok(newUserLoggedIn);
         }
 
         [HttpPost]
         [Route("api/UserProfile/Logout")]
         public IHttpActionResult Logout(string token)
         {
-            var user = LoggedInUsers.FirstOrDefault(x => x.Token == token);
+            var user = LoggedInUsers.Users.FirstOrDefault(x => x.Token == token);
 
             if (user != null)
             {
-                LoggedInUsers.Remove(user);
+                LoggedInUsers.Users.Remove(user);
             }
 
 
@@ -135,7 +132,7 @@ namespace UserProfileMicroservice.Controllers
 
             foreach (var friend in result)
             {
-                var friendLoggedIn = LoggedInUsers.FirstOrDefault(x => x.Id == friend.Id);
+                var friendLoggedIn = LoggedInUsers.Users.FirstOrDefault(x => x.Id == friend.Id);
                 if (friendLoggedIn != null)
                 {
                     friend.Longitude = friendLoggedIn.Longitude;
@@ -199,7 +196,7 @@ namespace UserProfileMicroservice.Controllers
 
             foreach (var enemy in result)
             {
-                var enemyLoggedIn = LoggedInUsers.FirstOrDefault(x => x.Id == enemy.Id);
+                var enemyLoggedIn = LoggedInUsers.Users.FirstOrDefault(x => x.Id == enemy.Id);
                 if (enemyLoggedIn != null)
                 {
                     enemy.Longitude = enemyLoggedIn.Longitude;
