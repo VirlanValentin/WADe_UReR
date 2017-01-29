@@ -13,9 +13,9 @@ namespace Urer.Web.Controllers
       return View();
     }
 
-    public ActionResult About()
+    public ActionResult Register()
     {
-      ViewBag.Message = "Your application description page.";
+      ViewBag.Message = "Register Here";
 
       return View();
     }
@@ -24,6 +24,11 @@ namespace Urer.Web.Controllers
     {
       ViewBag.Message = "Your contact page.";
 
+      return View();
+    }
+
+    public ActionResult Home()
+    {
       return View();
     }
   }
