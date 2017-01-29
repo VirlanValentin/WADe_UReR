@@ -6,13 +6,8 @@ D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\obj\De
 D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\obj\Debug\UsersDBUpdate.dll
 D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\obj\Debug\UsersDBUpdate.pdb
 D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\dotNetRDF.dll
-D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\HtmlAgilityPack.dll
-D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\Newtonsoft.Json.dll
 D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\VDS.Common.dll
 D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\dotNetRDF.xml
-D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\HtmlAgilityPack.pdb
-D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\HtmlAgilityPack.xml
-D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\Newtonsoft.Json.xml
 D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\VDS.Common.xml
 F:\facultate\master2\wade2\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\UsersDBUpdate.dll.config
 F:\facultate\master2\wade2\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\UsersDBUpdate.dll
@@ -29,3 +24,4 @@ F:\facultate\master2\wade2\UserProfileMicroservice\UserProfileMicroservice\Users
 F:\facultate\master2\wade2\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\obj\Debug\UsersDBUpdate.csprojResolveAssemblyReference.cache
 F:\facultate\master2\wade2\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\obj\Debug\UsersDBUpdate.dll
 F:\facultate\master2\wade2\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\obj\Debug\UsersDBUpdate.pdb
+D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\UsersDBUpdate.dll.config

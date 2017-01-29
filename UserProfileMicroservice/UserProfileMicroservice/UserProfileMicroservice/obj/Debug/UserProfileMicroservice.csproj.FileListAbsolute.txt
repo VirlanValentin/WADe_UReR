@@ -33,7 +33,6 @@ D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroserv
 D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\bin\UsersDBUpdate.dll
 D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\bin\dotNetRDF.dll
 D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\bin\VDS.Common.dll
-D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\bin\HtmlAgilityPack.dll
 D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\bin\Framework.Common.pdb
 D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\bin\Newtonsoft.Json.xml
@@ -51,8 +50,6 @@ D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroserv
 D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\bin\UsersDBUpdate.pdb
 D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\bin\dotNetRDF.xml
 D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\bin\VDS.Common.xml
-D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\bin\HtmlAgilityPack.pdb
-D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\bin\HtmlAgilityPack.xml
 D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\obj\Debug\UserProfileMicroservice.dll
 D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\obj\Debug\UserProfileMicroservice.pdb
 F:\facultate\master2\wade2\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\bin\roslyn\Microsoft.CSharp.Core.targets

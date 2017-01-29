@@ -22,7 +22,7 @@ namespace MoviesLogic
 
         public List<MovieModelResponse> Get(DateTime releaseDateDate, string genre)
         {
-            ManagerUpdateDb.AddGenres();
+           // ManagerUpdateDb.AddGenres();
 
             Fuseki = new FusekiConnector("http://localhost:3030/movies2/data");
 

@@ -60,7 +60,7 @@ namespace UsersDBUpdate
             //Add a namespace declaration
             queryString.Namespaces.AddNamespace("urer", new Uri("http://www.semanticweb.org/geo/ontologies/2017/0/urer#"));
 
-            queryString.CommandText = "DELTE DATA { @resourceUser urer:likesMovie @resourceMovieLike }";
+            queryString.CommandText = "DELETE DATA { @resourceUser urer:likesMovie @resourceMovieLike }";
 
             queryString.SetUri("resourceUser", new Uri(userResourceId));
             queryString.SetLiteral("resourceMovieLike", movieLikeID.ToString());
@@ -78,7 +78,7 @@ namespace UsersDBUpdate
             //Add a namespace declaration
             queryString.Namespaces.AddNamespace("urer", new Uri("http://www.semanticweb.org/geo/ontologies/2017/0/urer#"));
 
-            queryString.CommandText = "DELETE DATA { @resourceUser urer:likesMovie @resourceMovieLike }";
+            queryString.CommandText = "DELETE DATA { @resourceUser urer:likesPlace @resourceMovieLike }";
 
             queryString.SetUri("resourceUser", new Uri(userResourceId));
             queryString.SetLiteral("resourceMovieLike", placeLikeID.ToString());
