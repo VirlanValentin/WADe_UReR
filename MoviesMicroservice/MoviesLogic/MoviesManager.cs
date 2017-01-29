@@ -22,7 +22,7 @@ namespace MoviesLogic
 
         public List<MovieModelResponse> Get(DateTime releaseDateDate, string genre)
         {
-            // ManagerUpdateDb.AddGenres();
+            ManagerUpdateDb.AddGenres();
 
             Fuseki = new FusekiConnector("http://localhost:3030/movies2/data");
 
@@ -33,10 +33,12 @@ namespace MoviesLogic
             queryString.Namespaces.AddNamespace("rdfs", new Uri("http://www.w3.org/2000/01/rdf-schema#"));
             queryString.Namespaces.AddNamespace("wd", new Uri("http://www.wikidata.org/entity/"));
             queryString.Namespaces.AddNamespace("wdt", new Uri("http://www.wikidata.org/prop/direct/"));
+            queryString.Namespaces.AddNamespace("urer", new Uri("http://www.semanticweb.org/geo/ontologies/2017/0/urer#"));
 
             //Set the SPARQL command
             //For more complex queries we can do this in multiple lines by using += on the
-            queryString.CommandText = "SELECT * WHERE { ?s wdt:P31 wd:Q11424. ?s wdt:P1476 ?title. ?s wdt:P577 ?date. ?s wdt:P136 ?genre. ?genre rdfs:label @genre. " + "?s wdt:P345 ?imdb" +
+            queryString.CommandText = "SELECT * WHERE { ?s wdt:P31 wd:Q11424. ?s wdt:P1476 ?title. ?s wdt:P577 ?date. ?s wdt:P136 ?genre." +
+                                      "?genre rdfs:label ?label.  ?genre rdfs:label @genre. ?s urer:id ?id. " + "?s wdt:P345 ?imdb" +
                     " FILTER(year(?date) = @year && month(?date) = @month) }";
 
             //Inject a Value for the parameter
@@ -93,6 +95,8 @@ namespace MoviesLogic
                                 ?s wdt:P1476 ?title.
                                 ?s wdt:P577 ?date.
                                 ?s wdt:P136 ?genre.
+                                ?s urer:id ?id.
+                                ?genre rdfs:label ?label. 
                                 ?genre rdfs:label @genre. " +
                                 "?s wdt:P345 ?imdb} Limit 50"
             };
@@ -100,6 +104,7 @@ namespace MoviesLogic
             queryString.Namespaces.AddNamespace("rdfs", new Uri("http://www.w3.org/2000/01/rdf-schema#"));
             queryString.Namespaces.AddNamespace("wd", new Uri("http://www.wikidata.org/entity/"));
             queryString.Namespaces.AddNamespace("wdt", new Uri("http://www.wikidata.org/prop/direct/"));
+            queryString.Namespaces.AddNamespace("urer", new Uri("http://www.semanticweb.org/geo/ontologies/2017/0/urer#"));
 
             //Inject a Value for the parameter
             queryString.SetLiteral("genre", genre);
@@ -138,22 +143,83 @@ namespace MoviesLogic
             return movies;
         }
 
-        public MovieModelResponse GetById(string id)
+        public MovieModelResponse GetById(Guid id)
         {
             var queryString = new SparqlParameterizedString
             {
-                CommandText = @"SELECT * WHERE  {  ?s urer:id @id }"
+                CommandText = @"SELECT *
+                            WHERE
+                            {
+                                ?s wdt:P31 wd:Q11424.
+                                ?s wdt:P1476 ?title.
+                                ?s wdt:P577 ?date.
+                                ?s wdt:P136 ?genre.
+                                ?s urer:id ?id.
+                                ?genre rdfs:label ?label. 
+                                ?s urer:id @id. " +
+                              "?s wdt:P345 ?imdb} Limit 50"
             };
 
+
+            queryString.Namespaces.AddNamespace("rdfs", new Uri("http://www.w3.org/2000/01/rdf-schema#"));
+            queryString.Namespaces.AddNamespace("wd", new Uri("http://www.wikidata.org/entity/"));
+            queryString.Namespaces.AddNamespace("wdt", new Uri("http://www.wikidata.org/prop/direct/"));
             queryString.Namespaces.AddNamespace("urer", new Uri("http://www.semanticweb.org/geo/ontologies/2017/0/urer#"));
 
+
             //Inject a Value for the parameter
-            queryString.SetLiteral("id", id);
+            queryString.SetLiteral("id", id.ToString());
 
             var resultsFuseki = Fuseki.Query(queryString.ToString()) as SparqlResultSet;
 
             // ReSharper disable once PossibleNullReferenceException
             return resultsFuseki?.Count == 0 ? null : Helpers.MapResponse(resultsFuseki[0]);
+
+        }
+
+        public List<GenreModel> GetGenres()
+        {
+            var queryString = new SparqlParameterizedString();
+
+            queryString.Namespaces.AddNamespace("wd", new Uri("http://www.wikidata.org/entity/"));
+            queryString.Namespaces.AddNamespace("rdfs", new Uri("http://www.w3.org/2000/01/rdf-schema#"));
+            queryString.Namespaces.AddNamespace("wdt", new Uri("http://www.wikidata.org/prop/direct/"));
+            queryString.Namespaces.AddNamespace("urer", new Uri("http://www.semanticweb.org/geo/ontologies/2017/0/urer#"));
+
+            queryString.CommandText =
+                @"SELECT * WHERE { ?genre wdt:P31 wd:Q201658. ?genre rdfs:label ?label. ?genre urer:id ?id }";
+
+            var resultsFuseki = Fuseki.Query(queryString.ToString()) as SparqlResultSet;
+
+            var genres = new List<GenreModel>();
+
+            foreach (var result in resultsFuseki)
+            {
+                var newGenre = Helpers.MapGenreModel(result);
+
+                genres.Add(newGenre);
+            }
+
+            return genres;
+        }
+
+        public GenreModel GetGenreById(Guid id)
+        {
+            var queryString = new SparqlParameterizedString();
+
+            queryString.Namespaces.AddNamespace("wd", new Uri("http://www.wikidata.org/entity/"));
+            queryString.Namespaces.AddNamespace("rdfs", new Uri("http://www.w3.org/2000/01/rdf-schema#"));
+            queryString.Namespaces.AddNamespace("wdt", new Uri("http://www.wikidata.org/prop/direct/"));
+            queryString.Namespaces.AddNamespace("urer", new Uri("http://www.semanticweb.org/geo/ontologies/2017/0/urer#"));
+
+            queryString.CommandText =
+                @"SELECT * WHERE { ?genre wdt:P31 wd:Q201658. ?genre rdfs:label ?label. ?genre urer:id @id. ?genre urer:id ?id }";
+
+            queryString.SetLiteral("id", id.ToString());
+
+            var resultsFuseki = Fuseki.Query(queryString.ToString()) as SparqlResultSet;
+
+            return resultsFuseki?.Count == 0 ? null : Helpers.MapGenreModel(resultsFuseki[0]);
 
         }
     }

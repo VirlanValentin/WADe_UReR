@@ -30,7 +30,7 @@ namespace MoviesMicroservice.Controllers
         //eg: GET api/movies?&genre={genre}
         [HttpGet]
         public IHttpActionResult Get([FromUri] string genre)
-        { 
+        {
             if (genre == null)
             {
                 return BadRequest();
@@ -45,9 +45,9 @@ namespace MoviesMicroservice.Controllers
 
         [Route("api/movies/{id}")]
         [HttpGet]
-        public IHttpActionResult GetById([FromUri] string id) 
+        public IHttpActionResult GetById([FromUri] Guid id) 
         {
-            if (id == null)
+            if (id == Guid.Empty)
             {
                 return BadRequest();
             }
@@ -66,6 +66,24 @@ namespace MoviesMicroservice.Controllers
         public IHttpActionResult Get() 
         {
             return Ok("Ausdhiusahbfdisdfhsdhgf");
+        }
+
+        //eg: GET api/movies/genres
+        [HttpGet]
+        [Route("api/movies/genres")]
+        public IHttpActionResult GetGenres()
+        {
+            var result = MoviesManager.GetGenres();
+            return Ok(result);
+        }
+
+        //eg: GET api/movies/genres
+        [HttpGet]
+        [Route("api/movies/genres/{id}")]
+        public IHttpActionResult GetGenresById([FromUri] Guid id)
+        {
+            var result = MoviesManager.GetGenreById(id);
+            return Ok(result);
         }
     }
 }

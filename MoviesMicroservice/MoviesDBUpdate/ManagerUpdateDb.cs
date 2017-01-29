@@ -73,7 +73,7 @@ namespace MoviesDBUpdate
                     moviesUpdateQuery.Namespaces.AddNamespace("urer", new Uri("http://www.semanticweb.org/geo/ontologies/2017/0/urer#"));
 
                     moviesUpdateQuery.CommandText =
-                        "INSERT DATA {@resource urer:id @id; @resource wdt:P31 wd:Q11424; @resource wdt:P1476 @title ; wdt:P577 @date^^xsd:dateTime; wdt:P136 @genreResource; wdt:P345 @imdbId }";
+                        "INSERT DATA {@resource urer:id @id; wdt:P31 wd:Q11424; wdt:P1476 @title; wdt:P577 @date^^xsd:dateTime; wdt:P136 @genreResource; wdt:P345 @imdbId }";
 
 
                     moviesUpdateQuery.SetLiteral("id", movie.Id.ToString());
@@ -90,41 +90,83 @@ namespace MoviesDBUpdate
 
         public void AddGenres()
         {
-            var queryForGenreTypesAtWikidata = new SparqlParameterizedString();
-            queryForGenreTypesAtWikidata.Namespaces.AddNamespace("rdfs",
-                new Uri("http://www.w3.org/2000/01/rdf-schema#"));
+            var genreNamesList = new List<string>
+            {
+                "science fiction animation",
+                "science fiction action film",
+                "live-action animated film",
+                "christmas film",
+                "short film",
+                "ethnographic film",
+                "action thriller",
+                "superhero film",
+                "musical comedy",
+                "drama film",
+                "science fiction anime",
+                "fantasy film",
+                "comedy film",
+                "romantic thriller",
+                "thriller film",
+                "action comedy film",
+                "horror film",
+                "epic",
+                "dance film",
+                "action film",
+                "adventure film",
+                "war film",
+                "historical film",
+                "epic film"
+            };
 
-            queryForGenreTypesAtWikidata.CommandText =
-                " SELECT* WHERE { ?genre wdt:P31 wd:Q201658. ?genre rdfs:label ?label FILTER(langMatches(lang(?label), \"en\")) }";
-
-            var genresResults = Endpoint.QueryWithResultSet(queryForGenreTypesAtWikidata.ToString());
 
             var genreList = new List<GenreModel>();
 
-            foreach (var result in genresResults)
+            for (int i = 0; i < genreNamesList.Count; i++)
             {
-                var newGenre = new GenreModel
-                {
-                    Resource = result.Value("genre").ToString(),
-                    Label = Helpers.GetTitle(result.Value("label").ToString().ToLower())
-                };
+                var queryForGenreTypesAtWikidata = new SparqlParameterizedString();
 
-                if (genreList.FirstOrDefault(x => x.Resource == newGenre.Resource) == null)
+                queryForGenreTypesAtWikidata.Namespaces.AddNamespace("wd", new Uri("http://www.wikidata.org/entity/"));
+                queryForGenreTypesAtWikidata.Namespaces.AddNamespace("rdfs", new Uri("http://www.w3.org/2000/01/rdf-schema#"));
+                queryForGenreTypesAtWikidata.Namespaces.AddNamespace("wdt", new Uri("http://www.wikidata.org/prop/direct/"));
+
+                queryForGenreTypesAtWikidata.CommandText =
+                    @"SELECT* WHERE { ?genre wdt:P31 wd:Q201658. ?genre rdfs:label ?label. ?genre rdfs:label @label" + "@en FILTER(langMatches(lang(?label), \"en\")) }";
+                queryForGenreTypesAtWikidata.SetLiteral("label", genreNamesList[i]);
+
+                var genresResults = Endpoint.QueryWithResultSet(queryForGenreTypesAtWikidata.ToString());
+
+                foreach (var result in genresResults)
                 {
-                    genreList.Add(newGenre);
+                    var newGenre = new GenreModel
+                    {
+                        Resource = result.Value("genre").ToString(),
+                        Label = Helpers.GetTitle(result.Value("label").ToString().ToLower()),
+                        Id = Guid.NewGuid()
+                    };
+
+                    if (genreList.FirstOrDefault(x => x.Resource == newGenre.Resource) == null)
+                    {
+                        genreList.Add(newGenre);
+                    }
                 }
             }
 
             foreach (var genreModel in genreList)
             {
-                var moviesUpdateQuery2 = new SparqlParameterizedString();
-                moviesUpdateQuery2.Namespaces.AddNamespace("rdfs", new Uri("http://www.w3.org/2000/01/rdf-schema#"));
-                moviesUpdateQuery2.CommandText = " INSERT DATA { @resource wdt:P31 Q201658. @resource rdfs:label @name }";
+                var genreUpdateQuery = new SparqlParameterizedString();
+                genreUpdateQuery.Namespaces.AddNamespace("rdfs", new Uri("http://www.w3.org/2000/01/rdf-schema#"));
+                genreUpdateQuery.Namespaces.AddNamespace("wdt", new Uri("http://www.wikidata.org/prop/direct/"));
+                genreUpdateQuery.Namespaces.AddNamespace("wd", new Uri("http://www.wikidata.org/entity/"));
+                genreUpdateQuery.Namespaces.AddNamespace("urer", new Uri("http://www.semanticweb.org/geo/ontologies/2017/0/urer#"));
 
-                moviesUpdateQuery2.SetUri("resource", new Uri(genreModel.Resource));
-                moviesUpdateQuery2.SetLiteral("name", genreModel.Label);
 
-                Fuseki.Update(moviesUpdateQuery2.ToString());
+                genreUpdateQuery.CommandText = " INSERT DATA { @resource wdt:P31 wd:Q201658; rdfs:label @name; urer:id @id }";
+
+                genreUpdateQuery.SetUri("resource", new Uri(genreModel.Resource));
+                genreUpdateQuery.SetLiteral("name", genreModel.Label);
+                genreUpdateQuery.SetLiteral("id", genreModel.Id.ToString());
+
+                Fuseki.Update(genreUpdateQuery.ToString());
             }
         }
 
@@ -169,8 +211,7 @@ namespace MoviesDBUpdate
                 moviesUpdateQuery.Namespaces.AddNamespace("urer", new Uri("http://www.semanticweb.org/geo/ontologies/2017/0/urer#"));
 
                 moviesUpdateQuery.CommandText =
-                    "INSERT DATA {@resource urer:id @id; @resource wdt:P31 wd:Q11424; @resource wdt:P1476 @title ; wdt:P577 @date^^xsd:dateTime; wdt:P136 @genreResource; wdt:P345 @imdbId }";
-
+                    "INSERT DATA {@resource urer:id @id; wdt:P31 wd:Q11424; wdt:P1476 @title; wdt:P577 @date^^xsd:dateTime; wdt:P136 @genreResource; wdt:P345 @imdbId }";
 
                 moviesUpdateQuery.SetLiteral("id", movie.Id.ToString());
                 moviesUpdateQuery.SetUri("resource", new Uri(movie.Resource));

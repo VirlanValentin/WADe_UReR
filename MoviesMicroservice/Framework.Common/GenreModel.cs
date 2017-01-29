@@ -1,4 +1,6 @@
-﻿namespace MoviesDBUpdate
+﻿using System;
+
+namespace Framework.Common
 {
     public class GenreModel
     {
@@ -7,5 +9,6 @@
 
         //name
         public string Label { get; set; }
+        public Guid Id { get; set; }
     }
 }

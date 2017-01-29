@@ -1,4 +1,5 @@
-﻿using VDS.RDF.Query;
+﻿using System;
+using VDS.RDF.Query;
 
 namespace Framework.Common
 {
@@ -31,13 +32,26 @@ namespace Framework.Common
         {
             return new MovieModelResponse()
             {
+                Id = new Guid(result.Value("id").ToString()),
                 Resource = result.Value("s").ToString(),
                 Title = GetTitle(result.Value("title").ToString()),
                 Date = GetDate(result.Value("date").ToString()),
                 GenreResource = result.Value("genre").ToString(),
+                GenreLabel = result.Value("label").ToString(),
                 ImdbIdentifier = result.Value("imdb").ToString(),
                 ImdbLink = "http://www.imdb.com/title/" + result.Value("imdb").ToString() 
             };
+        }
+
+        public static GenreModel MapGenreModel(SparqlResult result)
+        {
+            return  new GenreModel()
+            {
+                Id = new Guid(result.Value("id").ToString()),
+                Resource = result.Value("genre").ToString(),
+                Label = result.Value("label").ToString()
+            };
+
         }
     }
 }
