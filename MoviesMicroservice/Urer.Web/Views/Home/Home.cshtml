@@ -23,7 +23,7 @@
 </div>
 
 
-<div class="col-md-2 col-xs-5 hidden-xs" id="leftOptions" style="height: 100vh; background-color:red">
+<div class="col-md-2 col-xs-5 hidden-xs" id="leftOptions" style="height: 100vh; background-color:lightgray">
   <div class="row ur-box-sm">
     <div class="col-xs-9">
       <img src="~/Content/Images/avatar.png" class="img-keep-aspect-ratio" style="max-height: 20vh" />
@@ -38,13 +38,89 @@
   </div>
 
   <div class="row">
+    <div class="col-xs-12 accordion" id="accordion">
+      <h3>People</h3>
+      <div class="form-group">
+        <div>
+          <input type="checkbox" data-bind="checked: SeeFriends" id="peopleFriends" class="form-control" />
+          <label for="peopleFriends" class="control-label no-margin">Friends</label>
+        </div>
+        <div>
+          <input type="checkbox" data-bind="checked: SeeEnemies" id="peopleEnemies" class="form-control"/>
+          <label for="peopleEnemies" class="control-label no-margin">Enemies</label>
+        </div>
+      </div>
+      <h3>Places</h3>
+      <div class="form-group">
+        <div>
+          <input type="checkbox" data-bind="checked: SeeRestaurants" id="placesRestaurants" class="form-control" />
+          <label for="placesRestaurants" class="control-label no-margin">Restaurants</label>
+        </div>
 
+        <div>
+          <input type="checkbox" data-bind="checked: SeeMuseums" id="placesMuseums" class="form-control" />
+          <label for="placesMuseums" class="control-label no-margin">Museums</label>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 @*MAP*@
-<div class="col-xs-12 col-md-10 pull-right" id="map" style="height: 100vh">
+<div  class="col-xs-12 col-md-10 pull-right" id="map" style="height: 100vh">
 
 </div>
+@*Details overlay small*@
+<div id="detailsSmall" class="hidden-md hidden-lg" style="height:calc(100vh - 55px); display:none">
+  <div class="row col-xs-12 ur-box-sm">
+    <i class="fa fa-chevron-left" data-bind="click: HideElementDetails" style="font-size:40px; cursor:pointer; padding-left: 10px"></i>
+  </div>
+  <div class="row ur-box-sm">
+    <div class="col-xs-12 centerItems" data-bind="with: SelectedElement" style="justify-content: initial">
+      <img class="img-keep-aspect-ratio" style="height: 20vh; padding: 15px" data-bind="attr: {src: Image}" />
+      <h3 data-bind="text: Name"></h3>
+    </div>
+  </div>  
+  
+  <div class="row ur-box-sm" style="padding: 15px" data-bind="with: SelectedElement">
+    <p class="col-xs-12" data-bind="text: Description"></p>
+  </div>
+
+  <div class="row col-xs-12">
+    @*Series of Images*@
+  </div>
+
+
+  <div class="row col-xs-12">
+    @*Series of Suggestions*@
+  </div>
+</div>
+@*details overlay large*@
+<div id="detailsLarge" class="hidden-xs col-md-10" style="position:absolute; height: 40vh; right: 0;bottom: 0; background-color:white; display:none">
+  <div class="row col-xs-12 ur-box-sm centerItems">
+    <i class="fa fa-chevron-down" data-bind="click: HideElementDetails" style="font-size:40px; padding-left: 10px; cursor:pointer"></i>
+  </div>
+  <div class="row ur-box-sm">
+    <div class="col-xs-12 centerItems" data-bind="with: SelectedElement" style="justify-content: initial">
+      <img class="img-keep-aspect-ratio" style="height: 15vh; padding: 15px" data-bind="attr: {src: Image}" />
+      <h3 data-bind="text: Name"></h3>
+    </div>
+  </div>
+
+  <div class="row ur-box-sm" style="padding: 15px" data-bind="with: SelectedElement">
+    <p class="col-xs-12" data-bind="text: Description"></p>
+  </div>
+
+  <div class="row col-xs-12">
+    @*Series of Images*@
+  </div>
+
+
+  <div class="row col-xs-12">
+    @*Series of Suggestions*@
+  </div>
+</div>
+
+
 @section Scripts{
   <script src="~/Scripts/ApplicationScripts/HomePageScript.js"></script>
 @*<script src="https://maps.googleapis.com/maps/api/js?callback=myMap"></script>*@

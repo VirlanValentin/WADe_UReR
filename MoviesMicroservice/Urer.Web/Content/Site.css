@@ -66,3 +66,25 @@ textarea {
   width: auto;
   height: auto;
 }
+
+.accordion h3, label{
+  cursor:pointer;
+}
+.accordion div.form-group div{
+  display: flex;
+  /*justify-content:center;*/
+  align-items: center;
+   padding-top: 5px;
+  padding-bottom: 5px;
+}
+.accordion div input{
+  height: 20px;
+  width: 20px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.accordion div label{
+  padding-left: 5px;
+  padding-right: 5px;
+}

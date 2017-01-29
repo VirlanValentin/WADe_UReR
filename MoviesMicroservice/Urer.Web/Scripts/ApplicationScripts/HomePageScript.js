@@ -21,7 +21,7 @@ function CreateMarkerContent(elem) {
   var HTMLstring = `<div style="width: 20vh" >
   <div style="display:flex">
     <img class="img-keep-aspect-ratio" style="height:10vh; display:${display};" src="${elem.Image}" />
-    <h3>${elem.Name}</h3>
+    <h3 onclick="hVM.ElementDetails()" style="cursor: pointer">${elem.Name}</h3>
   </div>
   <p>${elem.Description}</p>
   <a href=${elem.Url}>${elem.Url}</a>
@@ -53,7 +53,9 @@ var HomePageModel = function () {
   //TODO: get stuff
   self.GetInfo = function () {
     //for the moment, mock some data
-    self.AddMarker('friend', 'this is a friend');
+    var elem = new MapElement('A guy', self.Icons['friend'], "some random guy on the street",
+      'https://www.facebook.com/marian.brs', self.Lat, self.Long)
+    self.AddMarker('friend', elem);
   }
 
   self.AddMarker = function (feature, element) {
@@ -66,13 +68,39 @@ var HomePageModel = function () {
       content: CreateMarkerContent(element)
     });
     marker.addListener('click', function () {
+      self.SelectedElement(element);
       infowindow.setContent(this.content);
       infowindow.open(map, this);
     });
   }
+  self.ElementDetails = function () {
+    $("#detailsLarge").show();
+    $("#detailsSmall").show();
+    if ($("#detailsSmall:visible").length != 0) {
+      //this means that the details small screen is visible
+      //so hide map 
+      $('#map').hide();
+    }
+    $("#plus-button").hide();
+  }
+  self.HideElementDetails = function () {
+    $('#map').show();
+    $("#detailsSmall").hide();
+    $("#plus-button").show();
+    $("#detailsLarge").hide();
+  }
 
+  //filters
   self.SearchField = ko.observable();
+  self.SeeFriends = ko.observable(true);
+  self.SeeEnemies = ko.observable(true);
+  self.SeeRestaurants = ko.observable(true);
+  self.SeeMuseums = ko.observable(true);
 
+  self.ShowElementDetails = ko.observable(false);
+  self.SelectedElement = ko.observable();
+  self.SelectedElementImages = ko.observableArray();
+  self.SelectedElementSugestions = ko.observableArray();
 
   self.ShowMenuForMobile = function () {
     //show left menu:
@@ -106,6 +134,12 @@ function myMap() {
 }
 
 $(function () {
+  //$("#accordion").accordion({
+  //  collapsible: true
+  //});
+  $("#accordion").accordion({
+    collapsible: true
+  });
   ko.validation.init({
     registerExtenders: true,
     messagesOnModified: true,
@@ -124,8 +158,5 @@ $(function () {
   } else {
    console.log("Geolocation is not supported by this browser.");
   }
-  //google.maps.event.addListener(marker, 'click', function () {
-    
-  //});
   
 });
