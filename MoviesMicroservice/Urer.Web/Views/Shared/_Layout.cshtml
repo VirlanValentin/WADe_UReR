@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UReR</title>
     @Styles.Render("~/Content/css")
+
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="container body-content">
+    <div class="container body-content no-padding no-margin" style="width: inherit">
         @RenderBody()
     </div>
+
   <script id="customMessageTemplate" type="text/html">
     <em class="customMessage" data-bind='validationMessage: field'></em>
   </script>

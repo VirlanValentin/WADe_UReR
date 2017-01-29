@@ -1,6 +1,6 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    /*padding-top: 50px;
+    padding-bottom: 20px;*/
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -30,6 +30,9 @@ textarea {
 .no-padding{
   padding:0;
 }
+.no-margin{
+  margin:0;
+}
 
 .input-has-error{
   border-color: #a94442;
@@ -37,3 +40,29 @@ textarea {
 }
 
 .customMessage { color: red; }
+
+
+/*circle*/
+.circleBase {
+    border-radius: 50%;
+    behavior: url(PIE.htc); /* remove if you don't care about IE8 */
+}
+.circle-red {
+    width: 50px;
+    height: 50px;
+    background: red;
+    border: 3px solid white;
+}
+.centerItems{
+  display: flex;
+  justify-content:center;
+  align-items: center;
+}
+
+.img-keep-aspect-ratio{
+  display: block;
+  max-width:100%;
+  max-height:100%;
+  width: auto;
+  height: auto;
+}

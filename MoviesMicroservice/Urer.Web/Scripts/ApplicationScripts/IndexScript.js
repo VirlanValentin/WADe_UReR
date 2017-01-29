@@ -31,6 +31,7 @@ var IndexViewModel = function() {
     else {
       //continue
       //TODO: post data and redirect to homepage
+      self.GoToHome();
 
     }
   }
@@ -42,7 +43,7 @@ var IndexViewModel = function() {
     else {
       //continue
       //TODO: post data and redirect to homepage
-
+      self.GoToHome();
     }
 
   }
@@ -51,6 +52,12 @@ var IndexViewModel = function() {
       latitude: position.coords.latitude,
       longitude: position.coords.longitude
     });
+    sessionStorage.setItem('lat',position.coords.latitude );
+    sessionStorage.setItem('long', position.coords.longitude);
+  }
+
+  self.GoToHome = function () {
+    window.location.href = $("#indexUrl").val();
   }
 }
 
