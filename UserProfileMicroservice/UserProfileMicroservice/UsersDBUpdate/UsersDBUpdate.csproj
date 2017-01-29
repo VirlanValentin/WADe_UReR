@@ -52,9 +52,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="LikesManager.cs" />
     <Compile Include="EnemiesManager.cs" />
     <Compile Include="FriendsManager.cs" />
+    <Compile Include="PreferencesManager.cs" />
     <Compile Include="UserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
