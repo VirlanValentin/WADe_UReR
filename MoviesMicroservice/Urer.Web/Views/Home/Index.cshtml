@@ -1,0 +1,29 @@
+﻿@{
+  ViewBag.Title = "Home Page";
+  
+}
+
+<div class="container">
+  <div class="row col-md-6 col-md-offset-3 form-group">
+    <h1 style="padding-bottom:20px; text-align:center">Login</h1>
+
+    <div class="col-xs-12 ur-box-sm">
+      <label for="username" class="col-xs-5 control-label no-padding">Username: </label>
+      <input id="username" data-bind="value: Username" type="text" class="col-xs-7 form-control" />
+    </div>
+
+    <div class="col-xs-12 ur-box-sm" >
+      <label for="password" class="col-xs-5 no-padding control-label">Password: </label>
+      <input id="password" data-bind="value: Password" type="password" class="col-xs-7 form-control" />
+    </div>
+    <div class="col-xs-12 ur-box-sm" style="padding-right:30px">
+      <button data-bind="click: Login" type="button" class="btn btn-success col-xs-5">Login</button>
+      <button type="button" class="btn btn-default col-xs-5 pull-right">Register</button>
+    </div>
+  </div>
+</div>
+@section Scripts{
+  <script src="~/Scripts/ApplicationScripts/IndexScript.js"></script>
+}
+
+

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesDBUpdate", "MoviesDBU
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Common", "Framework.Common\Framework.Common.csproj", "{DDD728B0-58A7-4EFA-A6A1-90193C7EDB6B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urer.Web", "Urer.Web\Urer.Web.csproj", "{58D77895-076C-49EC-A62B-6B37C2CFCA24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{DDD728B0-58A7-4EFA-A6A1-90193C7EDB6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDD728B0-58A7-4EFA-A6A1-90193C7EDB6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDD728B0-58A7-4EFA-A6A1-90193C7EDB6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58D77895-076C-49EC-A62B-6B37C2CFCA24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58D77895-076C-49EC-A62B-6B37C2CFCA24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58D77895-076C-49EC-A62B-6B37C2CFCA24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58D77895-076C-49EC-A62B-6B37C2CFCA24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
