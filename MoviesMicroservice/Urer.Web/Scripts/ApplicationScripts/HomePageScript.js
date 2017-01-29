@@ -1,6 +1,35 @@
 ﻿var hVM;
 var map;
 var infowindow;
+
+function MapElement(name, imageSrc, description, url, lat, long) {
+  this.Image = imageSrc;
+  this.Name = name;
+  this.Description = description;
+  this.Url = url;
+  this.Lat = lat;
+  this.Long = long;
+}
+
+function CreateMarkerContent(elem) {
+  var display = 'initial';
+  if (elem.Image == null) {
+    display = 'none';
+  }
+
+  //the img will break, but it won't affect UI
+  var HTMLstring = `<div style="width: 20vh" >
+  <div style="display:flex">
+    <img class="img-keep-aspect-ratio" style="height:10vh; display:${display};" src="${elem.Image}" />
+    <h3>${elem.Name}</h3>
+  </div>
+  <p>${elem.Description}</p>
+  <a href=${elem.Url}>${elem.Url}</a>
+</div>
+`;
+  return HTMLstring;
+}
+
 var HomePageModel = function () {
   var self = this;
   self.Lat = sessionStorage['lat'];
@@ -27,12 +56,14 @@ var HomePageModel = function () {
     self.AddMarker('friend', 'this is a friend');
   }
 
-  self.AddMarker = function (feature, content) {
+  self.AddMarker = function (feature, element) {
+    //element is of type MapElement
     var marker = new google.maps.Marker({
-      position: new google.maps.LatLng(self.Lat, self.Long),
+      position: new google.maps.LatLng(element.Lat, element.Long),
       icon: self.Icons[feature], //friend, enemy, ...
       map: map,
-      content: content
+      //content: content, //HTML content
+      content: CreateMarkerContent(element)
     });
     marker.addListener('click', function () {
       infowindow.setContent(this.content);
