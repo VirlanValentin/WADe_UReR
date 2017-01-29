@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using Framework.Common;
+using Microsoft.Ajax.Utilities;
 using UsersDBUpdate;
 
 namespace UserProfileMicroservice.Controllers
@@ -14,7 +17,10 @@ namespace UserProfileMicroservice.Controllers
             EnemiesManager = new EnemiesManager();
             LikesManager = new LikesManager();
             PreferencesManager = new PreferencesManager();
+            LoggedInUsers = new List<LoggedInUser>();
         }
+
+        public List<LoggedInUser> LoggedInUsers { get; set; }
 
         public EnemiesManager EnemiesManager { get; set; }
 
@@ -29,7 +35,8 @@ namespace UserProfileMicroservice.Controllers
         #region User
 
         [HttpPost]
-        public IHttpActionResult Register(UserModel user)
+        [Route("api/UserProfile/Register")]
+        public IHttpActionResult Register(UserLoginModel user)
         {
 
             if (user == null)
@@ -44,6 +51,56 @@ namespace UserProfileMicroservice.Controllers
                 return Ok(result);
             }
             return BadRequest("User already exists");
+        }
+
+        [HttpPost]
+        [Route("api/UserProfile/Login")]
+        public IHttpActionResult Login(UserLoginModel user)
+        {
+
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            var result = Manager.CheckCredentials(user);
+
+            if (result.IsNullOrWhiteSpace())
+            {
+                return BadRequest("wrong inputs. try again.");
+            }
+
+            var newUserLoggedIn = new LoggedInUser()
+            {
+                Id = new Guid(result),
+                Latitude = user.Latitude,
+                Longitude = user.Longitude,
+                Name = user.Name,
+                Token = Helper.GenerateToken(user.Name)
+            };
+
+
+            if (LoggedInUsers.FirstOrDefault(x => x.Token == newUserLoggedIn.Token) == null)
+            {
+                LoggedInUsers.Add(newUserLoggedIn);
+            }
+
+            return Ok(newUserLoggedIn.Token);
+        }
+
+        [HttpPost]
+        [Route("api/UserProfile/Logout")]
+        public IHttpActionResult Logout(string token)
+        {
+            var user = LoggedInUsers.FirstOrDefault(x => x.Token == token);
+
+            if (user != null)
+            {
+                LoggedInUsers.Remove(user);
+            }
+
+
+            return Ok();
         }
 
         [HttpGet]
@@ -75,6 +132,18 @@ namespace UserProfileMicroservice.Controllers
         public IHttpActionResult GetFriends([FromUri] Guid id)
         {
             var result = FriendsManager.GetFriends(id);
+
+            foreach (var friend in result)
+            {
+                var friendLoggedIn = LoggedInUsers.FirstOrDefault(x => x.Id == friend.Id);
+                if (friendLoggedIn != null)
+                {
+                    friend.Longitude = friendLoggedIn.Longitude;
+                    friend.Latitude = friendLoggedIn.Latitude;
+                }
+            }
+
+
             return Ok(result);
         }
 
@@ -124,9 +193,21 @@ namespace UserProfileMicroservice.Controllers
 
         [HttpGet]
         [Route("api/UserProfile/{id}/enemies")]
-        public IHttpActionResult GetEnemy([FromUri] Guid id)
+        public IHttpActionResult GetEnemies([FromUri] Guid id)
         {
             var result = EnemiesManager.GetEnemies(id);
+
+            foreach (var enemy in result)
+            {
+                var enemyLoggedIn = LoggedInUsers.FirstOrDefault(x => x.Id == enemy.Id);
+                if (enemyLoggedIn != null)
+                {
+                    enemy.Longitude = enemyLoggedIn.Longitude;
+                    enemy.Latitude = enemyLoggedIn.Latitude;
+                }
+            }
+
+
             return Ok(result);
         }
 

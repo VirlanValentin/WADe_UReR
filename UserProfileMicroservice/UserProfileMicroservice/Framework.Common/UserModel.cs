@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Framework.Common
 {
@@ -14,6 +13,7 @@ namespace Framework.Common
     {
         public string Resource { get; set; }
         public Guid Id { get; set; }
-        public List<UserModellResponse> Friends { get; set; } = new List<UserModellResponse>();
+        public double Latitude {get; set; }
+        public double Longitude { get; set; }
     }
 }

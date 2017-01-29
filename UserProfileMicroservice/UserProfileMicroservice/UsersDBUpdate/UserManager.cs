@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Framework.Common;
 using VDS.RDF.Query;
 using VDS.RDF.Storage;
@@ -16,7 +17,7 @@ namespace UsersDBUpdate
 
         public FusekiConnector Fuseki { get; set; }
 
-        public UserModellResponse AddUser(UserModel user)
+        public UserModellResponse AddUser(UserLoginModel user)
         {
             if (CheckUserExists(user.Email))
             {
@@ -24,6 +25,7 @@ namespace UsersDBUpdate
             }
 
             var id = Guid.NewGuid();
+            var password = MD5.Create(user.Password);
 
             var newUser = new UserModellResponse()
             {
@@ -43,11 +45,12 @@ namespace UsersDBUpdate
             queryString.Namespaces.AddNamespace("rdf", new Uri("http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
 
             //Set the SPARQL command
-            queryString.CommandText = "INSERT DATA { @resource rdf:type foaf:Person ; foaf:firstName @name ; rdfs:email @email ; urer:id @id }";
+            queryString.CommandText = "INSERT DATA { @resource rdf:type foaf:Person ; urer:hasPassword @password foaf:firstName @name ; rdfs:email @email ; urer:id @id }";
 
 
             queryString.SetUri("resource", new Uri(newUser.Resource));
             queryString.SetLiteral("name", newUser.Name);
+            queryString.SetLiteral("password", password.ToString());
             queryString.SetLiteral("email", newUser.Email);
             queryString.SetLiteral("id", newUser.Id.ToString());
 
@@ -167,6 +170,38 @@ namespace UsersDBUpdate
             var result = Convert.ToInt32(resultsFuseki[0].Value("total").ToString());
 
             return result > 0;
+        }
+
+        public string CheckCredentials(UserLoginModel user)
+        {
+            var queryString = new SparqlParameterizedString();
+
+            //Add a namespace declaration
+            queryString.Namespaces.AddNamespace("rdfs", new Uri("http://www.w3.org/2000/01/rdf-schema#"));
+            queryString.Namespaces.AddNamespace("urer", new Uri("http://www.semanticweb.org/geo/ontologies/2017/0/urer#"));
+            queryString.Namespaces.AddNamespace("foaf", new Uri("http://xmlns.com/foaf/0.1/"));
+            queryString.Namespaces.AddNamespace("rdf", new Uri("http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
+
+            //Set the SPARQL command
+
+            var password = MD5.Create(user.Password).ToString();
+
+            queryString.CommandText =
+                "SELECT * WHERE {?s rdf:type foaf:Person. ?s urer:id ?id. ?s foaf:firstName @name. ?s urer:hasPassword @password}";
+
+            //Inject a Value for the parameter
+            queryString.SetLiteral("password", password);
+            queryString.SetLiteral("name", user.Email);
+
+            //Query the collection, dump output
+            var resultsFuseki = Fuseki.Query(queryString.ToString()) as SparqlResultSet;
+
+            // ReSharper disable once PossibleNullReferenceException
+            if (resultsFuseki.Count != 0)
+            {
+                return resultsFuseki[0].Value("id").ToString();
+            }
+            return null;
         }
     }
 }
