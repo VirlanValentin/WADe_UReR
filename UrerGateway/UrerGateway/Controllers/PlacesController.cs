@@ -10,13 +10,13 @@ namespace UrerGateway.Controllers
 
         public PlacesController()
         {
-            this.placesRestClient = new PlacesRestClient();
+            placesRestClient = new PlacesRestClient();
         }
 
         [HttpGet]
         public UrerActionResult Get()
         {
-            return this.placesRestClient.Get();
+            return placesRestClient.Get();
         }
     }
 }

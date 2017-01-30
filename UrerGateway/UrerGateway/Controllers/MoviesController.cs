@@ -11,51 +11,51 @@ namespace UrerGateway.Controllers
 
         public MoviesController()
         {
-            this.moviesRestClient = new MoviesRestClient();
+            moviesRestClient = new MoviesRestClient();
         }
 
         [HttpGet]
         public UrerActionResult Get()
         {
-            return this.moviesRestClient.Get();
+            return moviesRestClient.Get();
         }
 
         [HttpGet]
         public UrerActionResult Get([FromUri] Guid id)
         {
-            return this.moviesRestClient.Get(id);
+            return moviesRestClient.Get(id);
         }
 
         [HttpGet]
         public UrerActionResult Get([FromUri] string genre)
         {
-            return this.moviesRestClient.Get(genre);
+            return moviesRestClient.Get(genre);
         }
 
         [HttpGet]
         public UrerActionResult Get([FromUri] DateTime releaseDate, [FromUri] string genre)
         {
-            return this.moviesRestClient.Get(releaseDate, genre);
+            return moviesRestClient.Get(releaseDate, genre);
         }
 
         [HttpPost]
         public UrerActionResult Post(object data)
         {
-            return this.moviesRestClient.Post(data);
+            return moviesRestClient.Post(data);
         }
 
         [HttpGet]
         [Route("api/movies/genres")]
         public UrerActionResult GetGenres()
         {
-            return this.moviesRestClient.GetGenres();
+            return moviesRestClient.GetGenres();
         }
 
         [HttpGet]
         [Route("api/movies/genres/{id}")]
         public UrerActionResult GetGenresById([FromUri] Guid id)
         {
-            return this.moviesRestClient.GetGenresById(id);
+            return moviesRestClient.GetGenresById(id);
         }
     }
 }

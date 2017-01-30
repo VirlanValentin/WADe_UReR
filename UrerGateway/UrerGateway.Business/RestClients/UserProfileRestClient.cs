@@ -32,6 +32,18 @@ namespace UrerGateway.Business.RestClients
             return base.Post(Path, data);
         }
 
+        public UrerActionResult Login(object data)
+        {
+            var path = Path + "/login" ;
+            return base.Post(path, data);
+        }
+
+        public UrerActionResult Logout(object data)
+        {
+            var path = Path + "/logout" ;
+            return base.Post(path, data);
+        }
+
         #endregion
 
         #region Friends
@@ -157,5 +169,7 @@ namespace UrerGateway.Business.RestClients
         }
 
         #endregion
+
+      
     }
 }
