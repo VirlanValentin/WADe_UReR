@@ -1,0 +1,14 @@
+D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\bin\Release\Framework.Common.dll
+D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\bin\Release\Framework.Common.pdb
+D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\bin\Release\dotNetRDF.dll
+D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\bin\Release\HtmlAgilityPack.dll
+D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\bin\Release\Newtonsoft.Json.dll
+D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\bin\Release\VDS.Common.dll
+D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\bin\Release\dotNetRDF.xml
+D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\bin\Release\HtmlAgilityPack.pdb
+D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\bin\Release\HtmlAgilityPack.xml
+D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\bin\Release\Newtonsoft.Json.xml
+D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\bin\Release\VDS.Common.xml
+D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\obj\Release\Framework.Common.csprojResolveAssemblyReference.cache
+D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\obj\Release\Framework.Common.dll
+D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\obj\Release\Framework.Common.pdb

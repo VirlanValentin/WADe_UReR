@@ -10,8 +10,7 @@ namespace UsersDBUpdate
     {
         public FriendsManager()
         {
-
-            Fuseki = new FusekiConnector("http://localhost:3030/users/data");
+            Fuseki = new FusekiConnector("http://54.187.81.132:3030/users/data");
         }
 
         public FusekiConnector Fuseki { get; set; }

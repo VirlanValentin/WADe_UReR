@@ -9,3 +9,14 @@ E:\CodeRetreat\UrerGateway\UrerGateway.Business\bin\Debug\System.Net.Http.Format
 E:\CodeRetreat\UrerGateway\UrerGateway.Business\bin\Debug\System.Web.Http.xml
 E:\CodeRetreat\UrerGateway\UrerGateway.Business\obj\Debug\UrerGateway.Business.dll
 E:\CodeRetreat\UrerGateway\UrerGateway.Business\obj\Debug\UrerGateway.Business.pdb
+D:\WADE GIT\UrerGateway\UrerGateway.Business\bin\Debug\UrerGateway.Business.dll
+D:\WADE GIT\UrerGateway\UrerGateway.Business\bin\Debug\UrerGateway.Business.pdb
+D:\WADE GIT\UrerGateway\UrerGateway.Business\bin\Debug\Newtonsoft.Json.dll
+D:\WADE GIT\UrerGateway\UrerGateway.Business\bin\Debug\System.Net.Http.Formatting.dll
+D:\WADE GIT\UrerGateway\UrerGateway.Business\bin\Debug\System.Web.Http.dll
+D:\WADE GIT\UrerGateway\UrerGateway.Business\bin\Debug\Newtonsoft.Json.xml
+D:\WADE GIT\UrerGateway\UrerGateway.Business\bin\Debug\System.Net.Http.Formatting.xml
+D:\WADE GIT\UrerGateway\UrerGateway.Business\bin\Debug\System.Web.Http.xml
+D:\WADE GIT\UrerGateway\UrerGateway.Business\obj\Debug\UrerGateway.Business.csprojResolveAssemblyReference.cache
+D:\WADE GIT\UrerGateway\UrerGateway.Business\obj\Debug\UrerGateway.Business.dll
+D:\WADE GIT\UrerGateway\UrerGateway.Business\obj\Debug\UrerGateway.Business.pdb

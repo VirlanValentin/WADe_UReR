@@ -44,7 +44,7 @@ namespace UrerGateway.Controllers
         }
 
         [HttpPost]
-        public UrerActionResult Login(string data)
+        public UrerActionResult Logout(string data)
         {
             return userProfileRestClient.Logout(data);
         }
