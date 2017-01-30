@@ -32,18 +32,21 @@ namespace UrerGateway.Controllers
         }
 
         [HttpPost]
+        [Route("api/UserProfile/Register")]
         public UrerActionResult Register(object data)
         {
-            return userProfileRestClient.Post(data);
+            return userProfileRestClient.Register(data);
         }
 
         [HttpPost]
+        [Route("api/UserProfile/Login")]
         public UrerActionResult Login(object data)
         {
             return userProfileRestClient.Login(data);
         }
 
         [HttpPost]
+        [Route("api/UserProfile/Logout")]
         public UrerActionResult Logout(string data)
         {
             return userProfileRestClient.Logout(data);

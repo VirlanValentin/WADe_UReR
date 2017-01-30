@@ -1,0 +1,11 @@
+D:\WADE GIT\UrerGateway\UrerGateway.Business\bin\Release\UrerGateway.Business.dll
+D:\WADE GIT\UrerGateway\UrerGateway.Business\bin\Release\UrerGateway.Business.pdb
+D:\WADE GIT\UrerGateway\UrerGateway.Business\bin\Release\Newtonsoft.Json.dll
+D:\WADE GIT\UrerGateway\UrerGateway.Business\bin\Release\System.Net.Http.Formatting.dll
+D:\WADE GIT\UrerGateway\UrerGateway.Business\bin\Release\System.Web.Http.dll
+D:\WADE GIT\UrerGateway\UrerGateway.Business\bin\Release\Newtonsoft.Json.xml
+D:\WADE GIT\UrerGateway\UrerGateway.Business\bin\Release\System.Net.Http.Formatting.xml
+D:\WADE GIT\UrerGateway\UrerGateway.Business\bin\Release\System.Web.Http.xml
+D:\WADE GIT\UrerGateway\UrerGateway.Business\obj\Release\UrerGateway.Business.csprojResolveAssemblyReference.cache
+D:\WADE GIT\UrerGateway\UrerGateway.Business\obj\Release\UrerGateway.Business.dll
+D:\WADE GIT\UrerGateway\UrerGateway.Business\obj\Release\UrerGateway.Business.pdb

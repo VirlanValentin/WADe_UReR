@@ -32,6 +32,12 @@ namespace UrerGateway.Business.RestClients
             return base.Post(Path, data);
         }
 
+        public UrerActionResult Register(object data)
+        {
+            var path = Path + "/register" ;
+            return base.Post(path, data);
+        }
+
         public UrerActionResult Login(object data)
         {
             var path = Path + "/login" ;
