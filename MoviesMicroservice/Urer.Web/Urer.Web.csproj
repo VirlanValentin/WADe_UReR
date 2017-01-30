@@ -200,6 +200,7 @@
     <Content Include="Content\Icons\plate-fork-and-knife.png" />
     <Content Include="Content\Icons\skull-and-bones.png" />
     <Content Include="Content\Images\avatar.png" />
+    <Content Include="Content\Images\sampleQR.png" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -248,6 +249,7 @@
     <Content Include="Icon.png" />
     <Content Include="Scripts\ApplicationScripts\HomePageScript.js" />
     <Content Include="Scripts\ApplicationScripts\IndexScript.js" />
+    <Content Include="Scripts\ApplicationScripts\MyProfileScript.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -301,6 +303,7 @@
     <Content Include="Scripts\knockout.validation.min.js.map" />
     <Content Include="Views\Home\Home.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\MyProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

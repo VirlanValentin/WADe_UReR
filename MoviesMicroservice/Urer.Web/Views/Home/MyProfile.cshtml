@@ -1,0 +1,208 @@
+﻿
+@{
+    ViewBag.Title = "MyProfile";
+}
+
+
+<div style="display:none">
+  <img id="avatar" src="~/Content/Images/avatar.png" />
+</div>
+@*Desktop App:*@
+<div class="hidden-xs">
+
+  <div class="row no-margin">
+
+    <table style="width:100%">
+      <tr>
+        <th>
+          <a href="@Url.Action("Home")" class="fa fa-chevron-left" style="font-size:40px; cursor:pointer; padding-left: 10px">
+          </a>
+        </th>
+        <th>
+          <img class="img-keep-aspect-ratio" style="height:20vh" src="~/Content/Images/avatar.png" />
+        </th>
+        <th>
+          <h3 data-bind="text: User().UserName"></h3>
+        </th>
+        <th style="float:right">
+          <a data-bind="attr: {src: User.QRLink, href: User.QRLink}" @*href="/path/to/image"*@ download="myQRCode">
+            <img class="img-keep-aspect-ratio" src="~/Content/Images/sampleQR.png" style="height:10vh" />
+          </a>
+        </th>
+      </tr>
+    </table>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      
+      <p class="col-md-12"> Lorem ipsum...</p>
+      <label class="col-md-12 control-label no-padding">Notifications</label>
+
+      <div class="col-md-12 centerItems bottom-notifications" style="justify-content:initial">
+        <input type="checkbox" data-bind="checked: AlertFriends" class="form-control input-checkbox-urer" />
+        <label class="control-label">Friends</label>
+        <input type="checkbox" data-bind="checked: AlertEnemies" class="form-control input-checkbox-urer" />
+        <label class="control-label">Enemies</label>
+        <input type="checkbox" data-bind="checked: Places" class="form-control input-checkbox-urer" />
+        <label class="control-label">Places</label>
+        <input type="checkbox" data-bind="checked: Movies" class="form-control input-checkbox-urer" />
+        <label class="control-label">Movies</label>
+      </div>
+
+    </div>
+
+    <div class="col-md-8">
+      <div class="row no-margin centerItems" style="padding: 10px">
+        @*Friends*@
+        <div class="no-padding col-xs-1">
+          <img src="~/Content/Icons/eagle-shield.png" />
+        </div>
+        <div class="col-xs-10" style="display: -webkit-inline-box; overflow-x: scroll" data-bind="foreach: Friends">
+          <div style="text-align:center; padding: 15px" >
+            <img data-bind="attr: {src: Picture}" class="img-keep-aspect-ratio" style="width: 10vh" />
+            <a class="control-label" data-bind="text: Name, attr:{href: Url}"></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="row no-margin centerItems" style="padding: 10px">
+        @*Enemies*@
+        <div class="no-padding col-xs-1">
+          <img src="~/Content/Icons/skull-and-bones.png" />
+        </div>
+        <div class="col-xs-10" style="display: -webkit-inline-box; overflow-x: scroll" data-bind="foreach: Enemies">
+          <div style="text-align:center;padding: 15px">
+            <img data-bind="attr: {src: Picture}" class="img-keep-aspect-ratio" style="width: 10vh" />
+            <a class="control-label" data-bind="text: Name, attr:{href: Url}"></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="row no-margin centerItems" style="padding: 10px">
+        @*Likes*@
+        <div class="no-padding col-xs-1">
+          <img src="~/Content/Icons/like.png" />
+        </div>
+        <div class="col-xs-10" style="display: -webkit-inline-box; overflow-x: scroll" data-bind="foreach: Likes">
+          <div style="text-align:center;padding: 15px">
+            <img data-bind="attr: {src: Picture}" class="img-keep-aspect-ratio" style="width: 10vh" />
+            <a class="control-label" data-bind="text: Name, attr:{href: Url}"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+</div>
+
+@*Mobile app*@
+<div class="visible-xs">
+
+  <div class="row no-margin">
+
+    <table style="width:100%">
+      <tr>
+        <th>
+        <a href="@Url.Action("Home")" class="fa fa-chevron-left" style="font-size:40px; cursor:pointer; padding-left: 10px">
+          </a>
+        </th>
+        <th> <h3 data-bind="text: User().UserName"></h3>
+        </th>
+        <th style="float:right">
+          <a data-bind="attr: {src: User.QRLink, href: User.QRLink}" @*href="/path/to/image"*@ download="myQRCode">
+            <img class="img-keep-aspect-ratio" src="~/Content/Images/sampleQR.png" style="height:10vh" />
+          </a>
+        </th>
+      </tr>
+    </table>
+  </div>
+
+
+  @*TODO: set src from js- userobject*@
+  <div class="row no-margin" style="padding: 10px">
+    @*User picture and some description*@
+    <div class="col-xs-4">
+      <img class="img-keep-aspect-ratio" style="width:100%" src="~/Content/Images/avatar.png" />
+    </div>
+    <div class="col-xs-8">
+      <p> Lorem ipsum...</p>
+    </div>
+  </div>
+
+  <div class="row no-margin centerItems" style="padding: 10px">
+    @*Friends*@
+    <div class="no-padding col-xs-1">
+      <img src="~/Content/Icons/eagle-shield.png" />
+    </div>
+    <div class="col-xs-10" style="display: -webkit-inline-box; overflow-x: scroll" data-bind="foreach: Friends">
+      <div style="text-align:center">
+      <img data-bind="attr: {src: Picture}"  class="img-keep-aspect-ratio" style="width: 10vh"/>
+        <a class="control-label" data-bind="text: Name, attr:{href: Url}"></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-margin centerItems" style="padding: 10px">
+    @*Enemies*@
+    <div class="no-padding col-xs-1">
+      <img src="~/Content/Icons/skull-and-bones.png" />
+    </div>
+    <div class="col-xs-10" style="display: -webkit-inline-box; overflow-x: scroll" data-bind="foreach: Enemies">
+      <div style="text-align:center">
+        <img data-bind="attr: {src: Picture}" class="img-keep-aspect-ratio" style="width: 10vh" />
+        <a class="control-label" data-bind="text: Name, attr:{href: Url}"></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-margin centerItems" style="padding: 10px">
+    @*Likes*@
+    <div class="no-padding col-xs-1">
+      <img src="~/Content/Icons/like.png" />
+    </div>
+    <div class="col-xs-10" style="display: -webkit-inline-box; overflow-x: scroll" data-bind="foreach: Likes">
+      <div style="text-align:center">
+        <img data-bind="attr: {src: Picture}" class="img-keep-aspect-ratio" style="width: 10vh" />
+        <a class="control-label" data-bind="text: Name, attr:{href: Url}"></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-margin" style="padding: 10px">
+    @*Notifications*@
+    <label class="col-xs-12 control-label no-padding">Notifications</label>
+    
+    <div  class="col-xs-12 centerItems bottom-notifications" style="justify-content:initial">
+      <input type="checkbox" data-bind="checked: AlertFriends" class="form-control input-checkbox-urer" />
+      <label class="control-label">Friends</label>
+      <input type="checkbox" data-bind="checked: AlertEnemies" class="form-control input-checkbox-urer" />
+      <label class="control-label">Enemies</label>
+      <input type="checkbox" data-bind="checked: Places" class="form-control input-checkbox-urer" />
+      <label class="control-label">Places</label>
+      <input type="checkbox" data-bind="checked: Movies"  class="form-control input-checkbox-urer" />
+      <label class="control-label">Movies</label>
+    </div>
+
+
+  </div>
+</div>
+
+<style>
+  .input-checkbox-urer{
+  height: 18px;
+  width: 18px;
+  display:inline;
+}
+  .bottom-notifications label {
+    margin-bottom: 0;
+    padding-right: 10px
+  }
+</style>
+
+@section Scripts{
+  <script src="~/Scripts/ApplicationScripts/MyProfileScript.js"></script>
+}
