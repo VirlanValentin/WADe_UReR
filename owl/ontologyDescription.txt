@@ -1,0 +1,50 @@
+Person
+	Properties
+		urer:id - string --
+		foaf:firstName - rdfs:Literal --
+		rdfs:email - string --
+		rel:friendOf - Person --
+		rel:EnemyOf - Person --
+		urer:likesMovie - Movie --
+		urer:likesPlace - Place --
+		urer:hasMoviePrefrence - Movie --
+		urer:hasPlacePreference - Place --
+Place
+	Properties
+		urer:id - string -- 
+		urer:hasLocation - Location --
+		foaf:name - string --
+		rdf:resource -  ("https://maps.google.com/?q=Valea+Lupului+707410,+Romania&ftid=0x40cae4bda8eed787:0x2e32c64757ba0570") --
+		urer:hasType - PlaceType --
+		foaf:depiction - Image ("https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png") --
+		uer:hasAddress - string --
+		urer:hasPhoneNumber - string --
+		urer:hasRating - double --
+		urer:hasVicinity - string --
+		urer:isOpen - boolean --
+		urer:hasSchedule - string --
+		urer:hasWebsite - string --
+PlaceType:
+	Properties
+		urer:id - string --
+		foaf:name - string --
+Movie
+	same as wd:Q11424 (Movie from Wikidata)
+	Properties
+		urer:id - string -- 
+		wdt:P31 -  (instance of Movie)
+		wdt:P1476 - string (title)
+		wdt:P577 - xsd:DateTime (publishDate)
+		wdt:P136 - Genre (genre)
+		wdt:P345 - string (imdb Identifier)
+Genre
+	same as  wd:Q201658 (Film genre)
+	Properties
+		urer:id - string -- 
+		rdfs:label - string -- 
+		wdt:P31 - (instance of filmGenre)
+Location
+	Properties
+		urer:id - string --
+		urer:hasLatittude - double --
+		urer:hasLongitude - double --

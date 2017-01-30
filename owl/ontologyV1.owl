@@ -1,0 +1,249 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/geo/ontologies/2017/0/urer#"
+     xml:base="http://www.semanticweb.org/geo/ontologies/2017/0/urer"
+     xmlns:ns="http://www.w3.org/2003/06/sw-vocab-status/ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:wdt="http://www.wikidata.org/prop/direct/"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:rel="http://purl.org/vocab/relationship/"
+     xmlns:terms1="http://open.vocab.org/terms/"
+     xmlns:urer="http://www.semanticweb.org/geo/ontologies/2017/0/urer#"
+     xmlns:vann="http://purl.org/vocab/vann/"
+     xmlns:wot="http://xmlns.com/wot/0.1/"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/geo/ontologies/2017/0/urer">
+        <owl:imports rdf:resource="http://purl.org/vocab/relationship/"/>
+        <owl:imports rdf:resource="http://xmlns.com/foaf/0.1/"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/geo/ontologies/2017/0/urer#hasLocation -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/geo/ontologies/2017/0/urer#hasLocation">
+        <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/geo/ontologies/2017/0/urer#Location"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/geo/ontologies/2017/0/urer#hasMoviePreference -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/geo/ontologies/2017/0/urer#hasMoviePreference">
+        <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/geo/ontologies/2017/0/urer#Movie"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/geo/ontologies/2017/0/urer#hasPlacePreference -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/geo/ontologies/2017/0/urer#hasPlacePreference">
+        <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/geo/ontologies/2017/0/urer#Place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/geo/ontologies/2017/0/urer#hasType -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/geo/ontologies/2017/0/urer#hasType">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/geo/ontologies/2017/0/urer#Place"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/geo/ontologies/2017/0/urer#PlaceType"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/geo/ontologies/2017/0/urer#likesMovie -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/geo/ontologies/2017/0/urer#likesMovie">
+        <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/geo/ontologies/2017/0/urer#Movie"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/geo/ontologies/2017/0/urer#likesPlace -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/geo/ontologies/2017/0/urer#likesPlace">
+        <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/geo/ontologies/2017/0/urer#Place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/geo/ontologies/2017/0/urer#hasAdress -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/geo/ontologies/2017/0/urer#hasAdress">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/geo/ontologies/2017/0/urer#Place"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/geo/ontologies/2017/0/urer#hasLatitude -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/geo/ontologies/2017/0/urer#hasLatitude">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/geo/ontologies/2017/0/urer#Location"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/geo/ontologies/2017/0/urer#hasLongitude -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/geo/ontologies/2017/0/urer#hasLongitude">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/geo/ontologies/2017/0/urer#Location"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/geo/ontologies/2017/0/urer#hasPhoneNumber -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/geo/ontologies/2017/0/urer#hasPhoneNumber">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/geo/ontologies/2017/0/urer#Place"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/geo/ontologies/2017/0/urer#hasRating -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/geo/ontologies/2017/0/urer#hasRating">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/geo/ontologies/2017/0/urer#Place"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/geo/ontologies/2017/0/urer#hasSchedule -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/geo/ontologies/2017/0/urer#hasSchedule">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/geo/ontologies/2017/0/urer#Place"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/geo/ontologies/2017/0/urer#hasVicinity -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/geo/ontologies/2017/0/urer#hasVicinity">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/geo/ontologies/2017/0/urer#Place"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/geo/ontologies/2017/0/urer#hasWebsite -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/geo/ontologies/2017/0/urer#hasWebsite">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/geo/ontologies/2017/0/urer#Place"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/geo/ontologies/2017/0/urer#id -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/geo/ontologies/2017/0/urer#id">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/geo/ontologies/2017/0/urer#idOpen -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/geo/ontologies/2017/0/urer#idOpen">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/geo/ontologies/2017/0/urer#Place"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/geo/ontologies/2017/0/urer#Genre -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/geo/ontologies/2017/0/urer#Genre">
+        <owl:equivalentClass rdf:resource="http://www.wikidata.org/entity/Q201658"/>
+    </owl:Class>
+
+
+    <!-- http://www.semanticweb.org/geo/ontologies/2017/0/urer#Location -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/geo/ontologies/2017/0/urer#Location"/>
+    
+
+
+    <!-- http://www.semanticweb.org/geo/ontologies/2017/0/urer#Movie -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/geo/ontologies/2017/0/urer#Movie">
+        <owl:equivalentClass rdf:resource="http://www.wikidata.org/entity/Q11424"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/geo/ontologies/2017/0/urer#Place -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/geo/ontologies/2017/0/urer#Place"/>
+    
+
+
+    <!-- http://www.semanticweb.org/geo/ontologies/2017/0/urer#PlaceType -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/geo/ontologies/2017/0/urer#PlaceType"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/Person -->
+
+    <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/Person"/>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.6.20160910-2108) https://github.com/owlcs/owlapi -->
+
