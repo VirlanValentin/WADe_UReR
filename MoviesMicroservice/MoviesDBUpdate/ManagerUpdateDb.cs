@@ -13,7 +13,7 @@ namespace MoviesDBUpdate
         {
             EndpointUri = new Uri("https://query.wikidata.org/sparql");
             Endpoint = new SparqlRemoteEndpoint(EndpointUri, "https://query.wikidata.org");
-            Fuseki = new FusekiConnector("http://localhost:3030/movies2/data");
+            Fuseki = new FusekiConnector("http://54.187.81.132:3030/movies/data");
         }
 
         public FusekiConnector Fuseki { get; set; }

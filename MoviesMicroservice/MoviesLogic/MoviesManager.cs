@@ -13,7 +13,7 @@ namespace MoviesLogic
         public MoviesManager()
         {
             ManagerUpdateDb = new ManagerUpdateDb();
-            Fuseki = new FusekiConnector("http://localhost:3030/movies2/data");
+            Fuseki = new FusekiConnector("http://54.187.81.132:3030/movies/data");
         }
 
         public FusekiConnector Fuseki { get; set; }
@@ -23,9 +23,7 @@ namespace MoviesLogic
         public List<MovieModelResponse> Get(DateTime releaseDateDate, string genre)
         {
            // ManagerUpdateDb.AddGenres();
-
-            Fuseki = new FusekiConnector("http://localhost:3030/movies2/data");
-
+           
             //Create a Parameterized String
             var queryString = new SparqlParameterizedString();
 
@@ -179,6 +177,7 @@ namespace MoviesLogic
 
         public List<GenreModel> GetGenres()
         {
+            ManagerUpdateDb.AddGenres();
             var queryString = new SparqlParameterizedString();
 
             queryString.Namespaces.AddNamespace("wd", new Uri("http://www.wikidata.org/entity/"));
