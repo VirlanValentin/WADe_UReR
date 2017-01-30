@@ -9,7 +9,7 @@ namespace UrerGateway.Business.RestClients
         public PlacesRestClient()
         {
             var address = ConfigurationManager.AppSettings["PlacesLink"];
-            this.BaseAddress = new Uri(address);
+            BaseAddress = new Uri(address);
         }
 
         public UrerActionResult Get(double lat, double lon, double radius, string type, int limit, int offset)
@@ -31,7 +31,13 @@ namespace UrerGateway.Business.RestClients
 
         public UrerActionResult Get(Guid id)
         {
-            var path = "Places-API/api/places" + id;
+            var path = "Places-API/api/places/" + id;
+            return base.Get(path);
+        }
+
+        public UrerActionResult GetRelatedPlaces(Guid id, int limit, int offset)
+        {
+            var path = "Places-API/api/places/" + id + "/related?limit=" + limit + "&offset=" + offset;
             return base.Get(path);
         }
     }

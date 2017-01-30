@@ -15,7 +15,7 @@ namespace UrerGateway.Controllers
         }
 
         [HttpGet]
-        public UrerActionResult Get(double lat, double lon, double radius, string type, int limit, int offset)
+        public UrerActionResult Get([FromUri]double lat, [FromUri] double lon, [FromUri] double radius, [FromUri] string type, [FromUri] int limit, [FromUri] int offset)
         {
             return placesRestClient.Get(lat, lon, radius, type, limit, offset);
         }
@@ -24,6 +24,13 @@ namespace UrerGateway.Controllers
         public UrerActionResult Get([FromUri] Guid id)
         {
             return placesRestClient.Get(id);
+        }
+
+        [HttpGet]
+        [Route("api/places/{place_id}/related")]
+        public UrerActionResult GetRelatedPlaces([FromUri] Guid id, [FromUri] int limit, [FromUri] int offset)
+        {
+            return placesRestClient.GetRelatedPlaces(id, limit, offset);
         }
     }
 }
