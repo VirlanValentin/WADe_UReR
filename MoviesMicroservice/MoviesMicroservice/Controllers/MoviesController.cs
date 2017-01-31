@@ -62,6 +62,25 @@ namespace MoviesMicroservice.Controllers
             return Ok(result);
         }
 
+        [Route("api/movies/{id}/related")]
+        [HttpGet]
+        public IHttpActionResult GetRelated([FromUri] Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
+            var result = MoviesManager.GetRelated(id);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
+
         [HttpGet]
         public IHttpActionResult Get() 
         {
