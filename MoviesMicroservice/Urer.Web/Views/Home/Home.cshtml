@@ -8,7 +8,10 @@
     @*24x24 px*@
     <img data-name="enemy" src="~/Content/Icons/skull-and-bones.png" />
     <img data-name="friend" src="~/Content/Icons/eagle-shield.png" />
+    <img data-name="neutral" src="~/Content/Icons/emoticon-neutral-face-outline.png" />
   </div>
+  <input type="hidden" value="http://ureruserprofile.azurewebsites.net/api/UserProfile" id="baseUrl" />
+  <input type="hidden" value="http://urergatewayapi.azurewebsites.net/api/places" id="baseUrlPlaces" />
   @Html.Hidden("indexUrl", Url.Action("Index"))
 </div>
 @*<div style="width: 20vh" id="contentTemplate">
@@ -17,6 +20,20 @@
     <h3>Resource Name</h3>
   </div><p>Some description about the resource</p>
 </div>*@
+
+@*<div style="width: 20vh">
+  <div style="display:flex">
+    <img class="img-keep-aspect-ratio" style="height:10vh;" src="~/Content/Icons/emoticon-neutral-face-outline.png" />
+    <h3 onclick="hVM.ElementDetails()" style="cursor: pointer">Name</h3>
+  </div>
+  <p>description</p>
+  @*<a href=url>url</a>
+
+  <a href="#" onclick="AddFriend()" >Add friend</a>
+  <a href="#" onclick="AddEnemy()" class="pull-right">Add enemy</a>
+  
+</div>*@
+
 
 @*plus button*@
 <div data-bind="click: ShowMenuForMobile" id="plus-button" class="circleBase circle-red centerItems hidden-md hidden-lg" style="position: absolute; bottom: 5px; left: 5px; z-index:10">
