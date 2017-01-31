@@ -1,0 +1,9 @@
+models\Location.class
+models\PlaceType.class
+managers\PlacesManager.class
+models\ErrorMessage.class
+managers\PlaceTypeManager.class
+queries\QueryBuilderPrefixes.class
+models\Place.class
+queries\QueryBuilderLocationFuseki.class
+queries\QueryBuilderPlaceTypeFuseki.class
