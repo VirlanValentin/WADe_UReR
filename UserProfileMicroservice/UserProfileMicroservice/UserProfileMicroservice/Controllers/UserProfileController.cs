@@ -132,7 +132,7 @@ namespace UserProfileMicroservice.Controllers
 
         [HttpPost]
         [Route("api/UserProfile/Logout")]
-        public IHttpActionResult Logout(string token)
+        public IHttpActionResult Logout([FromBody] string token)
         {
             var user = LoggedInUsers.Users.FirstOrDefault(x => x.Token == token);
 
@@ -201,9 +201,9 @@ namespace UserProfileMicroservice.Controllers
             return Ok(result);
         }
 
-        [HttpPut]
-        [Route("api/UserProfile/{id}/friends/{friendId}")]
-        public IHttpActionResult AddFriend([FromUri] Guid id, [FromUri] Guid friendId)
+        [HttpPost]
+        [Route("api/UserProfile/{id}/friends")]
+        public IHttpActionResult AddFriend([FromUri] Guid id, [FromBody] Guid friendId)
         {
             var userExists = Manager.CheckUserExistsById(id);
             if (!userExists)
@@ -222,8 +222,8 @@ namespace UserProfileMicroservice.Controllers
         }
 
         [HttpDelete]
-        [Route("api/UserProfile/{id}/friends/{friendId}")]
-        public IHttpActionResult RemoveFriend([FromUri] Guid id, [FromUri] Guid friendId)
+        [Route("api/UserProfile/{id}/friends")]
+        public IHttpActionResult RemoveFriend([FromUri] Guid id, [FromBody] Guid friendId)
         {
             var userExists = Manager.CheckUserExistsById(id);
             if (!userExists)
@@ -265,9 +265,9 @@ namespace UserProfileMicroservice.Controllers
             return Ok(result);
         }
 
-        [HttpPut]
-        [Route("api/UserProfile/{id}/enemies/{enemyId}")]
-        public IHttpActionResult AddEnemy([FromUri] Guid id, [FromUri] Guid enemyId)
+        [HttpPost]
+        [Route("api/UserProfile/{id}/enemies")]
+        public IHttpActionResult AddEnemy([FromUri] Guid id, [FromBody] Guid enemyId)
         {
             var userExists = Manager.CheckUserExistsById(id);
             if (!userExists)
@@ -286,8 +286,8 @@ namespace UserProfileMicroservice.Controllers
         }
 
         [HttpDelete]
-        [Route("api/UserProfile/{id}/enemies/{enemyId}")]
-        public IHttpActionResult RemoveEnemy([FromUri] Guid id, [FromUri] Guid enemyId)
+        [Route("api/UserProfile/{id}/enemies")]
+        public IHttpActionResult RemoveEnemy([FromUri] Guid id, [FromBody] Guid enemyId)
         {
             var userExists = Manager.CheckUserExistsById(id);
             if (!userExists)
@@ -340,8 +340,8 @@ namespace UserProfileMicroservice.Controllers
         }
 
         [HttpDelete]
-        [Route("api/UserProfile/{id}/likes/movies/{movieId}")]
-        public IHttpActionResult RemoveMovieLike([FromUri] Guid id, [FromUri] Guid movieId)
+        [Route("api/UserProfile/{id}/likes/movies")]
+        public IHttpActionResult RemoveMovieLike([FromUri] Guid id, [FromBody] Guid movieId)
         {
             var userExists = Manager.CheckUserExistsById(id);
             if (!userExists)
@@ -355,8 +355,8 @@ namespace UserProfileMicroservice.Controllers
         }
 
         [HttpDelete]
-        [Route("api/UserProfile/{id}/likes/places/{placeId}")]
-        public IHttpActionResult RemovePlaceLike([FromUri] Guid id, [FromUri] Guid placeId)
+        [Route("api/UserProfile/{id}/likes/places")]
+        public IHttpActionResult RemovePlaceLike([FromUri] Guid id, [FromBody] Guid placeId)
         {
             var userExists = Manager.CheckUserExistsById(id);
             if (!userExists)
@@ -434,8 +434,8 @@ namespace UserProfileMicroservice.Controllers
         }
 
         [HttpDelete]
-        [Route("api/UserProfile/{id}/preferences/movies/{movieTypeId}")]
-        public IHttpActionResult RemoveMoviePrefrence([FromUri] Guid id, [FromUri] Guid movieTypeId)
+        [Route("api/UserProfile/{id}/preferences/movies")]
+        public IHttpActionResult RemoveMoviePrefrence([FromUri] Guid id, [FromBody] Guid movieTypeId)
         {
             var userExists = Manager.CheckUserExistsById(id);
             if (!userExists)
@@ -449,8 +449,8 @@ namespace UserProfileMicroservice.Controllers
         }
 
         [HttpDelete]
-        [Route("api/UserProfile/{id}/preferences/places/{placeTypeId}")]
-        public IHttpActionResult RemovePlacePrefrence([FromUri] Guid id, [FromUri] Guid placeTypeId)
+        [Route("api/UserProfile/{id}/preferences/places")]
+        public IHttpActionResult RemovePlacePrefrence([FromUri] Guid id, [FromBody] Guid placeTypeId)
         {
             var userExists = Manager.CheckUserExistsById(id);
             if (!userExists)
@@ -463,9 +463,9 @@ namespace UserProfileMicroservice.Controllers
             return Ok("Preference removed");
         }
 
-        [HttpPut]
-        [Route("api/UserProfile/{id}/preferences/movies/{movieTypeId}")]
-        public IHttpActionResult AddMoviePrefrence([FromUri] Guid id, [FromUri] Guid movieTypeId)
+        [HttpPost]
+        [Route("api/UserProfile/{id}/preferences/movies")]
+        public IHttpActionResult AddMoviePrefrence([FromUri] Guid id, [FromBody] Guid movieTypeId)
         {
             var userExists = Manager.CheckUserExistsById(id);
             if (!userExists)
@@ -478,9 +478,9 @@ namespace UserProfileMicroservice.Controllers
             return Ok("Preference added");
         }
 
-        [HttpPut]
-        [Route("api/UserProfile/{id}/preferences/places/{placeTypeId}")]
-        public IHttpActionResult AddPlacePrefrence([FromUri] Guid id, [FromUri] Guid placeTypeId)
+        [HttpPost]
+        [Route("api/UserProfile/{id}/preferences/places")]
+        public IHttpActionResult AddPlacePrefrence([FromUri] Guid id, [FromBody] Guid placeTypeId)
         {
             var userExists = Manager.CheckUserExistsById(id);
             if (!userExists)
