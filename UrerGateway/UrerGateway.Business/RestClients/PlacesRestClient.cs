@@ -12,32 +12,57 @@ namespace UrerGateway.Business.RestClients
             BaseAddress = new Uri(address);
         }
 
-        public UrerActionResult Get(double lat, double lon, double radius, string type, int limit, int offset)
+        public UrerActionResult Get(double lat, double lon, double? radius, string type, int? limit, int? offset)
         {
-            var path = "Places-API/api/places?lat=" + lat
-                        + "&lon=" + lon
-                        + "&radius=" + radius
-                        + "&type=" + type
-                        + "&limit=" + limit
-                        + "&offset=" + offset;
-            return this.Get(path);
-        }
+            var path = "places?lat=" + lat.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)
+                       + "&lon=" + lon.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
+            if (radius != null)
+                path += "&radius=" + radius;
 
-        public UrerActionResult Get(DateTime releaseDate, string genre)
-        {
-            var path = "Movies?releaseDate=" + releaseDate + "&genre=" + genre;
+            if (type != null)
+                path += "&type=" + type;
+
+
+            if (limit != null)
+                path += "&limit=" + limit;
+
+            if (limit != null)
+                path += "&offset=" + offset;
+
             return base.Get(path);
         }
 
-        public UrerActionResult Get(Guid id)
+        public new UrerActionResult Get(string id)
         {
-            var path = "Places-API/api/places/" + id;
+            var path = "places/" + id;
             return base.Get(path);
         }
 
-        public UrerActionResult GetRelatedPlaces(Guid id, int limit, int offset)
+        public UrerActionResult GetRelatedPlaces(string id, int? limit, int? offset)
         {
-            var path = "Places-API/api/places/" + id + "/related?limit=" + limit + "&offset=" + offset;
+            var path = "places/" + id + "/related";
+            if (limit != null && offset != null)
+            {
+                path += "?limit=" + limit + "&offset=" + offset;
+            }
+            else
+            {
+                if (limit != null)
+                {
+                    path += "?limit=" + limit;
+                }
+
+                if (offset != null)
+                {
+                    path += "?offset=" + offset;
+                }
+            }
+            return base.Get(path);
+        }
+
+        public UrerActionResult GetTypes()
+        {
+            const string path = "places/types";
             return base.Get(path);
         }
     }

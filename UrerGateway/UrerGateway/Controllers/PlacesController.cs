@@ -5,7 +5,7 @@ using UrerGateway.Business.RestClients;
 
 namespace UrerGateway.Controllers
 {
-    public class PlacesController
+    public class PlacesController : ApiController
     {
         private PlacesRestClient placesRestClient;
 
@@ -15,22 +15,30 @@ namespace UrerGateway.Controllers
         }
 
         [HttpGet]
-        public UrerActionResult Get([FromUri]double lat, [FromUri] double lon, [FromUri] double radius, [FromUri] string type, [FromUri] int limit, [FromUri] int offset)
+        public UrerActionResult Get([FromUri]double lat, [FromUri] double lon,
+                                    [FromUri] double? radius=null, [FromUri] string type=null, [FromUri] int? limit=null, [FromUri] int? offset=null)
         {
             return placesRestClient.Get(lat, lon, radius, type, limit, offset);
         }
 
         [HttpGet]
-        public UrerActionResult Get([FromUri] Guid id)
+        public UrerActionResult Get([FromUri] string id)
         {
             return placesRestClient.Get(id);
         }
 
         [HttpGet]
-        [Route("api/places/{place_id}/related")]
-        public UrerActionResult GetRelatedPlaces([FromUri] Guid id, [FromUri] int limit, [FromUri] int offset)
+        [Route("api/places/{id}/related")]
+        public UrerActionResult GetRelatedPlaces([FromUri] string id, [FromUri] int? limit=null, [FromUri] int? offset=null)
         {
             return placesRestClient.GetRelatedPlaces(id, limit, offset);
+        }
+
+        [HttpGet]
+        [Route("api/places/types")]
+        public UrerActionResult GetTypes()
+        {
+            return placesRestClient.GetTypes();
         }
     }
 }
