@@ -31,8 +31,26 @@ var IndexViewModel = function() {
     else {
       //continue
       //TODO: post data and redirect to homepage
-      self.GoToHome();
+      $.post($("#baseUrl").val() + "/Login", {
+        Name: self.Username(),
+        Email: '',
+        Password: self.Password(),
+        Latitude: self.Location().latitude,
+        Longitude: self.Location().longitude,
+      }, function (data) {
+        data.Latitude = self.Location().latitude;
+        data.Longitude = self.Location().longitude;
 
+        sessionStorage.setItem('userId', data.Id);
+        sessionStorage.setItem('userName', data.Name);
+        sessionStorage.setItem('userUrl', data.Resource);
+
+        self.GoToHome();
+      }).fail(function (data) {
+        if (data.status == 400) {
+          $("#invalidLogin").show();
+        }
+      });
     }
   }
 
@@ -43,7 +61,22 @@ var IndexViewModel = function() {
     else {
       //continue
       //TODO: post data and redirect to homepage
-      self.GoToHome();
+      $.post($("#baseUrl").val() + "/Register", {
+        Name: self.Username(),
+        Email: self.Email(),
+        Password: self.Password(),
+        Latitude: self.Location().latitude,
+        Longitude: self.Location().longitude,
+      }, function (data) {
+        data.Latitude = self.Location().latitude;
+        data.Longitude = self.Location().longitude;
+
+        sessionStorage.setItem('userId', data.Id);
+        sessionStorage.setItem('userName', data.Name);
+        sessionStorage.setItem('userUrl', data.Resource);
+
+        self.GoToHome();
+      });
     }
 
   }

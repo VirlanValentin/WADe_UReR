@@ -119,6 +119,15 @@ var HomePageModel = function () {
     //hide plus button:
     $("#plus-button").show();
   }
+  
+  self.Logout = function () {
+    sessionStorage.removeItem('userId');
+    sessionStorage.removeItem('userName');
+    sessionStorage.removeItem('userUrl');
+    sessionStorage.removeItem('lat');
+    sessionStorage.removeItem('long');
+    window.location.href = $("#indexUrl").val();
+  }
 };
 
 //show map:

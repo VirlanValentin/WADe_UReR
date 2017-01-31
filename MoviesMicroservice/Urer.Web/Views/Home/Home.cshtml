@@ -9,6 +9,7 @@
     <img data-name="enemy" src="~/Content/Icons/skull-and-bones.png" />
     <img data-name="friend" src="~/Content/Icons/eagle-shield.png" />
   </div>
+  @Html.Hidden("indexUrl", Url.Action("Index"))
 </div>
 @*<div style="width: 20vh" id="contentTemplate">
   <div style="display:flex">
@@ -28,8 +29,14 @@
     <div class="col-xs-9">
       <img src="~/Content/Images/avatar.png" class="img-keep-aspect-ratio" style="max-height: 20vh" />
     </div>
-    <div class="col-xs-2 visible-xs" data-bind="click: HideMenuForMobile">
-      <i class="fa fa-close" style="font-size:medium"></i>
+    <div class="col-xs-2 no-padding">
+
+      <div class="col-xs-6 visible-xs" data-bind="click: HideMenuForMobile">
+        <i class="fa fa-close" style="font-size:medium"></i>
+      </div>
+      <div class="col-xs-6" data-bind="click: Logout">
+        <i class="fa fa-sign-out" style="font-size:medium"></i>
+      </div>
     </div>
   </div>
   
