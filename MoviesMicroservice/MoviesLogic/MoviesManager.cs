@@ -263,7 +263,7 @@ namespace MoviesLogic
 
         public List<GenreModel> GetGenres()
         {
-            ManagerUpdateDb.AddGenres();
+           // ManagerUpdateDb.AddGenres();
             var queryString = new SparqlParameterizedString();
 
             queryString.Namespaces.AddNamespace("wd", new Uri("http://www.wikidata.org/entity/"));
