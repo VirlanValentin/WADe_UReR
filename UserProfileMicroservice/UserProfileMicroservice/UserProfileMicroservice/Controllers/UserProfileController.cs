@@ -369,9 +369,9 @@ namespace UserProfileMicroservice.Controllers
             return Ok("Like removed");
         }
 
-        [HttpPut]
-        [Route("api/UserProfile/{id}/likes/movies/{movieId}")]
-        public IHttpActionResult AddMovieLike([FromUri] Guid id, [FromUri] Guid movieId)
+        [HttpPost]
+        [Route("api/UserProfile/{id}/likes/movies")]
+        public IHttpActionResult AddMovieLike([FromUri] Guid id, [FromBody] Guid movieId)
         {
             var userExists = Manager.CheckUserExistsById(id);
             if (!userExists)
@@ -384,9 +384,9 @@ namespace UserProfileMicroservice.Controllers
             return Ok("Like added");
         }
 
-        [HttpPut]
-        [Route("api/UserProfile/{id}/likes/places/{placeId}")]
-        public IHttpActionResult AddPlaceLike([FromUri] Guid id, [FromUri] Guid placeId)
+        [HttpPost]
+        [Route("api/UserProfile/{id}/likes/places")]
+        public IHttpActionResult AddPlaceLike([FromUri] Guid id, [FromBody] Guid placeId)
         {
             var userExists = Manager.CheckUserExistsById(id);
             if (!userExists)
