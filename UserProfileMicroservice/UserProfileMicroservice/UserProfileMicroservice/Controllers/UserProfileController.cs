@@ -156,8 +156,8 @@ namespace UserProfileMicroservice.Controllers
 
                 if (userLoggedIn != null)
                 {
-                    user.Longitude = user.Longitude;
-                    user.Latitude = user.Latitude;
+                    user.Longitude = userLoggedIn.Longitude;
+                    user.Latitude = userLoggedIn.Latitude;
                 }
             }
 
