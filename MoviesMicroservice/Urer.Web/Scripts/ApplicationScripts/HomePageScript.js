@@ -5,14 +5,14 @@ var infowindow;
 function AddFriend(id) {
   //TODO: do put to add friend
   //api / UserProfile / { id } / friends / { friendId }
-  $.put($("#baseUrl").val() + '/' + hVM.UserId + '/friends/'+ id, function (data) {
+  $.post($("#baseUrl").val() + '/' + hVM.UserId + '/friends/',{ id: id }, function (data) {
     
   });
 }
 function AddEnemy(id) {
   //TODO: do put to add friend
-  $.put($("#baseUrl").val() + '/' + hVM.UserId + '/enemies', { friendId: id }, function (data) {
-
+  $.post($("#baseUrl").val() + '/' + hVM.UserId + '/enemies', { id: id }, function (data) {
+    console.log(data);
   });
 }
 function Like(id) {
@@ -31,6 +31,15 @@ function MapElement(name, imageSrc, description, url, lat, long, friendStatus, i
   this.Long = long;
   this.FriendStatus = friendStatus; //-1 = enemy, 0 = neutral, 1 = friend, > 1 = liked
   this.Id = id;
+}
+
+function ElementDetails(address, openNow, phone, website, type, rating) {
+  this.Address = address;
+  this.OpenNow = openNow;
+  this.Phone = phone;
+  this.WebSite = website;
+  this.Type = type;
+  this.Rating = rating;
 }
 
 function CreateMarkerContent(elem) {
@@ -78,6 +87,7 @@ var HomePageModel = function () {
   self.FriendsList = null;
   self.EnemiesList = null;
   self.PlacesElementsIds = [];
+  self.SelectedPlaceDetails = ko.observable();
 
   self.GetLikedPlaces = function () {
     $.get($("#baseUrl").val() + '/' + self.UserId + '/likes/places', function (data) {
@@ -94,19 +104,19 @@ var HomePageModel = function () {
 
   self.GetFriends = function () {
     $.get($("#baseUrl").val() + '/'+self.UserId + '/friends', function (data) {
-      console.log(data);
-      self.FriendsList = [];
+      self.FriendsList = data.map(function (elem) {
+        return elem.Id;
+      });
 
       self.GetAllUsers();
-      //todo:add id array to friendslist
     });
   }
 
   self.GetEnemies = function () {
     $.get($("#baseUrl").val() + '/' + self.UserId + '/enemies', function (data) {
-      console.log(data);
-      //todo:add id array to EnemiesList
-      self.EnemiesList = [];
+      self.EnemiesList = data.map(function (elem) {
+        return elem.Id;
+      });
       self.GetAllUsers();
     });
   }
@@ -136,7 +146,6 @@ var HomePageModel = function () {
               data[i].Latitude, data[i].Longitude, 0, data[i].Id);
           self.AddMarker('neutral', mapElem);
         }
-        console.log(data);
       });
     }
   }
@@ -152,12 +161,11 @@ var HomePageModel = function () {
   
   
   self.LandMarks = ko.observable();
-  //TODO: get stuff
   self.GetInfo = function () {
     //for the moment, mock some data
     //self.AddMarker('friend', elem);
-    $.get($("#baseUrlPlaces").val() + '?lat=' +self.Lat +'&lon=' + self.Long, function (data) {
-      //console.log(data.places[0]);
+    console.log('getting places...');
+    $.get($("#baseUrlPlaces").val() + '?lat=' + self.Lat + '&lon=' + self.Long, function (data) {
       data.places.forEach(function (elem) {
         var url = typeof  elem.website === "undefined" ? null : elem.website;
         var mapElem = new MapElement(elem.name,elem.icon, '',
@@ -214,6 +222,20 @@ var HomePageModel = function () {
     $("#plus-button").hide();
     //TODO: get data for object
     $.get($("#baseUrlPlaces").val() + '/' + self.SelectedElement().Id, function (data) {
+      var types = "";
+      var website = typeof data.website === undefined ? "" : data.website;
+      var address = typeof data.address === undefined ? "" : data.address;
+      var phone =  typeof data.phone === undefined ? "" : data.phone;
+      var rating =  typeof data.rating === undefined ? "" : data.rating;
+      var open_now = data.open_now === true ? 'Yes' : 'No';
+      for (var index = 0; index < data.types.length ; index++) {
+        types += data.types[index].name;
+        if (index !== data.types.length) {
+          types += ", ";
+        }
+      }
+      var e = new ElementDetails(address, open_now, phone, website, types, rating);
+      self.SelectedPlaceDetails(e);
       console.log(data);
     });
 

@@ -16,7 +16,7 @@ var MyProfileViewModel = function (user) {
   var self = this;
 
   self.User = ko.observable(user);
-
+  self.UserId = sessionStorage['userId'];
   self.Friends = ko.observableArray();
   self.Enemies = ko.observableArray();
   self.Likes = ko.observableArray();
@@ -26,6 +26,23 @@ var MyProfileViewModel = function (user) {
   self.AlertEnemies = ko.observable(true);
   self.Places = ko.observable(true);
   self.Movies = ko.observable(true);
+
+  self.GetFriends = function () {
+    $.get($("#baseUrl").val() + '/' + self.UserId + '/friends', function (data) {
+      self.Friends(data.map(function (elem) {
+        return new Element(elem.Name, $("#avatar").prop('src'), elem.Resource);
+      }));
+
+    });
+  }
+
+  self.GetEnemies = function () {
+    $.get($("#baseUrl").val() + '/' + self.UserId + '/enemies', function (data) {
+      self.Enemies(data.map(function (elem) {
+        return new Element(elem.Name, $("#avatar").prop('src'), elem.Resource);
+      }));
+    });
+  }
 }
 
 
@@ -62,7 +79,8 @@ $(function () {
   //TODO: get user and then applyBindings:
   var user = new User('Codrin', 10, 'qrSrc');
   pVM = new MyProfileViewModel(user);
-
+  pVM.GetFriends();
+  pVM.GetEnemies();
   ko.applyBindings(pVM);
   //get info about user location
  

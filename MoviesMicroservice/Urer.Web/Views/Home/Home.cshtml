@@ -44,7 +44,9 @@
 <div class="col-md-2 col-xs-5 hidden-xs" id="leftOptions" style="height: 100vh; background-color:lightgray">
   <div class="row ur-box-sm">
     <div class="col-xs-9">
-      <img src="~/Content/Images/avatar.png" class="img-keep-aspect-ratio" style="max-height: 20vh" />
+      <a href="@Url.Action("MyProfile")">
+        <img src="~/Content/Images/avatar.png" class="img-keep-aspect-ratio" style="max-height: 20vh" />
+      </a>
     </div>
     <div class="col-xs-2 no-padding">
 
@@ -105,8 +107,33 @@
     </div>
   </div>  
   
-  <div class="row ur-box-sm" style="padding: 15px" data-bind="with: SelectedElement">
-    <p class="col-xs-12" data-bind="text: Description"></p>
+  <div class="row ur-box-sm details no-margin" style="padding: 15px" data-bind="with: SelectedPlaceDetails">
+    <div class="row col-xs-12">
+      <label class="control-label">Address: </label>
+      <p class="col-xs-12" data-bind="text: Address">La vali</p>
+    </div>
+    <div class="row col-xs-12">
+      <label class="control-label">OpenNow: </label>
+      <p class="col-xs-12" data-bind="text: OpenNow">Yes</p>
+    </div>
+    <div class="row col-xs-12">
+      <label class="control-label">Phone: </label>
+      <p class="col-xs-12" data-bind="text: Phone">0744</p>
+    </div>
+    <div class="row col-xs-12">
+      <label class="control-label">Rating: </label>
+      <p class="col-xs-12" data-bind="text: Rating">5</p>
+    </div>
+
+    <div class="row col-xs-12">
+      <label class="control-label">Type: </label>
+      <p class="col-xs-12" data-bind="text: Type">tipuri</p>
+    </div>
+    
+    <div class="row col-xs-12">
+      <label class="control-label">WebSite: </label>
+      <a class="col-xs-12" data-bind="attr: {src: WebSite}">Click here to go to website</a>
+    </div>
   </div>
 
   <div class="row col-xs-12">
@@ -130,8 +157,33 @@
     </div>
   </div>
 
-  <div class="row ur-box-sm" style="padding: 15px" data-bind="with: SelectedElement">
-    <p class="col-xs-12" data-bind="text: Description"></p>
+  <div class="row ur-box-sm details" style="padding: 15px" data-bind="with: SelectedPlaceDetails">
+    <div class="row col-xs-12">
+      <label class="control-label">Address: </label>
+      <p class="col-xs-12" data-bind="text: Address">La vali</p>
+    </div>
+    <div class="row col-xs-12">
+      <label class="control-label">OpenNow: </label>
+      <p class="col-xs-12" data-bind="text: OpenNow">Yes</p>
+    </div>
+    <div class="row col-xs-12">
+      <label class="control-label">Phone: </label>
+      <p class="col-xs-12" data-bind="text: Phone">0744</p>
+    </div>
+    <div class="row col-xs-12">
+      <label class="control-label">Rating: </label>
+      <p class="col-xs-12" data-bind="text: Rating">5</p>
+    </div>
+
+    <div class="row col-xs-12">
+      <label class="control-label">Type: </label>
+      <p class="col-xs-12" data-bind="text: Type">tipuri</p>
+    </div>
+
+    <div class="row col-xs-12">
+      <label class="control-label">WebSite: </label>
+      <a class="col-xs-12" data-bind="attr: {src: WebSite}">Click here to go to website</a>
+    </div>
   </div>
 
   <div class="row col-xs-12">
@@ -147,5 +199,5 @@
 
 @section Scripts{
   <script src="~/Scripts/ApplicationScripts/HomePageScript.js"></script>
-<script src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlmQKQdY5GMqusN3Ij4ZC1a_1hBwQ2uf4&callback=myMap"></script>
+<script src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVhGUIu1kKv1YOz_m5qodTzhAql_nu2Ic&callback=myMap"></script>
 }

@@ -94,3 +94,7 @@ textarea {
   width: 18px;
   display:inline;
 }
+
+.details div{
+  display: inline-flex;
+}
