@@ -26,3 +26,17 @@ F:\facultate\master2\wade2\UserProfileMicroservice\UserProfileMicroservice\Frame
 F:\facultate\master2\wade2\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\obj\Debug\Framework.Common.csprojResolveAssemblyReference.cache
 F:\facultate\master2\wade2\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\obj\Debug\Framework.Common.dll
 F:\facultate\master2\wade2\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\obj\Debug\Framework.Common.pdb
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\bin\Debug\Framework.Common.dll
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\bin\Debug\Framework.Common.pdb
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\bin\Debug\dotNetRDF.dll
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\bin\Debug\HtmlAgilityPack.dll
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\bin\Debug\Newtonsoft.Json.dll
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\bin\Debug\VDS.Common.dll
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\bin\Debug\dotNetRDF.xml
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\bin\Debug\HtmlAgilityPack.pdb
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\bin\Debug\HtmlAgilityPack.xml
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\bin\Debug\Newtonsoft.Json.xml
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\bin\Debug\VDS.Common.xml
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\obj\Debug\Framework.Common.csprojResolveAssemblyReference.cache
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\obj\Debug\Framework.Common.dll
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\Framework.Common\obj\Debug\Framework.Common.pdb

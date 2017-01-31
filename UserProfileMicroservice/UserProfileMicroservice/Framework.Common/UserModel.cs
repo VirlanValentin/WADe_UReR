@@ -9,6 +9,12 @@ namespace Framework.Common
 
     }
 
+    public class QRModel
+    {
+        public string Name { get; set; }
+        public string Password { get; set; }
+    }
+
     public class UserModellResponse : UserModel
     {
         public string Resource { get; set; }

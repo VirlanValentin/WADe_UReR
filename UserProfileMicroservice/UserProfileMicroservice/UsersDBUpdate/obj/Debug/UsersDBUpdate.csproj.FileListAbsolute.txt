@@ -25,3 +25,18 @@ F:\facultate\master2\wade2\UserProfileMicroservice\UserProfileMicroservice\Users
 F:\facultate\master2\wade2\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\obj\Debug\UsersDBUpdate.dll
 F:\facultate\master2\wade2\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\obj\Debug\UsersDBUpdate.pdb
 D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\UsersDBUpdate.dll.config
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\UsersDBUpdate.dll.config
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\UsersDBUpdate.dll
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\UsersDBUpdate.pdb
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\dotNetRDF.dll
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\Framework.Common.dll
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\HtmlAgilityPack.dll
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\VDS.Common.dll
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\Framework.Common.pdb
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\dotNetRDF.xml
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\HtmlAgilityPack.pdb
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\HtmlAgilityPack.xml
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\VDS.Common.xml
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\obj\Debug\UsersDBUpdate.csprojResolveAssemblyReference.cache
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\obj\Debug\UsersDBUpdate.dll
+F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\obj\Debug\UsersDBUpdate.pdb

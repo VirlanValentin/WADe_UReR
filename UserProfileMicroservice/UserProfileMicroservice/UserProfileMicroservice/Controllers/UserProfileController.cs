@@ -1,9 +1,17 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Http;
+using System.IO;
 using Framework.Common;
 using Microsoft.Ajax.Utilities;
 using UsersDBUpdate;
+using System.Web.Http.Results;
+using System.Net.Http.Headers;
+using System.Net.Http;
+using System.Net;
+using System.Drawing.Imaging;
+using MessagingToolkit.QRCode.Codec;
+
 
 namespace UserProfileMicroservice.Controllers
 {
@@ -32,6 +40,28 @@ namespace UserProfileMicroservice.Controllers
         #region User
 
         [HttpPost]
+        [Route("api/UserProfile/GenerateQR")]
+        public IHttpActionResult Get(QRModel qrModel)
+        {
+            if (qrModel == null)
+                return BadRequest();
+
+            var encode = new QRCodeEncoder();
+            var bitmap = encode.Encode(qrModel.Name + "_" + qrModel.Password);
+            using (var ms = new MemoryStream())
+            {
+                bitmap.Save(ms, ImageFormat.Png);
+
+                var result = new HttpResponseMessage(HttpStatusCode.OK) { Content = new ByteArrayContent(ms.ToArray()) };
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+
+                ResponseMessageResult response = new ResponseMessageResult(result);
+
+                return response;
+            }
+        }
+
+        [HttpPost]
         [Route("api/UserProfile/Register")]
         public IHttpActionResult Register(UserLoginModel user)
         {
@@ -45,8 +75,23 @@ namespace UserProfileMicroservice.Controllers
 
             if (result != null)
             {
-                return Ok(result);
+                var newUserLoggedIn = new LoggedInUser()
+                {
+                    Id = result.Id,
+                    Latitude = user.Latitude,
+                    Longitude = user.Longitude,
+                    Name = result.Name,
+                    Token = Helper.GenerateToken(user.Name)
+                };
+
+                if (LoggedInUsers.Users.FirstOrDefault(x => x.Token == newUserLoggedIn.Token) == null)
+                {
+                    LoggedInUsers.Users.Add(newUserLoggedIn);
+                }
+
+                return Ok(newUserLoggedIn);
             }
+
             return BadRequest("User already exists");
         }
 
@@ -104,6 +149,18 @@ namespace UserProfileMicroservice.Controllers
         public IHttpActionResult Get()
         {
             var result = Manager.GetAll();
+
+            foreach (var user in result)
+            {
+                var userLoggedIn = LoggedInUsers.Users.FirstOrDefault(x => x.Id == user.Id);
+
+                if (userLoggedIn != null)
+                {
+                    user.Longitude = user.Longitude;
+                    user.Latitude = user.Latitude;
+                }
+            }
+
             return Ok(result);
         }
 
