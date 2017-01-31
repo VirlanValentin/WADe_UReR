@@ -167,3 +167,4 @@ F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice
 F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\obj\Debug\UserProfileMicroservice.dll
 F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\obj\Debug\UserProfileMicroservice.pdb
 F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\bin\MessagingToolkit.QRCode.dll
+D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UserProfileMicroservice\bin\MessagingToolkit.QRCode.dll

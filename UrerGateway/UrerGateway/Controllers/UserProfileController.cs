@@ -32,6 +32,13 @@ namespace UrerGateway.Controllers
         }
 
         [HttpPost]
+        [Route("api/UserProfile/GenerateQR")]
+        public IHttpActionResult GetQrCode(object data)
+        {
+            return userProfileRestClient.GetQrCode(data);
+        }
+
+        [HttpPost]
         [Route("api/UserProfile/Register")]
         public UrerActionResult Register(object data)
         {

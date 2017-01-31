@@ -1,5 +1,11 @@
 ﻿using System;
 using System.Configuration;
+using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Web.Http;
+using System.Web.Http.Results;
 using UrerGateway.Business.Models;
 
 namespace UrerGateway.Business.RestClients
@@ -15,6 +21,26 @@ namespace UrerGateway.Business.RestClients
         }
 
         #region User
+
+        public IHttpActionResult GetQrCode(object data)
+        {
+            var path = "UserProfile/GenerateQR";
+
+            var responseFromMicroservice = this.PostAsJsonAsync(path, data).Result;
+            if (responseFromMicroservice.IsSuccessStatusCode)
+            {
+                var dataResponse = responseFromMicroservice.Content.ReadAsByteArrayAsync().Result;
+
+                var result = new HttpResponseMessage(HttpStatusCode.OK) { Content = new ByteArrayContent(dataResponse) };
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+
+                ResponseMessageResult response = new ResponseMessageResult(result);
+
+                return response;
+            }
+
+            return new UrerActionResult(responseFromMicroservice.StatusCode, responseFromMicroservice.Content.ReadAsStringAsync().Result);
+        }
 
         public UrerActionResult Get()
         {
@@ -176,6 +202,5 @@ namespace UrerGateway.Business.RestClients
 
         #endregion
 
-      
     }
 }
