@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Net;
 using System.Drawing.Imaging;
 using MessagingToolkit.QRCode.Codec;
+using UserProfileMicroservice.Models;
 
 
 namespace UserProfileMicroservice.Controllers
@@ -121,10 +122,16 @@ namespace UserProfileMicroservice.Controllers
                 Token = Helper.GenerateToken(user.Name)
             };
 
+            var userLoggedIn = LoggedInUsers.Users.FirstOrDefault(x => x.Token == newUserLoggedIn.Token);
 
-            if (LoggedInUsers.Users.FirstOrDefault(x => x.Token == newUserLoggedIn.Token) == null)
+            if (userLoggedIn == null)
             {
                 LoggedInUsers.Users.Add(newUserLoggedIn);
+            }
+            else
+            {
+                LoggedInUsers.Users.First(x => x.Token == newUserLoggedIn.Token).Latitude = user.Latitude;
+                LoggedInUsers.Users.First(x => x.Token == newUserLoggedIn.Token).Longitude = user.Longitude;
             }
 
             return Ok(newUserLoggedIn);
@@ -132,9 +139,9 @@ namespace UserProfileMicroservice.Controllers
 
         [HttpPost]
         [Route("api/UserProfile/Logout")]
-        public IHttpActionResult Logout([FromBody] string token)
+        public IHttpActionResult Logout([FromBody] LoggedInUser userLogOut)
         {
-            var user = LoggedInUsers.Users.FirstOrDefault(x => x.Token == token);
+            var user = LoggedInUsers.Users.FirstOrDefault(x => x.Token == userLogOut.Token);
 
             if (user != null)
             {
@@ -203,7 +210,7 @@ namespace UserProfileMicroservice.Controllers
 
         [HttpPost]
         [Route("api/UserProfile/{id}/friends")]
-        public IHttpActionResult AddFriend([FromUri] Guid id, [FromBody] Guid friendId)
+        public IHttpActionResult AddFriend([FromUri] Guid id, [FromBody] BodyTemplate friendId)
         {
             var userExists = Manager.CheckUserExistsById(id);
             if (!userExists)
@@ -211,19 +218,19 @@ namespace UserProfileMicroservice.Controllers
                 return BadRequest("User does not exists");
             }
 
-            var friendExists = Manager.CheckUserExistsById(friendId);
+            var friendExists = Manager.CheckUserExistsById(friendId.Id);
             if (!friendExists)
             {
                 return BadRequest("Friend does not exists");
             }
 
-            FriendsManager.AddFriend(id, friendId);
+            FriendsManager.AddFriend(id, friendId.Id);
             return Ok("friend added");
         }
 
         [HttpDelete]
-        [Route("api/UserProfile/{id}/friends")]
-        public IHttpActionResult RemoveFriend([FromUri] Guid id, [FromBody] Guid friendId)
+        [Route("api/UserProfile/{id}/friends/{friendId}")]
+        public IHttpActionResult RemoveFriend([FromUri] Guid id, [FromUri] Guid friendId)
         {
             var userExists = Manager.CheckUserExistsById(id);
             if (!userExists)
@@ -267,7 +274,7 @@ namespace UserProfileMicroservice.Controllers
 
         [HttpPost]
         [Route("api/UserProfile/{id}/enemies")]
-        public IHttpActionResult AddEnemy([FromUri] Guid id, [FromBody] Guid enemyId)
+        public IHttpActionResult AddEnemy([FromUri] Guid id, [FromBody] BodyTemplate enemyId)
         {
             var userExists = Manager.CheckUserExistsById(id);
             if (!userExists)
@@ -275,19 +282,19 @@ namespace UserProfileMicroservice.Controllers
                 return BadRequest("User does not exists");
             }
 
-            var enemyExists = Manager.CheckUserExistsById(enemyId);
+            var enemyExists = Manager.CheckUserExistsById(enemyId.Id);
             if (!enemyExists)
             {
                 return BadRequest("Enemy does not exists");
             }
 
-            EnemiesManager.AddEnemy(id, enemyId);
+            EnemiesManager.AddEnemy(id, enemyId.Id);
             return Ok("enemy marked");
         }
 
         [HttpDelete]
-        [Route("api/UserProfile/{id}/enemies")]
-        public IHttpActionResult RemoveEnemy([FromUri] Guid id, [FromBody] Guid enemyId)
+        [Route("api/UserProfile/{id}/enemies/{enemyId}")]
+        public IHttpActionResult RemoveEnemy([FromUri] Guid id, [FromUri] Guid enemyId)
         {
             var userExists = Manager.CheckUserExistsById(id);
             if (!userExists)
@@ -340,8 +347,8 @@ namespace UserProfileMicroservice.Controllers
         }
 
         [HttpDelete]
-        [Route("api/UserProfile/{id}/likes/movies")]
-        public IHttpActionResult RemoveMovieLike([FromUri] Guid id, [FromBody] Guid movieId)
+        [Route("api/UserProfile/{id}/likes/movies/{movieId}")]
+        public IHttpActionResult RemoveMovieLike([FromUri] Guid id, [FromUri] Guid movieId)
         {
             var userExists = Manager.CheckUserExistsById(id);
             if (!userExists)
@@ -355,8 +362,8 @@ namespace UserProfileMicroservice.Controllers
         }
 
         [HttpDelete]
-        [Route("api/UserProfile/{id}/likes/places")]
-        public IHttpActionResult RemovePlaceLike([FromUri] Guid id, [FromBody] Guid placeId)
+        [Route("api/UserProfile/{id}/likes/places/{placeId}")]
+        public IHttpActionResult RemovePlaceLike([FromUri] Guid id, [FromUri] Guid placeId)
         {
             var userExists = Manager.CheckUserExistsById(id);
             if (!userExists)
@@ -371,7 +378,7 @@ namespace UserProfileMicroservice.Controllers
 
         [HttpPost]
         [Route("api/UserProfile/{id}/likes/movies")]
-        public IHttpActionResult AddMovieLike([FromUri] Guid id, [FromBody] Guid movieId)
+        public IHttpActionResult AddMovieLike([FromUri] Guid id, [FromBody] BodyTemplate movieId)
         {
             var userExists = Manager.CheckUserExistsById(id);
             if (!userExists)
@@ -379,14 +386,14 @@ namespace UserProfileMicroservice.Controllers
                 return BadRequest("User does not exists");
             }
 
-            LikesManager.AddMovieLike(id, movieId);
+            LikesManager.AddMovieLike(id, movieId.Id);
 
             return Ok("Like added");
         }
 
         [HttpPost]
         [Route("api/UserProfile/{id}/likes/places")]
-        public IHttpActionResult AddPlaceLike([FromUri] Guid id, [FromBody] Guid placeId)
+        public IHttpActionResult AddPlaceLike([FromUri] Guid id, [FromBody] BodyTemplate placeId)
         {
             var userExists = Manager.CheckUserExistsById(id);
             if (!userExists)
@@ -394,7 +401,7 @@ namespace UserProfileMicroservice.Controllers
                 return BadRequest("User does not exists");
             }
 
-            LikesManager.AddPlaceLike(id, placeId);
+            LikesManager.AddPlaceLike(id, placeId.Id);
 
             return Ok("Like added");
         }
@@ -434,8 +441,8 @@ namespace UserProfileMicroservice.Controllers
         }
 
         [HttpDelete]
-        [Route("api/UserProfile/{id}/preferences/movies")]
-        public IHttpActionResult RemoveMoviePrefrence([FromUri] Guid id, [FromBody] Guid movieTypeId)
+        [Route("api/UserProfile/{id}/preferences/movies/{movieTypeId}")]
+        public IHttpActionResult RemoveMoviePrefrence([FromUri] Guid id, [FromUri] Guid movieTypeId)
         {
             var userExists = Manager.CheckUserExistsById(id);
             if (!userExists)
@@ -449,8 +456,8 @@ namespace UserProfileMicroservice.Controllers
         }
 
         [HttpDelete]
-        [Route("api/UserProfile/{id}/preferences/places")]
-        public IHttpActionResult RemovePlacePrefrence([FromUri] Guid id, [FromBody] Guid placeTypeId)
+        [Route("api/UserProfile/{id}/preferences/places/{placeTypeId}")]
+        public IHttpActionResult RemovePlacePrefrence([FromUri] Guid id, [FromUri] Guid placeTypeId)
         {
             var userExists = Manager.CheckUserExistsById(id);
             if (!userExists)
@@ -465,7 +472,7 @@ namespace UserProfileMicroservice.Controllers
 
         [HttpPost]
         [Route("api/UserProfile/{id}/preferences/movies")]
-        public IHttpActionResult AddMoviePrefrence([FromUri] Guid id, [FromBody] Guid movieTypeId)
+        public IHttpActionResult AddMoviePrefrence([FromUri] Guid id, [FromBody] BodyTemplate movieTypeId)
         {
             var userExists = Manager.CheckUserExistsById(id);
             if (!userExists)
@@ -473,14 +480,14 @@ namespace UserProfileMicroservice.Controllers
                 return BadRequest("User does not exists");
             }
 
-            PreferencesManager.AddMoviePreference(id, movieTypeId);
+            PreferencesManager.AddMoviePreference(id, movieTypeId.Id);
 
             return Ok("Preference added");
         }
 
         [HttpPost]
         [Route("api/UserProfile/{id}/preferences/places")]
-        public IHttpActionResult AddPlacePrefrence([FromUri] Guid id, [FromBody] Guid placeTypeId)
+        public IHttpActionResult AddPlacePrefrence([FromUri] Guid id, [FromBody] BodyTemplate placeTypeId)
         {
             var userExists = Manager.CheckUserExistsById(id);
             if (!userExists)
@@ -488,7 +495,7 @@ namespace UserProfileMicroservice.Controllers
                 return BadRequest("User does not exists");
             }
 
-            PreferencesManager.AddPlacePreference(id, placeTypeId);
+            PreferencesManager.AddPlacePreference(id, placeTypeId.Id);
 
             return Ok("Preference added");
         }

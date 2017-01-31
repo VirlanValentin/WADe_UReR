@@ -54,7 +54,7 @@ namespace UrerGateway.Controllers
 
         [HttpPost]
         [Route("api/UserProfile/Logout")]
-        public UrerActionResult Logout([FromBody] string data)
+        public UrerActionResult Logout([FromBody] object data)
         {
             return userProfileRestClient.Logout(data);
         }
@@ -72,14 +72,14 @@ namespace UrerGateway.Controllers
 
         [HttpPost]
         [Route("api/UserProfile/{id}/friends")]
-        public UrerActionResult AddFriend([FromUri] Guid id, [FromBody] Guid friendId)
+        public UrerActionResult AddFriend([FromUri] Guid id, [FromBody] object data)
         {
-            return userProfileRestClient.AddFriend(id, friendId);
+            return userProfileRestClient.AddFriend(id, data);
         }
 
         [HttpDelete]
-        [Route("api/UserProfile/{id}/friends")]
-        public UrerActionResult RemoveFriend([FromUri] Guid id, [FromBody] Guid friendId)
+        [Route("api/UserProfile/{id}/friends/{friendId}")]
+        public UrerActionResult RemoveFriend([FromUri] Guid id, [FromUri] Guid friendId)
         {
             return userProfileRestClient.RemoveFriend(id, friendId);
         }
@@ -97,14 +97,14 @@ namespace UrerGateway.Controllers
 
         [HttpPost]
         [Route("api/UserProfile/{id}/enemies")]
-        public UrerActionResult AddEnemy([FromUri] Guid id, [FromBody] Guid enemyId)
+        public UrerActionResult AddEnemy([FromUri] Guid id, [FromBody] object data)
         {
-            return userProfileRestClient.AddEnemy(id, enemyId);
+            return userProfileRestClient.AddEnemy(id, data);
         }
 
         [HttpDelete]
-        [Route("api/UserProfile/{id}/enemies")]
-        public UrerActionResult RemoveEnemy([FromUri] Guid id, [FromBody] Guid enemyId)
+        [Route("api/UserProfile/{id}/enemies/{enemyId}")]
+        public UrerActionResult RemoveEnemy([FromUri] Guid id, [FromUri] Guid enemyId)
         {
             return userProfileRestClient.RemoveEnemy(id, enemyId);
         }
@@ -122,14 +122,14 @@ namespace UrerGateway.Controllers
 
         [HttpPost]
         [Route("api/UserProfile/{id}/likes/movies")]
-        public UrerActionResult AddMovie([FromUri] Guid id, [FromBody] Guid movieId)
+        public UrerActionResult AddMovie([FromUri] Guid id, [FromBody] object data)
         {
-            return userProfileRestClient.AddMovie(id, movieId);
+            return userProfileRestClient.AddMovie(id, data);
         }
 
         [HttpDelete]
-        [Route("api/UserProfile/{id}/likes/movies")]
-        public UrerActionResult RemoveMovie([FromUri] Guid id, [FromBody] Guid movieId)
+        [Route("api/UserProfile/{id}/likes/movies/{movieId}")]
+        public UrerActionResult RemoveMovie([FromUri] Guid id, [FromUri] Guid movieId)
         {
             return userProfileRestClient.RemoveMovie(id, movieId);
         }
@@ -143,14 +143,14 @@ namespace UrerGateway.Controllers
 
         [HttpPost]
         [Route("api/UserProfile/{id}/likes/places")]
-        public UrerActionResult AddPlace([FromUri] Guid id, [FromBody] Guid placeId)
+        public UrerActionResult AddPlace([FromUri] Guid id, [FromBody] object data)
         {
-            return userProfileRestClient.AddPlace(id, placeId);
+            return userProfileRestClient.AddPlace(id, data);
         }
 
         [HttpDelete]
-        [Route("api/UserProfile/{id}/likes/places")]
-        public UrerActionResult RemovePlace([FromUri] Guid id, [FromBody] Guid placeId)
+        [Route("api/UserProfile/{id}/likes/places/{placeId}")]
+        public UrerActionResult RemovePlace([FromUri] Guid id, [FromUri] Guid placeId)
         {
             return userProfileRestClient.RemovePlace(id, placeId);
         }
@@ -174,8 +174,8 @@ namespace UrerGateway.Controllers
         }
 
         [HttpDelete]
-        [Route("api/UserProfile/{id}/preferences/movies")]
-        public UrerActionResult RemoveMoviePreferences([FromUri] Guid id, [FromBody] Guid movieId)
+        [Route("api/UserProfile/{id}/preferences/movies/{movieId}")]
+        public UrerActionResult RemoveMoviePreferences([FromUri] Guid id, [FromUri] Guid movieId)
         {
             return userProfileRestClient.RemoveMoviePreferece(id, movieId);
         }
@@ -195,8 +195,8 @@ namespace UrerGateway.Controllers
         }
 
         [HttpDelete]
-        [Route("api/UserProfile/{id}/preferences/places")]
-        public UrerActionResult RemovePlacePreferences([FromUri] Guid id, [FromBody] Guid placeId)
+        [Route("api/UserProfile/{id}/preferences/places/{placeId}")]
+        public UrerActionResult RemovePlacePreferences([FromUri] Guid id, [FromUri] Guid placeId)
         {
             return userProfileRestClient.RemovePlacePreference(id, placeId);
         }

@@ -17,7 +17,7 @@ namespace UrerGateway.Business.RestClients
         public UserProfileRestClient()
         {
             var address = ConfigurationManager.AppSettings["UserProfileLink"];
-            this.BaseAddress = new Uri(address);
+            BaseAddress = new Uri(address);
         }
 
         #region User
@@ -86,16 +86,16 @@ namespace UrerGateway.Business.RestClients
             return base.Get(path);
         }
 
-        public UrerActionResult AddFriend(Guid id, Guid friendId)
+        public UrerActionResult AddFriend(Guid id, object data)
         {
-            var path = Path + "/" + id + "/friends/" + friendId;
-            return this.Put(path);
+            var path = Path + "/" + id + "/friends";
+            return Post(path, data);
         }
 
         public UrerActionResult RemoveFriend(Guid id, Guid friendId)
         {
             var path = Path + "/" + id + "/friends/" + friendId;
-            return this.Delete(path);
+            return Delete(path);
         }
 
         #endregion
@@ -108,16 +108,16 @@ namespace UrerGateway.Business.RestClients
             return base.Get(path);
         }
 
-        public UrerActionResult AddEnemy(Guid id, Guid enemyId)
+        public UrerActionResult AddEnemy(Guid id, object data)
         {
-            var path = Path + "/" + id + "/enemies/" + enemyId;
-            return this.Put(path);
+            var path = Path + "/" + id + "/enemies";
+            return Post(path, data);
         }
 
         public UrerActionResult RemoveEnemy(Guid id, Guid enemyId)
         {
             var path = Path + "/" + id + "/enemies/" + enemyId;
-            return this.Delete(path);
+            return Delete(path);
         }
 
         #endregion
@@ -130,16 +130,16 @@ namespace UrerGateway.Business.RestClients
             return base.Get(path);
         }
 
-        public UrerActionResult AddMovie(Guid id, Guid movieId)
+        public UrerActionResult AddMovie(Guid id, object data)
         {
-            var path = Path + "/" + id + "/likes/movies/" + movieId;
-            return this.Put(path);
+            var path = Path + "/" + id + "/likes/movies";
+            return Post(path, data);
         }
 
         public UrerActionResult RemoveMovie(Guid id, Guid movieId)
         {
             var path = Path + "/" + id + "/likes/movies/" + movieId;
-            return this.Delete(path);
+            return Delete(path);
         }
 
         public UrerActionResult GetLikedPlaces(Guid id)
@@ -148,16 +148,16 @@ namespace UrerGateway.Business.RestClients
             return base.Get(path);
         }
 
-        public UrerActionResult AddPlace(Guid id, Guid placeId)
+        public UrerActionResult AddPlace(Guid id, object data)
         {
-            var path = Path + "/" + id + "/likes/places/" + placeId;
-            return this.Put(path);
+            var path = Path + "/" + id + "/likes/places";
+            return Post(path, data);
         }
 
         public UrerActionResult RemovePlace(Guid id, Guid placeId)
         {
             var path = Path + "/" + id + "/likes/places/" + placeId;
-            return this.Delete(path);
+            return Delete(path);
         }
 
         #endregion
@@ -178,26 +178,26 @@ namespace UrerGateway.Business.RestClients
 
         public UrerActionResult AddPlacePreference(Guid id, Guid placeId)
         {
-            var path = Path + "/" + id + "/preferences/places/" + placeId;
-            return this.Put(path);
+            var path = Path + "/" + id + "/preferences/places";
+            return Post(path, placeId);
         }
 
         public UrerActionResult RemovePlacePreference(Guid id, Guid placeId)
         {
             var path = Path + "/" + id + "/preferences/places/" + placeId;
-            return this.Delete(path);
+            return Delete(path);
         }
 
         public UrerActionResult AddMoviePreference(Guid id, Guid movieId)
         {
-            var path = Path + "/" + id + "/preferences/movies/" + movieId;
-            return this.Put(path);
+            var path = Path + "/" + id + "/preferences/movies";
+            return Post(path, movieId);
         }
 
         public UrerActionResult RemoveMoviePreferece(Guid id, Guid movieId)
         {
             var path = Path + "/" + id + "/preferences/movies/" + movieId;
-            return this.Delete(path);
+            return Delete(path);
         }
 
         #endregion

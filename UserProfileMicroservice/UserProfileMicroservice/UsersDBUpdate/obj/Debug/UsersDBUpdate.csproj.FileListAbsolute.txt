@@ -40,3 +40,6 @@ F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice
 F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\obj\Debug\UsersDBUpdate.csprojResolveAssemblyReference.cache
 F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\obj\Debug\UsersDBUpdate.dll
 F:\facultate\master2\proiectWade\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\obj\Debug\UsersDBUpdate.pdb
+D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\HtmlAgilityPack.dll
+D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\HtmlAgilityPack.pdb
+D:\WADE GIT\UserProfileMicroservice\UserProfileMicroservice\UsersDBUpdate\bin\Debug\HtmlAgilityPack.xml
