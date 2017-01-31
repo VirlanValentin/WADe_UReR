@@ -194,7 +194,7 @@ namespace MoviesLogic
 
             var resultsFuseki = Fuseki.Query(queryStringForMovies.ToString()) as SparqlResultSet;
 
-            if (resultsFuseki?.Results.Count == 0)
+            if (resultsFuseki?.Results.Count < 3)
             {
                 
                 ManagerUpdateDb.UpdateDb(genreLabel);

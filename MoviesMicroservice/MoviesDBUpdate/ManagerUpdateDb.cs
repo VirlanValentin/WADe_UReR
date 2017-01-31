@@ -176,7 +176,8 @@ namespace MoviesDBUpdate
             {
                 CommandText =
                     @"SELECT * WHERE { ?s wdt:P31 wd:Q11424.  ?s wdt:P1476 ?title. ?s wdt:P577 ?date. ?s wdt:P136 ?genre. ?genre rdfs:label @genre"
-                    + "@en. " + "?s wdt:P345 ?imdb} Limit 50"
+                    + "@en. " + "?s wdt:P345 ?imdb FILTER(langMatches(lang(?title)," +
+                              "\"en\" ))} Limit 50"
             };
 
             queryString.SetLiteral("genre", genre);
