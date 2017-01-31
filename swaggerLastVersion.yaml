@@ -1,0 +1,2098 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: UReR API
+  description: REST API of the UReR app
+  version: "1.3.0"
+# the domain of the service
+host: localhost:80
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /movies:
+    get:
+      summary: Movies
+      description: >-
+        The Movies endpoint returns information about the movies. The response includes movie objects, and lists them in the proper display order.
+      parameters:
+        - name: releaseDate
+          in: query
+          description: Release date of the movie.
+          required: true
+          type: string
+          format: date
+        - name: genre
+          in: query
+          description: Genre of the movie.
+          required: false
+          type: string
+          format: double
+      tags:
+        - Movie
+      responses:
+        '200':
+          description: Successful response. The result of the request is an array of movies
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Movie'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com
+          schema:
+            $ref: '#/definitions/ErrorModel'
+  /movies/{movie_id}:
+    get:
+      description: 'Returns a JSON object with all the details of the movie with the given id.'
+      tags:
+        - Movie
+      parameters:
+        - name: movie_id
+          in: path
+          description: 'The id of the requested movie.'
+          required: true
+          type: string
+          format: id
+      responses:
+        '200':
+          description: 'Successful response. The object requested.'
+          schema:
+            $ref: '#/definitions/Movie'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        
+  /movies/{movie_id}/related:
+    get:
+      summary: Information related to the movie identified by id
+      description: >-
+        The related movie endpoint returns information about the movie related with a certain movie. A movie is related to another if they have the same gemre.  The results will be paginated, a page containg a number of "limit" related movies.
+      parameters:
+        - name: movie_id
+          in: path
+          description: The id of the requested movie.
+          required: true
+          type: string
+          format: id
+        - name: limit
+          in: query
+          description: The number of desired related movies.
+          required: true
+          type: number
+          format: integer
+        - name: offset
+          in: query
+          description: The requested page of related movies.
+          required: true
+          type: number
+          format: integer
+      tags:
+        - Related Movies
+      responses:
+        '200':
+          description: Successful response. The response is an array of movies
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Movie'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com
+          schema:
+            $ref: '#/definitions/ErrorModel' 
+            
+  /movies/genres:
+    get:
+      summary: Genre
+      description: >-
+        The Movies endpoint returns all the genres for our application 
+      parameters:
+        - name: limit
+          in: query
+          description: Get limit genres.
+          required: false
+          type: number
+        - name: offset
+          in: query
+          description: Get limit genres starting from offset.
+          required: false
+          type: number
+      tags:
+        - Movie Genres
+      responses:
+        '200':
+          description: Successful response. The result of the request is an array of movies
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Genre'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com
+          schema:
+            $ref: '#/definitions/ErrorModel'
+  
+  /places:
+    get:
+      summary: Places
+      description: >-
+        The Places endpoint returns information about the places at a given location. The response includes the details about each place, and lists the places in the proper display order.
+      parameters:
+        - name: lat
+          in: query
+          description: Latitude component of location.
+          required: true
+          type: number
+          format: double
+        - name: lon
+          in: query
+          description: Longitude component of location.
+          required: true
+          type: number
+          format: double
+        - name: radius
+          in: query
+          description: Radius around the given location.
+          required: false
+          type: number
+          format: double
+        - name: type
+          in: query
+          description: Type of the desired places.
+          required: false
+          type: string
+          format: string
+        - name: limit
+          in: query
+          description: Show limit results per page.
+          required: false
+          type: number
+          format: integer
+        - name: offset
+          in: query
+          description: Show limit results per page starting from offset.
+          required: false
+          type: number
+          format: integer
+      tags:
+        - Places
+      responses:
+        '200':
+          description: Succesful response. An array of places.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Place'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com
+          schema:
+            $ref: '#/definitions/ErrorModel'
+  /places/{place_id}:
+    get:
+      description: 'Returns a JSON object with all the details of the place with the given id.'
+      tags:
+        - Places
+      parameters:
+        - name: place_id
+          in: path
+          description: 'The id of the requested place.'
+          required: true
+          type: string
+          format: id
+      responses:
+        '200':
+          description: 'Successful response. The object requested.'
+          schema:
+            $ref: '#/definitions/Place'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com
+          schema:
+            $ref: '#/definitions/ErrorModel'  
+  /places/{place_id}/related:
+    get:
+      summary: Places related to the place identified by id
+      description: >-
+        The related places endpoint returns information about the places related with a certain place. A place is related to another if they have are in the same area and have the same type. The related places will be ordered according to the distance from the place indentified by the id. The results will be paginated, a page containg a number of "limit" related places.
+      parameters:
+        - name: place_id
+          in: path
+          description: The id of the requested place.
+          required: true
+          type: string
+          format: id
+        - name: limit
+          in: query
+          description: The number of desired related places.
+          required: true
+          type: number
+          format: integer
+        - name: offset
+          in: query
+          description: The requested page of related places.
+          required: true
+          type: number
+          format: integer
+      tags:
+        - Related Places
+      responses:
+        '200':
+          description: Succesful response. An array of places
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Place'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+            
+  /places/types:
+    get:
+      summary: All types of places
+      description: >-
+        The related places endpoint returns all the categories of places from out application
+      parameters:
+        - name: limit
+          in: query
+          description: The limit of desired types of places.
+          required: false
+          type: number
+          format: integer
+        - name: offset
+          in: query
+          description: Show limit of desired types of places starting offset.
+          required: false
+          type: number
+          format: integer
+      tags:
+        - Places Types
+      responses:
+        '200':
+          description: Succesful response. An array of types of places
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PlaceType'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+  
+  /sparql:
+    get:
+      description: 'Returns the result of the sparql query'
+      tags:
+        - SPARQL
+      parameters:
+        - name: sparqlQuery
+          in: query
+          description: The sparql query
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful
+          schema:
+            $ref: "#/definitions/SPARQL"
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+            
+  /userProfile/login:
+    post:
+      summary: Logs in an user
+      description: The Login endpoint allows an user to log in.
+      tags:
+        - Login
+      responses:
+        '200':
+          description: The id of the logged user
+          schema:
+            $ref: '#/definitions/LoginResponse'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com
+          schema:
+            $ref: '#/definitions/ErrorModel' 
+  /userProfile/logout:
+    post:
+      summary: Logs out an user
+      description: The Logout endpoint allows an user to log out.
+      parameters:
+        - name: accessToken
+          in: query
+          description: The access token for the logged user in current session. 
+          required: true
+          type: string
+          format: udid
+      tags:
+        - Login
+      responses:
+        '200':
+          description: Successful message
+          schema:
+            $ref: '#/definitions/SuccessModel'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com
+          schema:
+            $ref: '#/definitions/ErrorModel'  
+  /userProfile/register:
+    post:
+      description: 'Creates a new user'
+      tags:
+       - User registration
+      parameters:
+        - name: 'register payload'
+          in: body
+          description: 'post payload containing credentials'
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: 'Successful update. The object was created.'
+          schema:
+            $ref: '#/definitions/SuccessModel'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com
+          schema:
+            $ref: '#/definitions/ErrorModel'
+  
+  /userProfile/{user_id}:
+    get:
+      description: 'Returns a JSON object with all the details of the user with the given id.'
+      tags:
+        - User
+      parameters:
+        - name: user_id
+          in: path
+          description: 'The id of the requested user.'
+          required: true
+          type: string
+          format: id
+      responses:
+        '200':
+          description: 'Successful response. The object requested.'
+          schema:
+            $ref: '#/definitions/User'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com
+          schema:
+            $ref: '#/definitions/ErrorModel'  
+  /userProfile/{user_id}/friends:
+    get:
+      summary: User friends
+      description: >-
+        The User friends endpoint returns information about the User friends. The response includes a list of all his friends.
+      parameters:
+        - name: user_id
+          in: path  
+          description: User id.
+          required: true
+          type: string
+        - name: accesstoken
+          in: query
+          description: User token.
+          required: true
+          type: number
+          format: double
+      tags:
+        - User
+      responses:
+        '200':
+          description: Succesful response. The respose contains a list of the users friends
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com'.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+  /userProfile/{user_id}/friends/{friend_id}:
+    put:
+      summary: Add a new friend
+      description: The friends endpoint allows the user to add friends.
+      tags:
+        - User
+      parameters:
+        - name: user_id
+          in: path
+          description: 'The id of the requested user.'
+          required: true
+          type: string
+          format: id
+        - name: accesstoken
+          in: query
+          description: User token.
+          required: true
+          type: number
+          format: double  
+        - name : friend_id
+          in : path
+          description: 'id of the new friend'
+          required: true
+          type: string
+          format: id
+      responses:
+        '200':
+          description: The user was added to friends list
+          schema:
+            $ref: '#/definitions/SuccessModel'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    delete:
+      summary: Remove a friend
+      description: The friends endpoint allows the user to remove friends.
+      tags:
+        - User
+      parameters:
+        - name: user_id
+          in: path
+          description: 'The id of the requested user.'
+          required: true
+          type: string
+          format: id
+        - name: accesstoken
+          in: query
+          description: User token.
+          required: true
+          type: number
+          format: double  
+        - name : friend_id
+          in : path
+          description: 'id of the removed friend'
+          required: true
+          type: string
+          format: id
+      responses:
+        '200':
+          description: The user was removed from friends list
+          schema:
+            $ref: '#/definitions/SuccessModel'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+  /userProfile/{user_id}/enemies:
+    get:
+      summary: User enemies
+      description: >-
+        The User enemies endpoint returns information about the User enemies. The response includes a list of all his enemies.
+      parameters:
+        - name: user_id
+          in: path  
+          description: User id.
+          required: true
+          type: string
+        - name: accesstoken
+          in: query
+          description: User token.
+          required: true
+          type: number
+          format: double
+      tags:
+        - User
+      responses:
+        '200':
+          description: User enemies
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+  /userProfile/{user_id}/enemies/{enemy_id}:
+    put:
+      summary: Add a new enemy
+      description: The enemies endpoint allows the user to mark enemies.
+      tags:
+        - User
+      parameters:
+        - name: user_id
+          in: path
+          description: 'The id of the requested user.'
+          required: true
+          type: string
+          format: id
+        - name: accesstoken
+          in: query
+          description: User token.
+          required: true
+          type: number
+          format: double  
+        - name : enemy_id
+          in : path
+          description: 'id of the new enemy'
+          required: true
+          type: string
+          format: id
+      responses:
+        '200':
+          description: The user was added to enemies list
+          schema:
+            $ref: '#/definitions/SuccessModel'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    delete:
+      summary: Remove an enemy
+      description: The enemies endpoint allows the user to remove enemies.
+      tags:
+        - User
+      parameters:
+        - name: user_id
+          in: path
+          description: 'The id of the requested user.'
+          required: true
+          type: string
+          format: id
+        - name: accesstoken
+          in: query
+          description: User token.
+          required: true
+          type: number
+          format: double  
+        - name : enemy_id
+          in : path
+          description: 'id of the removed enemy'
+          required: true
+          type: string
+          format: id
+      responses:
+        '200':
+          description: The user was removed from list
+          schema:
+            $ref: '#/definitions/SuccessModel'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+            
+        
+  /userProfile/{user_id}/preferences/movies:
+    get:
+      summary: User movie preferences
+      description: >-
+        The User preferences endpoint returns information about the   User preferences. The response includes the details about movie preferces;
+      parameters:
+        - name: user_id
+          in: path  
+          description: User id.
+          required: true
+          type: string
+        - name: accesstoken
+          in: query
+          description: User token.
+          required: true
+          type: number
+          format: double
+      tags:
+        - User
+      responses:
+        '200':
+          description: User preferences
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Genre'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com
+          schema:
+            $ref: '#/definitions/ErrorModel'
+  /userProfile/{user_id}/preferences/movies/{movieType_id}:
+    put:
+      summary: Add a new preference
+      description: >-
+        The User preferences endpoint which adds a user preference
+      parameters:
+        - name: user_id
+          in: path  
+          description: User id.
+          required: true
+          type: string
+        - name: accesstoken
+          in: query
+          description: User token.
+          required: true
+          type: number
+          format: double
+        - name: movieType_id
+          in: path
+          description: Movie type id
+          required: true
+          type: string
+      tags:
+        - User
+      responses:
+        '200':
+          description: Added user preference.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/SuccessModel'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    delete:
+      summary: 'delete a movie preferences'
+      description: >-
+        The User preferences endpoint which removes a movie preferences of the user.
+      parameters:
+        - name: user_id
+          in: path  
+          description: User id.
+          required: true
+          type: string
+        - name: accesstoken
+          in: query
+          description: User token.
+          required: true
+          type: number
+          format: double
+        - name: movieType_id
+          in: path
+          description: Movie Type id
+          required: true
+          type: string
+      tags:
+        - User
+      responses:
+        '200':
+          description: Remove a category of preferences.
+          schema:
+            items:
+              $ref: '#/definitions/SuccessModel'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com
+          schema:
+            $ref: '#/definitions/ErrorModel'
+  /userProfile/{user_id}/preferences/places:
+    get:
+      summary: User likes
+      description: >-
+        The User likes endpoint returns information about the User likes. The response includes the details about the places prefrences 
+      parameters:
+        - name: user_id
+          in: path  
+          description: User id.
+          required: true
+          type: string
+        - name: accesstoken
+          in: query
+          description: User token.
+          required: true
+          type: number
+          format: double
+      tags:
+        - User
+      responses:
+        '200':
+          description: User preference
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PlaceType'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com
+          schema:
+            $ref: '#/definitions/ErrorModel'
+  /userProfile/{user_id}/preferences/places/{placeType_id}:
+    put:
+      summary: Add preference by id
+      description: >-
+        The User preferences endpoint which gets a  preference from a specified category by id
+      parameters:
+        - name: user_id
+          in: path  
+          description: User id.
+          required: true
+          type: string
+        - name: accesstoken
+          in: query
+          description: User token.
+          required: true
+          type: number
+          format: double
+        - name: placeType_id
+          in: path
+          description: Preference type id
+          required: true
+          type: string
+      tags:
+        - User
+      responses:
+        '200':
+          description: A preference was added.
+          schema:
+            items:
+              $ref: '#/definitions/SuccessModel'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    delete:
+      summary: 'delete a preference from a category'
+      description: >-
+        The User preferences endpoint which removes a preference.
+      parameters:
+        - name: user_id
+          in: path  
+          description: User id.
+          required: true
+          type: string
+        - name: accesstoken
+          in: query
+          description: User token.
+          required: true
+          type: number
+          format: double
+        - name: placeType_id
+          in: path
+          description: Preference id
+          required: true
+          type: string
+      tags:
+        - User
+      responses:
+        '200':
+          description: Remove a category of preferences.
+          schema:
+            items:
+              $ref: '#/definitions/SuccessModel'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com
+          schema:
+            $ref: '#/definitions/ErrorModel'
+  /userProfile/{user_id}/likes/movies:
+    get:
+      summary: User likes
+      description: >-
+        The User likes endpoint returns information about the User likes. The response includes the details about the movies the user likes
+      parameters:
+        - name: user_id
+          in: path  
+          description: User id.
+          required: true
+          type: string
+        - name: accesstoken
+          in: query
+          description: User token.
+          required: true
+          type: number
+          format: double
+      tags:
+        - User
+      responses:
+        '200':
+          description: User Likes
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Movie'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com
+          schema:
+            $ref: '#/definitions/ErrorModel'
+  /userProfile/{user_id}/likes/movies/{movie_id}:
+    put:
+      summary: delete somthing that the user liked
+      description: >-
+        The User likes endpoint which adds something that the user liked.
+      parameters:
+        - name: user_id
+          in: path  
+          description: User id.
+          required: true
+          type: string
+        - name: accesstoken
+          in: query
+          description: User token.
+          required: true
+          type: number
+          format: double
+        - name: movie_id
+          in: path
+          description: Movie id
+          required: true
+          type: string
+      tags:
+        - User
+      responses:
+        '200':
+          description: Like a movie, etc.
+          schema:
+            items:
+              $ref: '#/definitions/SuccessModel'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    delete:
+      summary: delete somthing that the user liked
+      description: >-
+        The User likes endpoint which removes something that the user liked.
+      parameters:
+        - name: user_id
+          in: path  
+          description: User id.
+          required: true
+          type: string
+        - name: accesstoken
+          in: query
+          description: User token.
+          required: true
+          type: number
+          format: double
+        - name: movie_id
+          in: path
+          description: Like id
+          required: true
+          type: string
+      tags:
+        - User
+      responses:
+        '200':
+          description: Unlike a movie, etc.
+          schema:
+            items:
+              $ref: '#/definitions/SuccessModel'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com
+          schema:
+            $ref: '#/definitions/ErrorModel'
+  /userProfile/{user_id}/likes/places:
+    get:
+      summary: User likes
+      description: >-
+        The User likes endpoint returns information about the User likes. The response includes the details about the places the user likes
+      parameters:
+        - name: user_id
+          in: path  
+          description: User id.
+          required: true
+          type: string
+        - name: accesstoken
+          in: query
+          description: User token.
+          required: true
+          type: number
+          format: double
+      tags:
+        - User
+      responses:
+        '200':
+          description: User Likes
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Place'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com
+          schema:
+            $ref: '#/definitions/ErrorModel'
+  /userProfile/{user_id}/likes/places/{place_id}:
+    put:
+      summary: delete somthing that the user liked
+      description: >-
+        The User likes endpoint which adds something that the user liked.
+      parameters:
+        - name: user_id
+          in: path  
+          description: User id.
+          required: true
+          type: string
+        - name: accesstoken
+          in: query
+          description: User token.
+          required: true
+          type: number
+          format: double
+        - name: place_id
+          in: path
+          description: Place id
+          required: true
+          type: string
+      tags:
+        - User
+      responses:
+        '200':
+          description: Like a place, etc.
+          schema:
+            items:
+              $ref: '#/definitions/SuccessModel'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    delete:
+      summary: delete somthing that the user liked
+      description: >-
+        The User likes endpoint which removes something that the user liked.
+      parameters:
+        - name: user_id
+          in: path  
+          description: User id.
+          required: true
+          type: string
+        - name: accesstoken
+          in: query
+          description: User token.
+          required: true
+          type: number
+          format: double
+        - name: place_id
+          in: path
+          description: Like id
+          required: true
+          type: string
+      tags:
+        - User
+      responses:
+        '200':
+          description: Unlike a place, etc.
+          schema:
+            items:
+              $ref: '#/definitions/SuccessModel'
+        '400':
+          description: Bad request. The request could not be understood by the server. Please make a good request.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized. 
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '403':
+          description: Forbidden. You are forbidden to access this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found. The server has not found anything matching the request URI.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '405':
+          description: Mehod not allowed. The method specified is not allowed for this resource.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: >-
+            Internal Server Error. Something bad happened. Please contact the support team.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '501':
+          description: >-
+            Not Implemented. The server does not support the functionality required. Visit us in a few hours, we are preparing a big surprise.
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '503':
+          description: >-
+            Service Unavailable. Please try again later or send an email to admin@urer.com
+          schema:
+            $ref: '#/definitions/ErrorModel'
+definitions:
+  Movie:
+    type: object
+    properties:
+      id:
+        type: string
+        description: UUID of a movie.
+        
+      title:
+        type: string
+        description: Title of the movie.
+
+      genres:
+        type: array
+        description: A list of the genres of a movie.
+        items:
+          $ref: '#/definitions/Genre'
+        
+      publishDate:
+        type: string
+        format: date
+        description: Date the movie was released.
+      url:
+        type: string
+        format: url
+        description: A url to the page of the movie (imdb)
+        
+  ErrorModel:
+    type: object
+    required:
+    - message
+    - code
+    properties:
+      message:
+        type: string
+      code:
+        type: integer
+        minimum: 100
+        maximum: 600
+  
+  SuccessModel:
+    type: object
+    required:
+    - message
+    - code
+    properties:
+      message:
+        type: string
+      code:
+        type: integer
+        minimum: 100
+        maximum: 600
+        
+
+  Genre:
+    type: object
+    properties:
+      id:
+        type: string
+        description: The uuid of a genre
+      name:
+        type: string
+        description: The name of the genre
+        
+  PlaceType:
+    type: object
+    properties:
+      id:
+        type: string
+        description: The UUID of the type
+      name:
+        type: string
+        description: The name of the type
+        
+  Location:
+    type: object
+    properties:
+      id:
+        type: string
+        description: The UUID of the location
+      latitude:
+        type: number
+        description: The latitude of the location
+      longitude:
+        type: number
+        description: The longitude of the location
+        
+  Place:
+    type: object
+    properties:
+      id:
+        type: string
+        description: UUID of a place.
+      name:
+        type: string
+        description: Name of the place.
+      address:
+        type: string
+        description: Adress of the place.
+      location:
+        $ref: "#/definitions/Location"
+      types:
+        type: array
+        description: The types for the place.
+        items:
+           $ref: '#/definitions/PlaceType'
+      url:
+        type: string
+        format: url
+        description: A url to the page of the place on google map
+      icon: 
+        type: string
+        format: url
+        description: A url to an image with the place
+      phoneNumber:
+        type: string
+        description: The phone number of the place (for example if it is a restaurant)
+      rating:
+        type: number
+        description: The rating of the place (not always present)
+      vicinity: 
+        type: string
+        description: A vicinity of the place
+      open_now:
+        type: boolean
+        description: is the place open now?
+      schedule:
+        type: string
+        description: The place's schedule (optional)
+      website:
+        type: string
+        format: url
+        description: Place's website (not always present)
+        
+        
+  SPARQL:
+    type: object
+    properties:
+     response:
+        type: string
+        
+  LoginResponse:
+    type: object
+    properties:
+      userId:
+        type: number
+        format: integer
+        description: 'The id of the logged user.'
+      accessToken:
+        type: string
+        format: udid
+        description: 'The access token used in the following requests.'      
+        
+  User:
+    type: object
+    properties:
+      user_id:
+        type: string
+        description: "Unique identifier representing a specific user. You can make requests only for the user associated with the token that you send in the header of the requests"
+      name: 
+        type: string
+        description: 'The name of the user.'
+      email:
+        type: string
+        description: 'User email.'
+      password:
+        type: string
+        description: 'Password of the user.'
+      qrcode:
+        type: string
+        description: 'Qrcode generated for user. Used for login.'
+      moviePreferences:
+        type: array
+        description: "List of User preferences"
+        items:
+          $ref: '#/definitions/Genre'
+      placesPreferences:
+        type: array
+        description: "List of User preferences"
+        items:
+          $ref: '#/definitions/PlaceType'
+      friends:
+        type: array
+        description: "List of friends"
+        items:
+          $ref: '#/definitions/User'
+      enemies:
+        type: array
+        description: "List of enemies!!! Run away!"
+        items:
+          $ref: '#/definitions/User'  
+      movieLikes:
+        type: array
+        description: "List of liked entities"
+        items: 
+          $ref: '#/definitions/Movie'  
+      placesLikes:
+        type: array
+        description: "List of liked entities"
+        items: 
+          $ref: '#/definitions/Place'
