@@ -48,6 +48,12 @@ namespace UrerGateway.Business.RestClients
             return base.Get(path);
         }
 
+        public UrerActionResult GetRelated(Guid id)
+        {
+            var path = "Movies/" + id + "/related";
+            return base.Get(path);
+        }
+
         public UrerActionResult Post(object data)
         {
             var path = "Movies.Api/api/Movies/Post";

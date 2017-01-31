@@ -57,5 +57,12 @@ namespace UrerGateway.Controllers
         {
             return moviesRestClient.GetGenresById(id);
         }
+
+        [Route("api/movies/{id}/related")]
+        [HttpGet]
+        public IHttpActionResult GetRelated([FromUri] Guid id)
+        {
+            return moviesRestClient.GetRelated(id);
+        }
     }
 }
