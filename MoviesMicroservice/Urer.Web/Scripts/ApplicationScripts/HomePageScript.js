@@ -5,13 +5,13 @@ var infowindow;
 function AddFriend(id) {
   //TODO: do put to add friend
   //api / UserProfile / { id } / friends / { friendId }
-  $.post($("#baseUrl").val() + '/' + hVM.UserId + '/friends/',{ id: id }, function (data) {
+  $.post($("#baseUrluserProfile").val() + '/' + hVM.UserId + '/friends/', { id: id }, function (data) {
     
   });
 }
 function AddEnemy(id) {
   //TODO: do put to add friend
-  $.post($("#baseUrl").val() + '/' + hVM.UserId + '/enemies', { id: id }, function (data) {
+  $.post($("#baseUrluserProfile").val() + '/' + hVM.UserId + '/enemies', { id: id }, function (data) {
     console.log(data);
   });
 }
