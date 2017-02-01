@@ -28,8 +28,9 @@
           <h3 data-bind="text: User().UserName"></h3>
         </th>
         <th style="float:right">
-          <a data-bind="attr: {src: User.QRLink, href: User.QRLink}" @*href="/path/to/image"*@ download="myQRCode">
-            <img class="img-keep-aspect-ratio" src="~/Content/Images/sampleQR.png" style="height:10vh" />
+          <button id="generateButton" class="btn btn-primary" data-bind="click: GetQR">Generate QR</button>
+          <a @*data-bind="attr: {src: User.QRLink, href: User.QRLink}"*@ @*href="/path/to/image"*@ >
+            <img id="myImage" class="img-keep-aspect-ratio"  style="height:10vh; display:none" />
           </a>
         </th>
       </tr>

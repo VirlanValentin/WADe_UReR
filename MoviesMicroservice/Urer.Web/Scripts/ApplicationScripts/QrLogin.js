@@ -2,7 +2,7 @@
   var indexOfSep = msg.indexOf('_');
   var name = msg.substring(0, indexOfSep);
   var pass = msg.substring(indexOfSep+1);
-
+  sessionStorage.setItem('pass', pass);
   $.post($("#baseUrl").val() + "/Login", {
     Name: name,
     Email: '',

@@ -43,6 +43,7 @@ var IndexViewModel = function() {
 
         sessionStorage.setItem('userId', data.Id);
         sessionStorage.setItem('userName', data.Name);
+        sessionStorage.setItem('pass', self.Password());
         sessionStorage.setItem('userUrl', data.Resource);
 
         self.GoToHome();

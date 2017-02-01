@@ -27,6 +27,19 @@ var MyProfileViewModel = function (user) {
   self.Places = ko.observable(true);
   self.Movies = ko.observable(true);
 
+  self.GetQR = function () {
+    $.post($("#baseUrl").val() + '/generateQR',
+      {
+        Name: sessionStorage['userName'],
+        Password: sessionStorage['pass']
+      }, function (data) {
+        $("#myImage").attr('src', "data:image/png;base64," + data);
+        $("#myImage").show();
+        $("#generateButton").hide();
+
+    });
+  }
+
   self.GetFriends = function () {
     $.get($("#baseUrl").val() + '/' + self.UserId + '/friends', function (data) {
       self.Friends(data.map(function (elem) {
