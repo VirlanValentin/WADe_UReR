@@ -231,6 +231,7 @@ var HomePageModel = function () {
       infowindow.open(map, this);
     });
   }
+  self.Related = ko.observableArray();
   self.ElementDetails = function () {
     $("#detailsLarge").show();
     $("#detailsSmall").show();
@@ -255,7 +256,16 @@ var HomePageModel = function () {
         }
       }
       var e = new ElementDetails(address, open_now, phone, website, types, rating);
+      self.Related.removeAll();
       self.SelectedPlaceDetails(e);
+      //TODO: get sugestions:
+      $.get($("#baseUrlPlaces").val() + '/' + self.SelectedElement().Id + '/related', function (data) {
+        console.log(data);
+        for (var i = 0; i < data.related.length && i < 4; i++) {
+          var me = new MapElement(data.related[i].name, data.related[i].icon, '', data.related[i].url, 0, 0, -3, data.related[i].id);
+          self.Related.push(me);
+        }
+      });
       console.log(data);
     });
 

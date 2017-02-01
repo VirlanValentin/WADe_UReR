@@ -151,50 +151,57 @@
   <div class="row col-xs-12 ur-box-sm centerItems">
     <i class="fa fa-chevron-down" data-bind="click: HideElementDetails" style="font-size:40px; padding-left: 10px; cursor:pointer"></i>
   </div>
-  <div class="row ur-box-sm">
+  <div class="row ur-box-sm col-xs-6">
     <div class="col-xs-12 centerItems" data-bind="with: SelectedElement" style="justify-content: initial">
       <img class="img-keep-aspect-ratio" style="height: 15vh; padding: 15px" data-bind="attr: {src: Image}" />
       <h3 data-bind="text: Name"></h3>
     </div>
+
+    <div class="row ur-box-sm details col-xs-12" style="padding: 15px" data-bind="with: SelectedPlaceDetails">
+      <div class="row col-xs-12">
+        <label class="control-label">Address: </label>
+        <p class="col-xs-12" data-bind="text: Address">La vali</p>
+      </div>
+      <div class="row col-xs-12">
+        <label class="control-label">OpenNow: </label>
+        <p class="col-xs-12" data-bind="text: OpenNow">Yes</p>
+      </div>
+      <div class="row col-xs-12">
+        <label class="control-label">Phone: </label>
+        <p class="col-xs-12" data-bind="text: Phone">0744</p>
+      </div>
+      <div class="row col-xs-12">
+        <label class="control-label">Rating: </label>
+        <p class="col-xs-12" data-bind="text: Rating">5</p>
+      </div>
+
+      <div class="row col-xs-12">
+        <label class="control-label">Type: </label>
+        <p class="col-xs-12" data-bind="text: Type">tipuri</p>
+      </div>
+
+      <div class="row col-xs-12">
+        <label class="control-label">WebSite: </label>
+        <a class="col-xs-12" data-bind="attr: {src: WebSite}">Click here to go to website</a>
+      </div>
+    </div>
   </div>
 
-  <div class="row ur-box-sm details" style="padding: 15px" data-bind="with: SelectedPlaceDetails">
-    <div class="row col-xs-12">
-      <label class="control-label">Address: </label>
-      <p class="col-xs-12" data-bind="text: Address">La vali</p>
-    </div>
-    <div class="row col-xs-12">
-      <label class="control-label">OpenNow: </label>
-      <p class="col-xs-12" data-bind="text: OpenNow">Yes</p>
-    </div>
-    <div class="row col-xs-12">
-      <label class="control-label">Phone: </label>
-      <p class="col-xs-12" data-bind="text: Phone">0744</p>
-    </div>
-    <div class="row col-xs-12">
-      <label class="control-label">Rating: </label>
-      <p class="col-xs-12" data-bind="text: Rating">5</p>
-    </div>
-
-    <div class="row col-xs-12">
-      <label class="control-label">Type: </label>
-      <p class="col-xs-12" data-bind="text: Type">tipuri</p>
-    </div>
-
-    <div class="row col-xs-12">
-      <label class="control-label">WebSite: </label>
-      <a class="col-xs-12" data-bind="attr: {src: WebSite}">Click here to go to website</a>
-    </div>
-  </div>
-
-  <div class="row col-xs-12">
-    @*Series of Images*@
-  </div>
-
-
-  <div class="row col-xs-12">
+  <div class="row col-xs-6">
     @*Series of Suggestions*@
+    <label class="control-label">Related: </label>
+    <div class="col-md-12" data-bind="foreach: Related">
+      <div>
+        <div class="col-xs-12 centerItems" style="justify-content: initial">
+          <img class="img-keep-aspect-ratio" style="height: 5vh; padding: 15px" data-bind="attr: {src: Image}" />
+          <h3 data-bind="text: Name"></h3>
+        </div>
+        <a class="col-xs-12" data-bind="attr:{href: Url}, text: Name"></a>
+      </div>
+
+    </div>
   </div>
+ 
 </div>
 
 
