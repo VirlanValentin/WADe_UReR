@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<style>
+			article > section:first-of-type ol::before {
+				display: block;
+				float: left;
+				width: 150px;
+				margin-left: -150px;
+				font-variant: small-caps;
+				color: #9E9E9E;
+			}
+			article > section:first-of-type ol:first-of-type::before {
+				content: 'Authors';
+			}
+			article > section:first-of-type ol {
+				list-style-type: none;
+				margin-left: 150px;
+				counter-reset: affiliations;
+			}
+			article > section:first-of-type li {
+				display: inline;
+			}
+			article > section:first-of-type li::after {
+				content: ',';
+			}
+			article > section:first-of-type li:last-child::after {
+				content: normal;
+			}
+			article > section:first-of-type a[property="sa:roleAffiliation"] {
+				font-size: 12px;
+				vertical-align: super;
+			}
+			article > section:first-of-type ol:not(:first-of-type) li::before {
+				counter-increment: affiliations;
+				content: counter(affiliations, lower-latin) '.';
+				font-size: 12px;
+				display: inline;
+			}
+			article > section:first-of-type ol:not(:first-of-type)::before {
+				content: 'Affiliations';
+			}
+		</style>
+  	</head>
+ 	<body prefix="schema: http://schema.org/ xsd: http://www.w3.org/2001/XMLSchema# sa: https://ns.science.ai/">
+    	<!--<header>
+    		<p class="title">Universal Resource Recommender</p>
+      		<p class="subtitle">UReR</p>
+    	</header>-->
+	    <article typeof="schema:ScholarlyArticle" resource="#">
+		    <h1>UReR - Universal Resource Recommender</h1>
+		    <section>
+			   <ol>
+		          	<li property="schema:author" typeof="sa:ContributorRole">
+		            	<a property="schema:author" href="https://github.com/VirlanValentin" typeof="schema:Person">
+		            		<span property="schema:givenName">Valentin - Ștefan</span>
+		            		<span property="schema:familyName">Vîrlan</span>
+		            	</a>
+		            	<a href="#infoiasi" property="sa:roleAffiliation" resource="http://www.info.uaic.ro/bin/Main/"></a>
+		            	<sup property="sa:roleContactPoint" typeof="schema:ContactPoint">
+		              		<a property="schema:email" href="mailto:valentin.virlan@info.uaic.ro" title="corresponding author">&#9993;</a>
+		            	</sup>
+		         	</li><br>
+		          	<li property="schema:author" typeof="sa:ContributorRole">
+		            	<a property="schema:author" href="https://github.com/CodrinFaca" typeof="schema:Person">
+		              		<span property="schema:givenName">Codrin - Ionuț</span>
+		              		<span property="schema:familyName">Fâcă</span>
+		            	</a>
+		            	<a href="#infoiasi" property="sa:roleAffiliation" resource="http://www.info.uaic.ro/bin/Main/"></a>
+		            	<sup property="sa:roleContactPoint" typeof="schema:ContactPoint">
+			              	<a property="schema:email" href="mailto:codrin.faca@info.uaic.ro" title="corresponding author">&#9993;</a>
+			            </sup>
+			        </li><br>
+			        <li property="schema:author" typeof="sa:ContributorRole">
+				        <a property="schema:author" href="https://github.com/DianaLazurca" typeof="schema:Person">
+					        <span property="schema:givenName">Diana - Ștefania</span>
+					        <span property="schema:familyName">Lăzurcă</span>
+				        </a>
+				        <a href="#infoiasi" property="sa:roleAffiliation" resource="//www.info.uaic.ro/bin/Main/"></a>
+				        <sup property="sa:roleContactPoint" typeof="schema:ContactPoint">
+				            <a property="schema:email" href="mailto:diana.lazurca@info.uaic.ro" title="corresponding author">&#9993;</a>
+				        </sup>
+			        </li><br>
+			        <li property="schema:author" typeof="sa:ContributorRole">
+			            <a property="schema:author" href="https://github.com/GeoPascaru" typeof="schema:Person">
+			              	<span property="schema:givenName">Georgiana - Elena</span>
+			              	<span property="schema:familyName">Pascaru</span>
+			            </a>
+			            <a href="#infoiasi" property="sa:roleAffiliation" resource="http://www.info.uaic.ro/bin/Main/"></a>
+			            <sup property="sa:roleContactPoint" typeof="schema:ContactPoint">
+			              	<a property="schema:email" href="mailto:elena.pascaru@info.uaic.ro" title="corresponding author">&#9993;</a>
+			            </sup>
+			        </li><br>
+			    </ol>
+				<ol style="text-decoration: none;">
+						<a id="infoiasi" href="http://www.info.uaic.ro/bin/Main/" typeof="schema:CollegeOrUniversity" >
+							<span property="schema:name">Facultatea de Informatică, Universitatea "Alexandru Ioan-Cuza", Iași</span>
+						</a>
+				</ol>
+		    </section>
+			<section typeof="sa:Abstract" id="abstract">
+		        <section><h2>1. Abstract</h2></section>
+	        	<p>
+					Universal Resource Recommender (UReR) is a web platform able to expose and recommend to its users resources of interest, nearly available. These can be: known people or common places (e.g. shops, parks, railway stations etc.). The system uses different modules (micro-services) in order to implement the functionalities required and to give the possibility to expand its capabilities. The application also exposes a REST API that third parties can use to enhance their own works.
+		        </p>
+			</section>
+			<section>
+		        <section><h2>2. Introduction</h2></section>
+		        
+		        <p>
+		        	UReR app exposes two main features: recommendations and alerts.
+		        </p>
+		        <p>
+		        	The recommendations part is the one that will take care of showing the user information about resources of interest nearly available. This part is also made up from two components: places and people. The places component will display on a map places that are near the user's current location. These places can be: shops, restaurants, museums, parks, monuments, cinemas etc. The initial places shown on the map will be related with the user's preferences, but the user will also have the possibility to filter the types of places shown. For example, if a user has as a preference the fact that he is interested in shopping, the app will display on the map only the shops that are near the location of the user. If the user wants to see more than shops on the map, he can select from a list of places types the ones that he wants to see (restaurants, parks, museums, etc.).
+		        </p>
+		        <p>
+		        	The people component will be responsible of displaying the list of friends or enemies the user currently has and also recommend a list of possible known people. These recommendations will be made based on the location of the users, their preferences and their common friends.
+		        </p>
+		        <p>
+		        	The alerts component will be responsible of sending alerts to the user on different situations. For example the user can receive an alert when a friend is nearby in order to go and say hi, or when an enemy is nearby in order to avoid him.
+					Another alert example can be the following: the user is near a cinema and has as preferences the fact that he likes horror movies. Knowing this, the app can send an alert saying that the new horror movie "WADe Project Presentation" was released the other day and might be played at that cinema.
+					The application can easily be extended to show other types of alerts.
+		        </p>
+		        <p>
+		        	In order to access the functionalities described above the user must be signed in. In order to login the user has two possibilities: use a QR code or a standard username and password.
+		        </p>
+		        
+			</section>
+			<section typeof="sa:MaterialsAndMethods">
+		        <section><h2>3. Technologies</h2></section>
+			        <div>
+			        	<section><h3> HTML 5 </h3></section>
+			        	<p>
+			        		HTML 5 is a markup language used for structuring and presenting content on the World
+							Wide Web. In our application, it is used for creating the user interface.
+			        	</p>
+			        </div>
+			        <div>
+			        	<section><h3> Javascript </h3></section>
+			        	<p>
+			        		Javascript is most commonly used as a client side scripting language. For our application, it is 
+							used to interpret and manage RDF-related data.
+			        	</p>
+			        </div>
+			        <div>
+			        	<section><h3> Java2EE </h3></section>
+			        	<p>
+			        		Java Enterprise Edition is a platform that offers an API that allows the developer to create complex applications using Java. In our application it was used for creating the REST API for Places microservice.
+			        	</p>
+			        </div>
+			        <div>
+			        	<section><h3> ASP.NET </h3></section>
+			        	<p>
+			        		ASP.NET is an open source web framework for building modern web apps and services with .NET. ASP.NET creates websites based on HTML5, CSS, and JavaScript that are simple, fast, and can scale to millions of users. In our application was used for developing Movies and User microservices and also for the communication between the interface and the microservices. 
+			        	</p>
+			        </div>
+			        <div>
+			        	<section><h3> Apache Jena Fuseki </h3></section>
+			        	<p>
+			        		Apache Jena is an open source Java framework used for building Semantic Web and
+							Linked Data applications. This framework offers the developer the possibility to use Fuseki, a
+							SPARQL standalone server used to query the RDF data.
+			        	</p>
+			        </div>
+			        <div>
+			        	<section><h3> SPARQL </h3></section>
+			        	<p>
+			        		SPARQL is a semantic query language for retrieving and manipulating data stored in RDF format. It was used when requests were made to the Fuseki server for getting and manipulating data from Wikidata, FOAF and UREeR ontology.
+			        	</p>
+			        </div>
+			        <div>
+			        	<section><h3> Protégé </h3></section>
+			        	<p>
+			        		Protégé is an editor and framework for creating and updating custom ontology, and validating the
+							models to infer the information structured on the ontology rules. The Protégé platform supports two main
+							ways of modeling ontologies via the Protégé-Frames and Protégé-OWL editors. Protégé ontologies can be
+							exported into a variety of formats including RDF, RDFS, OWL, and XML Schema.
+
+			        	</p>
+			        </div>
+			        <div>
+			        	<section><h3> Microsoft Azure </h3></section>
+			        	 <p>Microsoft Azure is a cloud computing service created by Microsoft for building, deploying, and managing applications and services through a global network of Microsoft-managed data centers. We used it when deploying the .NET application in cloud. 
+			        	 </p>
+			        </div>
+			        <div>
+			        	<section><h3> Amazon Web Services </h3></section>
+			        	<p>
+			        		Amazon Web Services (AWS) offers a suite of cloud-computing services that make up an on-demand computing platform. It was used for deploying the Places microservice (Elastic Beanstalk) and the Apache Jena Fuseki server (EC2). 
+			        	</p>
+			        </div>
+	        	
+			</section>
+	        	
+			</section>
+			<section typeof="sa:MaterialsAndMethods">
+        		<section><h2>4. Architecture </h2></section>
+        		<p> Our web application will be implemented using a microservices oriented architecture, like below </p>	
+        		<figure typeof="sa:Image">
+		            <img src="https://i0.wp.com/urer2016blog.files.wordpress.com/2016/12/apparchitecture2.png?w=730">
+		            <figcaption>
+		            <cite> Figure 1. UReR's architecture.</cite>
+		            </figcaption>
+		        </figure> <br>
+
+		        <figure typeof="sa:Image">
+		            <img src="https://i0.wp.com/urer2016blog.files.wordpress.com/2016/12/db_flow.png?w=730">
+		            <figcaption>
+		            <cite> Figure 2. Interaction between microservice and databases.</cite>
+		            </figcaption>
+		        </figure> <br>
+
+		        
+        	</section>
+        	<section typeof="sa:MaterialsAndMethods">
+        		<section><h2>5. Use - cases </h2></section>
+        		<figure typeof="sa:Image">
+		            <img src="https://i1.wp.com/urer2016blog.files.wordpress.com/2016/12/userinapplication_usernotsignedin1.png?w=500">
+		            <figcaption>
+		            <cite> Figure 2. User not signed in.</cite>
+		            </figcaption>
+		        </figure> <br>
+
+        		<figure typeof="sa:Image">
+		            <img src="https://i1.wp.com/urer2016blog.files.wordpress.com/2016/12/userinapplication_usersignedin1.png?w=700">
+		            <figcaption>
+		            <cite> Figure 3. User signed in.</cite>
+		            </figcaption>
+		        </figure> <br>
+        	</section>
+        	<section typeof="sa:MaterialsAndMethods">
+        		<section><h2>6. Data Sources and Vocabularies</h2></section>
+
+        		<p>
+				 The microservices used in the application will be using variuous data sources (Wikidata etc.) for retrieving relevant information to be offered to the user. In order to get these informations spaql queries will be performed.
+				</p>
+				<p>
+				  Each microservice which performs a requests to the sparql endpoints for the data source will have also an internal database. This database can be used as a cache for common queries and to prevent the situation when the the sparql endpoints for the data sources from above does not work.
+				</p>
+				<p>
+				    The microservices related to the user will be required to use an internal database in order to store information about the users.
+				</p>
+        			
+        		<!--<section><h3>DBpedia</h3></section>
+        		Will be used to get information about places based on same criteria (location, type, radius).
+        		
+        		<figure typeof="sa:Image">
+		            <img src="https://urer2016blog.files.wordpress.com/2016/12/getplacesiasi.png?w=730">
+		            <figcaption>
+		            <cite> Figure 4. Query which gets/displays the places from Iași.</cite>
+		            </figcaption>
+		        </figure> <br>
+		        <figure typeof="sa:Image">
+		            <img src="https://i0.wp.com/urer2016blog.files.wordpress.com/2016/12/get_restaurants_100km_from_lat_long.png?w=730">
+		            <figcaption>
+		            <cite> Figure 5. Query which gets/displays all restaurants in a 100km radius from the provided lat and long that have the name in english.</cite>
+		            </figcaption>
+		        </figure>
+
+		        <figure typeof="sa:Image"><img src="https://i2.wp.com/urer2016blog.files.wordpress.com/2016/12/libraries_100km_from_bucharest_schemaorg.png?w=730" />
+					<figcaption><cite> Figure 6. Query which gets/displays the libraries 100km from Bucharest.</cite></figcaption></figure> -->
+
+			
+        		<section><h3>Wikidata</h3></section>
+        		<p>It was used for retrieving data about movies, which has filtered by genre or release date.</p>
+
+        		<figure typeof="sa:Image">
+		            <img src="https://urer2016blog.files.wordpress.com/2016/12/15491690_1165981156790495_1951439273_o.png?w=730">
+		            <figcaption>
+		            <cite> Figure 4. Query which gets/displays the movies that appeared between 5-10 December 2016, having the title in English.</cite>
+		            </figcaption>
+		        </figure>
+		        <br>
+		        <figure typeof="sa:Image">
+		            <img src="https://i2.wp.com/urer2016blog.files.wordpress.com/2016/12/movies_with_genre_new2.png?w=730">
+		            <figcaption>
+		            <cite> Figure 5. Query which gets/displays the movies that appeared between 5-10 December 2016, having the genre "thriller".</cite>
+		            </figcaption>
+		        </figure>
+		        <br>
+				<figure typeof="sa:Image"><img src="https://i2.wp.com/urer2016blog.files.wordpress.com/2016/12/get_restaurants_usa_wikidata.png?w=730" />
+					<figcaption><cite> Figure 6. Query which gets/displays the restaurants from USA.</cite></figcaption></figure><br>
+
+        		<!--<section><h3>LinkedGeoData</h3></section>
+        		<p>Will be used for places.</p>
+        		<figure typeof="sa:Image"><img src="https://i0.wp.com/urer2016blog.files.wordpress.com/2016/12/amenities_leipzig_linkedgeodata.png?w=730" />
+					<figcaption><cite> Figure 7. Query which gets/displays all amenities 100m from Leipzig Central Station.</cite></figcaption></figure> -->
+        		
+        		<section><h3>FOAF</h3></section>
+        		<p>It was used to describe properties for an user and other entities (movie, place).</p>
+        		
+        		<figure typeof="sa:Image"><img src="https://i0.wp.com/urer2016blog.files.wordpress.com/2016/12/freddy_mercury.png?w=730" />
+					<figcaption><cite> Figure 7. Query which displays info about Freddy Mercury.</cite></figcaption></figure>
+        		<section><h3>RELATIONSHIP</h3></section>
+        		<p>It was used to describe the friend and enemy relationships between users.</p>
+        		<!--<section><h3>SCHEMA.ORG</h3></section>
+        		<p>Will be used for places.</p>
+        		<figure typeof="sa:Image"><img src="https://i2.wp.com/urer2016blog.files.wordpress.com/2016/12/libraries_100km_from_bucharest_schemaorg.png?w=730" />
+					<figcaption><cite> Figure 11. Query which gets/displays the libraries 100km from Bucharest.</cite></figcaption></figure>	 -->
+
+        	</section>
+
+        	<section typeof="sa:MaterialsAndMethods">
+        		<section><h2>7. External API Components</h2></section>
+        		<section><h3>Google Maps API</h3></section>
+        		<p> The Google Maps API was used in order to display the map on which the places and people will be showed.</p>	
+        		<br>
+        		<section><h3>Google Places API</h3></section>
+        		<p> The Google Places API was used for retrieving information about places at a given latitude and longitude, in a given radius or of a specific type. </p>	
+        		<figure typeof="sa:Image"><img src="https://urer2016blog.files.wordpress.com/2016/12/google-places-api.png?w=730" />
+					<figcaption><cite> Figure 8. Response received from Google Places API for a specifies place id.</cite></figcaption></figure>	
+        	</section>
+        	<section typeof="sa:MaterialsAndMethods">
+			        <h2>8. UReR Ontology </h2>
+			        <p>
+			        	Each microservice has access to a database which stores it's content in RDF format.
+						In order to represent the data, known vocabularies were used in addition to a custom vocabulary created for this application. 
+						Below is described the ontology we used.
+					</p>
+
+						<figure typeof="sa:Image"><img src="https://i1.wp.com/urer2016blog.files.wordpress.com/2016/12/ontology.png?w=730" />
+						<figcaption><cite> Figure 9. UReR Ontology.</cite></figcaption></figure>	
+
+						<!--An example could be:
+			        </p>
+			        <table>
+			        	<tr>
+			        		<th><center>Subject</center></th>
+			        		<th><center>Predicate / Relationship</center></th>
+			        		<th><center>Object</center></th>
+			        	</tr>
+			        	<tr>
+						    <td><center>User</center></td>
+						    <td><center>a</center></td> 
+						    <td><center>foaf:Person</center></td>
+						</tr>
+						<tr>
+						    <td><center>User<center></td>
+						    <td><center>rel:FriendOf</center></td> 
+						    <td><center>User</center></td>
+						 </tr>
+						 <tr>
+						    <td><center>User</center></td>
+						    <td><center>rel:enemyOf<center></td> 
+						    <td><center>User</center></td>
+						 </tr>
+						 <tr>
+						    <td><center>Like</center></td>
+						    <td><center>a</center></td> 
+						    <td><center>foaf:Document</center></td>
+						 </tr>
+						 <tr>
+						    <td><center>User</center></td>
+						    <td><center>foaf:interest</center></td> 
+						    <td><center>Like</center></td>
+						 </tr>
+						 <tr>
+						    <td><center>Preference</center></td>
+						    <td><center>a</center></td> 
+						    <td><center>urer:Preference</center></td>
+						 </tr>
+						 <tr>
+						    <td><center>User</center></td>
+						    <td><center>urer:hasPreference</center></td> 
+						    <td><center>urer:Preference</center></td>
+						 </tr>
+						 <tr>
+						    <td><center>Movie</center></td>
+						    <td><center>a</center></td> 
+						    <td><center><a href="https://www.wikidata.org/wiki/Q11424 ">https://www.wikidata.org/wiki/Q11424 (film)</a></center></td>
+						 </tr>
+						 <tr>
+						    <td><center>Movie</center></td>
+						    <td><center><a href="https://www.wikidata.org/wiki/Property:P136 ">https://www.wikidata.org/wiki/Property:P136 (genre)</a></center></td> 
+						    <td><center><a href="<http://www.w3.org/2001/XMLSchema#> ">xsd:string</a></center></td>
+						 </tr>
+						 <tr>
+						    <td><center>Movie</center></td>
+						    <td><center><a href="https://www.wikidata.org/wiki/Property:P577">https://www.wikidata.org/wiki/Property:P577 (publicationDate)</a></center></td> 
+						    <td><center><a href="<http://www.w3.org/2001/XMLSchema#> ">xsd:dateTime</a></center></td>
+						 </tr>
+
+			        </table>
+
+			        <ul>
+			        	<li> <strong>foaf:interest</strong>: an alternative modeling could be to define a custom property <strong>urer:likes</strong> in order to link the user to a resource he marked as "liked"</li>
+			        </ul> -->
+
+			        <p>SPARQL interrogation for getting a place by id from our RDF database:</p>
+			        <figure typeof="sa:Image"><img src="https://urer2016blog.files.wordpress.com/2016/12/getplacebyid.png?w=730" /></figure>
+					<br/>
+					<p>SPARQL interrogation for adding a new location:</p>
+			        <figure typeof="sa:Image"><img src="https://urer2016blog.files.wordpress.com/2016/12/insertlocation.png?w=730" /></figure>
+			        <br/>
+					<p>SPARQL interrogation retrieving movies from december 2016:</p>
+			        <figure typeof="sa:Image"><img src="https://urer2016blog.files.wordpress.com/2016/12/movies.png?w=730" /></figure>
+
+					
+
+			</section>
+
+        	<section typeof="sa:Conclusion">
+			        <h2>9. Conclusion</h2>
+			        <p>
+			            UReR (Universal Resource Recommender) can be a step forward in improving the quality of the user's experience with the world around him. Through this app he can find places of interest neary avaialable, can find people that he might know or people he might want to meet and receive notifications when something happens that he is interested in. 
+			            The app could easily be extended by adding other microservices that will ofer other resources of interest to the user (for example, events that could take place in his area). Other extensions could be added to the alert module in order to give the user the possibility to be notified in more situations than the ones currently available. 
+			            Another extension could be adding support for user authentication using social network accounts, like Facebook, Google, etc.
+			        </p>
+			</section>
+
+		</article>
+	</body>
+</html>
