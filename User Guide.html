@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<style>
+			article > section:first-of-type ol::before {
+				display: block;
+				float: left;
+				width: 150px;
+				margin-left: -150px;
+				font-variant: small-caps;
+				color: #9E9E9E;
+			}
+			article > section:first-of-type ol:first-of-type::before {
+				content: 'Authors';
+			}
+			article > section:first-of-type ol {
+				list-style-type: none;
+				margin-left: 150px;
+				counter-reset: affiliations;
+			}
+			article > section:first-of-type li {
+				display: inline;
+			}
+			article > section:first-of-type li::after {
+				content: ',';
+			}
+			article > section:first-of-type li:last-child::after {
+				content: normal;
+			}
+			article > section:first-of-type a[property="sa:roleAffiliation"] {
+				font-size: 12px;
+				vertical-align: super;
+			}
+			article > section:first-of-type ol:not(:first-of-type) li::before {
+				counter-increment: affiliations;
+				content: counter(affiliations, lower-latin) '.';
+				font-size: 12px;
+				display: inline;
+			}
+			article > section:first-of-type ol:not(:first-of-type)::before {
+				content: 'Affiliations';
+			}
+		</style>
+  	</head>
+ 	<body prefix="schema: http://schema.org/ xsd: http://www.w3.org/2001/XMLSchema# sa: https://ns.science.ai/">
+    	<!--<header>
+    		<p class="title">Universal Resource Recommender</p>
+      		<p class="subtitle">UReR</p>
+    	</header>-->
+	    <article typeof="schema:ScholarlyArticle" resource="#">
+		    <h1>UReR - Universal Resource Recommender</h1>
+		    <section>
+			   <ol>
+		          	<li property="schema:author" typeof="sa:ContributorRole">
+		            	<a property="schema:author" href="https://github.com/VirlanValentin" typeof="schema:Person">
+		            		<span property="schema:givenName">Valentin - Ștefan</span>
+		            		<span property="schema:familyName">Vîrlan</span>
+		            	</a>
+		            	<a href="#infoiasi" property="sa:roleAffiliation" resource="http://www.info.uaic.ro/bin/Main/"></a>
+		            	<sup property="sa:roleContactPoint" typeof="schema:ContactPoint">
+		              		<a property="schema:email" href="mailto:valentin.virlan@info.uaic.ro" title="corresponding author">&#9993;</a>
+		            	</sup>
+		         	</li><br>
+		          	<li property="schema:author" typeof="sa:ContributorRole">
+		            	<a property="schema:author" href="https://github.com/CodrinFaca" typeof="schema:Person">
+		              		<span property="schema:givenName">Codrin - Ionuț</span>
+		              		<span property="schema:familyName">Fâcă</span>
+		            	</a>
+		            	<a href="#infoiasi" property="sa:roleAffiliation" resource="http://www.info.uaic.ro/bin/Main/"></a>
+		            	<sup property="sa:roleContactPoint" typeof="schema:ContactPoint">
+			              	<a property="schema:email" href="mailto:codrin.faca@info.uaic.ro" title="corresponding author">&#9993;</a>
+			            </sup>
+			        </li><br>
+			        <li property="schema:author" typeof="sa:ContributorRole">
+				        <a property="schema:author" href="https://github.com/DianaLazurca" typeof="schema:Person">
+					        <span property="schema:givenName">Diana - Ștefania</span>
+					        <span property="schema:familyName">Lăzurcă</span>
+				        </a>
+				        <a href="#infoiasi" property="sa:roleAffiliation" resource="//www.info.uaic.ro/bin/Main/"></a>
+				        <sup property="sa:roleContactPoint" typeof="schema:ContactPoint">
+				            <a property="schema:email" href="mailto:diana.lazurca@info.uaic.ro" title="corresponding author">&#9993;</a>
+				        </sup>
+			        </li><br>
+			        <li property="schema:author" typeof="sa:ContributorRole">
+			            <a property="schema:author" href="https://github.com/GeoPascaru" typeof="schema:Person">
+			              	<span property="schema:givenName">Georgiana - Elena</span>
+			              	<span property="schema:familyName">Pascaru</span>
+			            </a>
+			            <a href="#infoiasi" property="sa:roleAffiliation" resource="http://www.info.uaic.ro/bin/Main/"></a>
+			            <sup property="sa:roleContactPoint" typeof="schema:ContactPoint">
+			              	<a property="schema:email" href="mailto:elena.pascaru@info.uaic.ro" title="corresponding author">&#9993;</a>
+			            </sup>
+			        </li><br>
+			    </ol>
+				<ol style="text-decoration: none;">
+						<a id="infoiasi" href="http://www.info.uaic.ro/bin/Main/" typeof="schema:CollegeOrUniversity" >
+							<span property="schema:name">Facultatea de Informatică, Universitatea "Alexandru Ioan-Cuza", Iași</span>
+						</a>
+				</ol>
+		    </section>
+			<section typeof="sa:Abstract" id="abstract">
+		        <section><h2>1. Abstract</h2></section>
+	        	<p>
+					Universal Resource Recommender (UReR) is a web platform able to expose and recommend to its users resources of interest, nearly available. These can be: known people or common places (e.g. shops, parks, railway stations etc.). The system uses different modules (micro-services) in order to implement the functionalities required and to give the possibility to expand its capabilities. The application also exposes a REST API that third parties can use to enhance their own works.
+		        </p>
+			</section>
+			<section>
+		        <section><h2>2. Introduction</h2></section>
+		        
+		        <p>
+		        	UReR app exposes two main features: recommendations and alerts.
+		        </p>
+		        <p>
+		        	The recommendations part is the one that will take care of showing the user information about resources of interest nearly available. This part is also made up from two components: places and people. The places component will display on a map places that are near the user's current location. These places can be: shops, restaurants, museums, parks, monuments, cinemas etc. The initial places shown on the map will be related with the user's preferences, but the user will also have the possibility to filter the types of places shown. For example, if a user has as a preference the fact that he is interested in shopping, the app will display on the map only the shops that are near the location of the user. If the user wants to see more than shops on the map, he can select from a list of places types the ones that he wants to see (restaurants, parks, museums, etc.).
+		        </p>
+		        <p>
+		        	The people component will be responsible of displaying the list of friends or enemies the user currently has and also recommend a list of possible known people. These recommendations will be made based on the location of the users, their preferences and their common friends.
+		        </p>
+		        <p>
+		        	The alerts component will be responsible of sending alerts to the user on different situations. For example the user can receive an alert when a friend is nearby in order to go and say hi, or when an enemy is nearby in order to avoid him.
+					Another alert example can be the following: the user is near a cinema and has as preferences the fact that he likes horror movies. Knowing this, the app can send an alert saying that the new horror movie "WADe Project Presentation" was released the other day and might be played at that cinema.
+					The application can easily be extended to show other types of alerts.
+		        </p>
+		        <p>
+		        	In order to access the functionalities described above the user must be signed in. In order to login the user has two possibilities: use a QR code or a standard username and password.
+		        </p>
+		        
+			</section>
+			<section typeof="sa:MaterialsAndMethods">
+				<section><h2>How to access UReR ? </h2></section>
+					Please use this  <a href="http://urerwebclient.azurewebsites.net/">link</a> to access our application.
+					<br>
+				<section><h2>How to make an account? </h2></section>
+			        <div>
+			        	In order to make an account, the user must access the register page and complete some data, for example a valid email address, password. When the 'Register' button will be pressed, a QR code will be generated and made available to the user for accessing his account. 
+
+			        	<figure typeof="sa:Image">
+				            <img src="https://urer2016blog.files.wordpress.com/2017/01/register.png?w=730">
+				            <figcaption>
+				            <cite> Figure 1. Register form.</cite>
+				            </figcaption>
+				        </figure> <br>
+
+			        </div>
+		        <section><h2>How to access your account?</h2></section>
+			        <div>
+			        	For logging in our aplication, the user has 2 possibilities: using a standard username / password or using the QR code generated when the user had registered. 
+			        	<figure typeof="sa:Image">
+				            <img src="https://urer2016blog.files.wordpress.com/2017/01/login.png?w=730">
+				            <figcaption>
+				            <cite> Figure 2. Login form.</cite>
+				            </figcaption>
+				        </figure> <br>
+
+			        </div>
+
+			     <section><h2>Your account</h2></section>
+			        <div>
+			        	Assuming the credentials are OK, a map will be displayed to the user on which he will see the nearby places (points of interests, restaurants, etc.). He will be able to search a place, to filter the places based on type, to get details of a place and some recommandations. Also, he can see friends and enemies which are logged within our application.  
+
+			        	<figure typeof="sa:Image">
+				            <img src="https://urer2016blog.files.wordpress.com/2017/01/mainpage1.png?w=730">
+				            <figcaption>
+				            <cite> Figure 3. Main Page with places.</cite>
+				            </figcaption>
+				        </figure> <br>
+
+				        <figure typeof="sa:Image">
+				            <img src="https://urer2016blog.files.wordpress.com/2017/01/mainpagefriendsenemies.png?w=730">
+				            <figcaption>
+				            <cite> Figure 4. Main Page with places, friends and enemies.</cite>
+				            </figcaption>
+				        </figure> <br>
+
+				        <figure typeof="sa:Image">
+				            <img src="https://urer2016blog.files.wordpress.com/2017/01/mainpage.png?w=730">
+				            <figcaption>
+				            <cite> Figure 5. Main Page, show only restaurants nearby.</cite>
+				            </figcaption>
+				        </figure> <br>
+
+				        <figure typeof="sa:Image">
+				            <img src="https://urer2016blog.files.wordpress.com/2017/01/details.png?w=730">
+				            <figcaption>
+				            <cite> Figure 6. Main Page, show place details and recommandations.</cite>
+				            </figcaption>
+				        </figure> <br>
+
+				         <figure typeof="sa:Image">
+				            <img src="https://urer2016blog.files.wordpress.com/2017/01/addwadedeadliine.png?w=730">
+				            <figcaption>
+				            <cite> Figure 7. Add user as friend or as enemy.</cite>
+				            </figcaption>
+				        </figure> <br>
+
+				         <figure typeof="sa:Image">
+				            <img src="https://urer2016blog.files.wordpress.com/2017/01/mainpage.png?w=730">
+				            <figcaption>
+				            <cite> Figure 8. Like place (Add as preference).</cite>
+				            </figcaption>
+				        </figure> <br>
+
+				        
+				        <figure typeof="sa:Image">
+				            <img src="https://urer2016blog.files.wordpress.com/2017/01/movies.png?w=730">
+				            <figcaption>
+				            <cite> Figure 9. See movies.</cite>
+				            </figcaption>
+				        </figure> <br>
+
+				        <figure typeof="sa:Image">
+				            <img src="https://urer2016blog.files.wordpress.com/2017/01/user_profile.png?w=730">
+				            <figcaption>
+				            <cite> Figure 10. User Profile.</cite>
+				            </figcaption>
+				        </figure> <br>
+
+			        </div>
+	        	
+			</section>
+	        	
+			
+		</article>
+	</body>
+</html>
