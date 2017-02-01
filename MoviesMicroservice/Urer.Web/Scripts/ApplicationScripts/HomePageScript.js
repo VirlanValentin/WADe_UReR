@@ -42,6 +42,12 @@ function ElementDetails(address, openNow, phone, website, type, rating) {
   this.Rating = rating;
 }
 
+function Movie(name, data, imdb) {
+  this.Name = name;
+  this.Data = data;
+  this.ImdbUrl = imdb;
+}
+
 function CreateMarkerContent(elem) {
   var display = 'initial';
   if (elem.Image == null) {
@@ -324,7 +330,36 @@ var HomePageModel = function () {
     //hide plus button:
     $("#plus-button").show();
   }
-  
+
+  //MOVIES!
+  self.MoviesGenres = ko.observableArray();
+  self.SelectedGenre = ko.observable();
+  self.SelectedGenre.subscribe(function (newValue) {
+    //remove old movies: 
+    self.MoviesToShow.removeAll();
+    //get movies 
+    $.get($("#baseUrlMovies").val() +'?releaseDate=01-01-2017'+ '&genre=' + newValue, function (data) {
+      console.log(data);
+      data.forEach(function (m) {
+        var mov = new Movie(m.Title, m.Date, m.ImdbLink);
+        self.MoviesToShow.push(mov);
+      });
+//movies to show
+    });
+    $("#moviesModal").modal('show');
+  }, this);
+  self.MoviesToShow = ko.observableArray();
+  self.GetAllGenres = function () {
+    $.get($("#baseUrlMovies").val() + '/genres', function (data) {
+      console.log(data);
+      self.MoviesGenres(data.map(function (mg) {
+        return mg.Label;
+      }));
+      self.MoviesGenres.push('none');
+    })
+  }
+
+
   self.Logout = function () {
     sessionStorage.removeItem('userId');
     sessionStorage.removeItem('userName');
@@ -387,6 +422,7 @@ $(function () {
   hVM.GetEnemies();
   hVM.GetLikedPlaces();
   hVM.GetPlaces();
+  hVM.GetAllGenres();
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(hVM.SetPosition);
   } else {
