@@ -53,12 +53,9 @@ namespace UserProfileMicroservice.Controllers
             {
                 bitmap.Save(ms, ImageFormat.Png);
 
-                var result = new HttpResponseMessage(HttpStatusCode.OK) { Content = new ByteArrayContent(ms.ToArray()) };
-                result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+                var base64 = Convert.ToBase64String(ms.ToArray());
 
-                ResponseMessageResult response = new ResponseMessageResult(result);
-
-                return response;
+                return Ok(base64);
             }
         }
 
