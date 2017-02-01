@@ -249,7 +249,10 @@
     <Content Include="Icon.png" />
     <Content Include="Scripts\ApplicationScripts\HomePageScript.js" />
     <Content Include="Scripts\ApplicationScripts\IndexScript.js" />
+    <Content Include="Scripts\ApplicationScripts\llqrcode.js" />
     <Content Include="Scripts\ApplicationScripts\MyProfileScript.js" />
+    <Content Include="Scripts\ApplicationScripts\QrLogin.js" />
+    <Content Include="Scripts\ApplicationScripts\webqr.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -304,6 +307,7 @@
     <Content Include="Views\Home\Home.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Home\MyProfile.cshtml" />
+    <Content Include="Views\Home\LoginQR.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

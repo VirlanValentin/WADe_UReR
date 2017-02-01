@@ -28,10 +28,18 @@
       <button data-bind="click: Login" type="button" class="btn btn-success col-xs-5">Login</button>
       <a href="@Url.Action("Register")" type="button" class="btn btn-default col-xs-5 pull-right">Register</a>
     </div>
+
+    <div class="col-xs-12 ur-box-sm" style="padding-right:30px">
+      <a href="@Url.Action("LoginQR")" type="button" class="btn btn-default col-xs-5 pull-right">Login using QR code</a>
+    </div>
+
+
    
   </div>
 </div>
 @section Scripts{
+@*<script src="~/Scripts/ApplicationScripts/llqrcode.js"></script>*@
+@*<script src="~/Scripts/ApplicationScripts/webqr.js"></script>*@
   <script src="~/Scripts/ApplicationScripts/IndexScript.js"></script>
 }
 

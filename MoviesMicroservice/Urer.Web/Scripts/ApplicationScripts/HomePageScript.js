@@ -18,7 +18,7 @@ function AddEnemy(id) {
 function Like(id) {
   //TODO: do put to add friend
   //{id}/likes/places/{placeId}
-  $.post($("#baseUrl").val() + '/' + hVM.UserId + '/likes/places', { placeId: id }, function(data){
+  $.post($("#baseUrluserProfile").val() + '/' + hVM.UserId + '/likes/places', { id: id }, function (data) {
     console.log('i like this!');
   });
 }
@@ -79,26 +79,32 @@ var HomePageModel = function () {
   self.Lat = sessionStorage['lat'];
   self.Long = sessionStorage['long'];
   self.SetPosition = function (position) {
-      self.Lat =  position.coords.latitude,
-      self.Long =  position.coords.longitude
+    self.Lat =  position.coords.latitude,
+    self.Long =  position.coords.longitude
   }
   self.UserId = sessionStorage['userId'];
   //icons:
   self.FriendsList = null;
   self.EnemiesList = null;
-  self.PlacesElementsIds = [];
+  self.LikedPlacesElementsIds = [];
   self.SelectedPlaceDetails = ko.observable();
+  self.LocationTypes = ko.observableArray();
+
 
   self.GetLikedPlaces = function () {
     $.get($("#baseUrl").val() + '/' + self.UserId + '/likes/places', function (data) {
       console.log('liked places');
-      console.log(data);
-      //TODO: add this to PlacesElementsIds
+      self.LikedPlacesElementsIds = data.map(function (elem) {
+        if (typeof elem.Data.id === "undefined")
+          return ''; 
+        return elem.Data.id;
+      });
     });
   }
   self.IsPlaceLiked = function (placeId) {
-    if (self.PlacesElementsIds.indexOf(placeId) > -1) {
-      $("#" + map + '_' + placeId).hide();
+    if (self.LikedPlacesElementsIds.indexOf(placeId) > -1) {
+      setTimeout(function () { $("#" + 'map_' + placeId).hide() }, 500);
+      //$("#" + 'map_' + placeId).hide();
     }
   }
 
@@ -158,23 +164,36 @@ var HomePageModel = function () {
       self.Icons[name] = src;
     });
   }
-  
+  self.PlacesMarkers = [];
+
   
   self.LandMarks = ko.observable();
-  self.GetInfo = function () {
+  self.GetInfo = function (type) {
+    //remove all markers
+    if (self.PlacesMarkers) {
+      for (i in self.PlacesMarkers) {
+        self.PlacesMarkers[i].setMap(null);
+      }
+      self.PlacesMarkers.length = 0;
+    }
+
+
+    var typestring = ''
+    if (type != undefined && type != 'none')
+      typestring += '&type=' + type;
     //for the moment, mock some data
     //self.AddMarker('friend', elem);
     console.log('getting places...');
-    $.get($("#baseUrlPlaces").val() + '?lat=' + self.Lat + '&lon=' + self.Long, function (data) {
+    $.get($("#baseUrlPlaces").val() + '?lat=' + self.Lat + '&lon=' + self.Long + typestring, function (data) {
       data.places.forEach(function (elem) {
-        var url = typeof  elem.website === "undefined" ? null : elem.website;
+        var url = typeof elem.website === "undefined" ? null : elem.website;
+        var alreadyLiked = self.LikedPlacesElementsIds.indexOf(elem.Id) > -1 ? 2 : -2;
         var mapElem = new MapElement(elem.name,elem.icon, '',
           url, elem.location.latitude, elem.location.longitude,-2, elem.id);
         self.AddMarker(null, mapElem, elem.icon);
       });
     });
   }
-
 
 
 
@@ -203,6 +222,7 @@ var HomePageModel = function () {
       //content: content, //HTML content
       content: CreateMarkerContent(element)
     });
+    self.PlacesMarkers.push(marker);
     marker.addListener('click', function () {
       self.SelectedElement(element);
       self.IsPlaceLiked(element.Id);
@@ -247,12 +267,30 @@ var HomePageModel = function () {
     $("#detailsLarge").hide();
   }
 
+  
+
   //filters
   self.SearchField = ko.observable();
   self.SeeFriends = ko.observable(true);
   self.SeeEnemies = ko.observable(true);
   self.SeeRestaurants = ko.observable(true);
   self.SeeMuseums = ko.observable(true);
+  self.LocationType = ko.observable();
+  self.LocationType.subscribe(function (newValue) {
+    //console.log(newValue);
+    self.GetInfo(newValue);
+  }, this);
+
+  self.GetPlaces = function () {
+    $.get($("#baseUrlPlaces").val() + '/types', function (data) {
+      self.LocationTypes(data.types.map(function (e) {
+        return e.name;
+      }));
+      self.LocationTypes.push('none');
+      self.LocationType('none');
+    });
+  }
+
 
   self.ShowElementDetails = ko.observable(false);
   self.SelectedElement = ko.observable();
@@ -320,7 +358,8 @@ $(function () {
   });
 
   $("#accordion").accordion({
-    collapsible: true
+    collapsible: true,
+    heightStyle: "content"
   });
   ko.validation.init({
     registerExtenders: true,
@@ -337,7 +376,7 @@ $(function () {
   hVM.GetFriends();
   hVM.GetEnemies();
   hVM.GetLikedPlaces();
-
+  hVM.GetPlaces();
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(hVM.SetPosition);
   } else {

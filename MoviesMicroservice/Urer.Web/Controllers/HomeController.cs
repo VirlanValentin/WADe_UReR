@@ -19,6 +19,10 @@ namespace Urer.Web.Controllers
 
       return View();
     }
+    public ActionResult LoginQR()
+    {
+      return View();
+    }
 
     public ActionResult Contact()
     {

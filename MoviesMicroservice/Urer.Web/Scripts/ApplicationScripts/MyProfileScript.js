@@ -43,6 +43,14 @@ var MyProfileViewModel = function (user) {
       }));
     });
   }
+
+  self.GetLikes = function () {
+    $.get($("#baseUrlPlacesGateway").val() + '/' + self.UserId + '/likes/places', function (data) {
+      self.Likes(data.map(function (elem) {
+        return new Element(elem.Data.name, elem.Data.icon, elem.Data.website);
+      }));
+    });
+  }
 }
 
 
@@ -80,7 +88,8 @@ $(function () {
   var user = new User('Codrin', 10, 'qrSrc');
   pVM = new MyProfileViewModel(user);
   pVM.GetFriends();
-  pVM.GetEnemies();
+  pVM.GetEnemies(); 
+  pVM.GetLikes();
   ko.applyBindings(pVM);
   //get info about user location
  

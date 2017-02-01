@@ -7,9 +7,10 @@
     @Styles.Render("~/Content/css")
 
     @Scripts.Render("~/bundles/modernizr")
+  @RenderSection("headerScripts", required: false)
 </head>
-<body>
-    <div class="container body-content no-padding no-margin" style="width: inherit">
+<body load(); setimg();>
+    <div class="container body-content no-padding no-margin" style="width: inherit" id="main">
         @RenderBody()
     </div>
 

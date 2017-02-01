@@ -10,8 +10,9 @@
     <img data-name="friend" src="~/Content/Icons/eagle-shield.png" />
     <img data-name="neutral" src="~/Content/Icons/emoticon-neutral-face-outline.png" />
   </div>
-  <input type="hidden" value="http://ureruserprofile.azurewebsites.net/api/UserProfile" id="baseUrl" />
+  <input type="hidden" value="http://urergatewayapi.azurewebsites.net/api/UserProfile" id="baseUrl" />
   <input type="hidden" value="http://urergatewayapi.azurewebsites.net/api/places" id="baseUrlPlaces" />
+  <input type="hidden" value="http://ureruserprofile.azurewebsites.net/api/UserProfile" id="baseUrluserProfile" />
   @Html.Hidden("indexUrl", Url.Action("Index"))
 </div>
 @*<div style="width: 20vh" id="contentTemplate">
@@ -59,11 +60,11 @@
     </div>
   </div>
   
-  <div class="row ur-box-sm" style="padding: 5px 10px">
+  <div class="row ur-box-sm" style="padding: 5px 10px; display: none">
     <input class="col-xs-12 form-control" type="text" data-bind="value: SearchField" />
   </div>
 
-  <div class="row">
+  <div class="row" style="height: 60vh">
     <div class="col-xs-12 accordion" id="accordion">
       <h3>People</h3>
       <div class="form-group">
@@ -77,16 +78,16 @@
         </div>
       </div>
       <h3>Places</h3>
-      <div class="form-group">
+      <div class="form-group" data-bind="foreach: LocationTypes" style="height: 60vh !important; overflow-y:scroll; overflow-x:hidden">
         <div>
-          <input type="checkbox" data-bind="checked: SeeRestaurants" id="placesRestaurants" class="form-control" />
-          <label for="placesRestaurants" class="control-label no-margin">Restaurants</label>
+          <input type="radio" name="locType"  data-bind="checked: $parent.LocationType, attr: {value: $data}" class="form-control" />
+          <label data-bind="text: $data" class="control-label no-margin"></label>
         </div>
 
-        <div>
+        @*<div>
           <input type="checkbox" data-bind="checked: SeeMuseums" id="placesMuseums" class="form-control" />
           <label for="placesMuseums" class="control-label no-margin">Museums</label>
-        </div>
+        </div>*@
       </div>
     </div>
   </div>

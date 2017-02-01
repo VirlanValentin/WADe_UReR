@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "LoginQR";
+}
+@section headerScripts{
+<script src="~/Scripts/ApplicationScripts/llqrcode.js"></script>
+<script src="~/Scripts/ApplicationScripts/webqr.js"></script>
+<script src="~/Scripts/jquery-2.1.3.js"></script>
+  }
+    <div id="mainbody">
+      <div id="outdiv">
+      </div>
+      <div id="result" style="display:none"></div>
+    </div>
+<canvas id="qr-canvas" width="800" height="600"></canvas>
+
+
+<div style="display: none">
+  @Html.Hidden("indexUrl", Url.Action("Home"))
+  <input type="hidden" value="http://ureruserprofile.azurewebsites.net/api/UserProfile" id="baseUrl" />
+</div>
+@section Scripts{
+
+  <script src="~/Scripts/ApplicationScripts/QrLogin.js"></script>
+
+}
+
